@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { profileData } from '../data/profile';
 import { SteampunkGear } from './SteampunkGear';
-import { 
-  User, 
-  GraduationCap, 
-  Briefcase, 
-  Building2, 
-  Calendar, 
-  MapPin, 
-  Award, 
-  Code2, 
-  Database, 
-  ShieldCheck, 
-  Workflow, 
+import { SteampunkChain } from './SteampunkChain';
+import {
+  GraduationCap,
+  Briefcase,
+  Building2,
+  Calendar,
+  MapPin,
+  Award,
+  Code2,
+  Database,
+  ShieldCheck,
+  Workflow,
   Sparkles,
   Camera,
   Compass,
@@ -70,17 +70,30 @@ export const AboutUFS = () => {
         <SteampunkGear size={240} teeth={12} color="copper" speed="spin-slow" />
       </div>
 
+      {/* Correntes de Metal de Fundo em Ângulos Diferentes (Subindo e Descendo) */}
+      <SteampunkChain
+        className="left-[6%] sm:left-[9%]"
+        angle={20}
+        direction="down"
+        speed="slow"
+        width={28}
+        opacity={0.22}
+      />
+      <SteampunkChain
+        className="right-[7%] sm:right-[11%]"
+        angle={-16}
+        direction="up"
+        speed="normal"
+        width={30}
+        opacity={0.25}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+
         {/* ============================================================ */}
         {/* CABEÇALHO DA SEÇÃO: SOBRE MIM                                */}
         {/* ============================================================ */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#1e1711] border border-brass-dark/70 text-xs font-schematic text-brass-light mb-3">
-            <User className="w-4 h-4 text-copper-light" />
-            <span>SOBRE MIM • PERFIL & TRAJETÓRIA</span>
-          </div>
-
           <h2 className="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-bold text-brass-gradient tracking-wide mb-4">
             Sobre Mim
           </h2>
@@ -94,7 +107,7 @@ export const AboutUFS = () => {
           </div>
 
           <p className="text-[#c5b59e] text-sm sm:text-base leading-relaxed">
-            Conheça minha jornada acadêmica na Universidade Federal de Sergipe, minha atuação prática 
+            Conheça minha jornada acadêmica na Universidade Federal de Sergipe, minha atuação prática
             no setor público e os interesses que impulsionam minha paixão por tecnologia.
           </p>
         </div>
@@ -103,13 +116,13 @@ export const AboutUFS = () => {
         {/* BLOCO PRINCIPAL: FOTO À ESQUERDA & TEXTO À DIREITA           */}
         {/* ============================================================ */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start mb-20">
-          
+
           {/* ---------------------------------------------------------- */}
           {/* LADO ESQUERDO: Apenas a Foto Redonda e Limpa               */}
           {/* ---------------------------------------------------------- */}
           <div className="lg:col-span-5 flex flex-col items-center justify-center sticky top-28 py-4">
             <div className="relative w-64 h-64 sm:w-76 sm:h-76 md:w-80 md:h-80 flex items-center justify-center">
-              
+
               {/* Brilho Suave Âmbar de Fundo */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-steamAmber-dim/20 via-brass/10 to-copper/20 blur-3xl pointer-events-none" />
 
@@ -167,13 +180,9 @@ export const AboutUFS = () => {
           {/* LADO DIREITO: Texto Resumindo Trajetória e Interesses      */}
           {/* ---------------------------------------------------------- */}
           <div className="lg:col-span-7 flex flex-col">
-            
+
             {/* Bloco 1: A Minha Trajetória */}
             <div className="mb-8">
-              <div className="inline-flex items-center gap-2 text-xs font-schematic uppercase tracking-wider text-copper-light font-bold mb-2.5">
-                <Sparkles className="w-4 h-4 text-steamAmber-glow" />
-                <span>Minha Trajetória</span>
-              </div>
 
               <h3 className="font-cinzel text-2xl sm:text-3xl font-bold text-brass-light mb-4">
                 Construindo Soluções através da Computação
@@ -181,60 +190,22 @@ export const AboutUFS = () => {
 
               <div className="space-y-4 text-sm sm:text-base text-[#d8c8b4] font-light leading-relaxed">
                 <p>
-                  Minha jornada na tecnologia iniciou-se com uma curiosidade incessante por entender o funcionamento interno de sistemas, softwares e redes. 
-                  Atualmente, curso o <strong className="text-brass-light font-medium">Bacharelado em Sistemas de Informação na Universidade Federal de Sergipe (UFS)</strong>, 
+                  Minha jornada na tecnologia iniciou-se com uma curiosidade incessante por entender o funcionamento interno de sistemas, softwares e redes.
+                  Atualmente, curso o <strong className="text-brass-light font-medium">Bacharelado em Sistemas de Informação na Universidade Federal de Sergipe (UFS)</strong>,
                   onde desenvolvo uma formação sólida que integra a lógica pura da Ciência da Computação às práticas de Engenharia de Software e governança tecnológica.
                 </p>
 
                 <p>
-                  No campo profissional, atuo como <strong className="text-brass-light font-medium">Estagiário de TI na Secretaria de Estado da Comunicação Social (SECOM - Governo de Sergipe)</strong>, 
-                  sendo responsável pelo suporte técnico de primeiro e segundo nível aos colaboradores, manutenção e montagem de computadores, 
+                  No campo profissional, atuo como <strong className="text-brass-light font-medium">Estagiário de TI na Secretaria de Estado da Comunicação Social (SECOM - Governo de Sergipe)</strong>,
+                  sendo responsável pelo suporte técnico de primeiro e segundo nível aos colaboradores, manutenção e montagem de computadores,
                   configuração de redes locais, diagnóstico ágil de hardware e software, além de apoiar a sustentação da infraestrutura tecnológica da organização.
                 </p>
 
                 <p>
-                  Anteriormente, exerci atividades na <strong className="text-brass-light font-medium">Moura Dubeux</strong>, 
-                  onde aperfeiçoei minhas competências analíticas utilizando Excel avançado e Sistemas de Apoio à Decisão (SAD) para manipulação, 
+                  Anteriormente, exerci atividades na <strong className="text-brass-light font-medium">Moura Dubeux</strong>,
+                  onde aperfeiçoei minhas competências analíticas utilizando Excel avançado e Sistemas de Apoio à Decisão (SAD) para manipulação,
                   conferência e estruturação de dados corporativos e controle de fluxos operacionais.
                 </p>
-              </div>
-            </div>
-
-            {/* Bloco 2: Meus Interesses & Foco Técnico */}
-            <div className="pt-6 border-t border-brass-dark/40">
-              <div className="inline-flex items-center gap-2 text-xs font-schematic uppercase tracking-wider text-steamAmber-bright font-bold mb-3">
-                <Code2 className="w-4 h-4 text-brass" />
-                <span>Interesses & Foco de Carreira</span>
-              </div>
-
-              <p className="text-sm text-[#cbbba6] leading-relaxed mb-6 font-light">
-                Busco constantemente aprimorar minhas habilidades com projetos práticos, focando em arquiteturas limpas, 
-                código legível e soluções eficientes. Meus principais eixos de interesse incluem:
-              </p>
-
-              {/* Grade de Pilares de Interesse */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                {interestPillars.map((pillar, idx) => {
-                  const Icon = pillar.icon;
-                  return (
-                    <div
-                      key={idx}
-                      className="p-4 rounded-lg bg-[#15100b] border border-brass-dark/60 hover:border-brass/80 transition-all group"
-                    >
-                      <div className="flex items-center gap-2.5 mb-2">
-                        <div className="w-7 h-7 rounded bg-[#20170f] border border-brass-dark/70 flex items-center justify-center">
-                          <Icon className={`w-4 h-4 ${pillar.color}`} />
-                        </div>
-                        <h4 className="font-cinzel text-xs font-bold text-brass-light group-hover:text-brass-gradient transition-colors">
-                          {pillar.title}
-                        </h4>
-                      </div>
-                      <p className="text-xs text-[#a99882] font-light leading-relaxed">
-                        {pillar.desc}
-                      </p>
-                    </div>
-                  );
-                })}
               </div>
             </div>
 
@@ -246,7 +217,7 @@ export const AboutUFS = () => {
         {/* COMPLEMENTO: LINHA DO TEMPO DAS EXPERIÊNCIAS PROFISSIONAIS   */}
         {/* ============================================================ */}
         <div className="pt-12 border-t border-brass-dark/50">
-          
+
           <div className="flex items-center gap-2 mb-8">
             <Briefcase className="w-5 h-5 text-copper-light" />
             <h3 className="font-cinzel text-xl sm:text-2xl font-bold text-brass-light">
@@ -287,11 +258,10 @@ export const AboutUFS = () => {
                       </span>
                     </div>
 
-                    <span className={`px-2.5 py-1 rounded text-[10px] font-schematic uppercase tracking-wider font-bold whitespace-nowrap ${
-                      exp.current
-                        ? 'bg-[#291e12] border border-steamAmber-glow/80 text-steamAmber-bright shadow-sm'
-                        : 'bg-[#1a140f] border border-brass-dark/50 text-[#a89680]'
-                    }`}>
+                    <span className={`px-2.5 py-1 rounded text-[10px] font-schematic uppercase tracking-wider font-bold whitespace-nowrap ${exp.current
+                      ? 'bg-[#291e12] border border-steamAmber-glow/80 text-steamAmber-bright shadow-sm'
+                      : 'bg-[#1a140f] border border-brass-dark/50 text-[#a89680]'
+                      }`}>
                       {exp.current ? 'Em Atividade' : 'Concluído'}
                     </span>
                   </div>

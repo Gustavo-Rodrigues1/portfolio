@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { SteampunkGear } from './SteampunkGear';
+import { SteampunkChain } from './SteampunkChain';
 import { profileData } from '../data/profile';
 import { Camera } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './SocialIcons';
@@ -42,6 +43,24 @@ export const Hero = () => {
       <div className="absolute -bottom-28 -right-24 pointer-events-none opacity-15">
         <SteampunkGear size={360} teeth={18} color="copper" speed="spin-reverse-slow" />
       </div>
+
+      {/* Correntes de Metal de Fundo em Ângulos Diferentes (Subindo e Descendo) */}
+      <SteampunkChain
+        className="left-[4%] sm:left-[8%]"
+        angle={-15}
+        direction="up"
+        speed="slow"
+        width={30}
+        opacity={0.24}
+      />
+      <SteampunkChain
+        className="right-[5%] sm:right-[10%]"
+        angle={18}
+        direction="down"
+        speed="normal"
+        width={32}
+        opacity={0.26}
+      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">

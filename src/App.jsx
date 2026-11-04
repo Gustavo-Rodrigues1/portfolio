@@ -2,6 +2,7 @@ import React from 'react';
 import { Navbar } from './components/Navbar';
 import { SteampunkSidebar } from './components/SteampunkSidebar';
 import { SteampunkCursor } from './components/SteampunkCursor';
+import { SteampunkAtmosphere } from './components/SteampunkAtmosphere';
 import { Hero } from './components/Hero';
 import { AboutUFS } from './components/AboutUFS';
 import { SkillsGauges } from './components/SkillsGauges';
@@ -11,7 +12,10 @@ import { Footer } from './components/Footer';
 
 function App() {
   return (
-    <div className="min-h-screen bg-steampunk-darkest text-[#dfd2be] flex flex-col selection:bg-brass selection:text-steampunk-darkest">
+    <div className="min-h-screen bg-steampunk-darkest text-[#dfd2be] flex flex-col selection:bg-brass selection:text-steampunk-darkest relative">
+      {/* Camada Atmosférica Industrial (Brasas & Faíscas Incandescentes + Plumas Sutis de Vapor de Fundo) */}
+      <SteampunkAtmosphere />
+
       {/* Cursor Mecânico Customizado (Engrenagem + Faíscas/Vapor + Ponteiro de Latão - Desktop Only) */}
       <SteampunkCursor />
 

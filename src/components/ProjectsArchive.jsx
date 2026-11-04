@@ -3,7 +3,6 @@ import { profileData } from '../data/profile';
 import { SteampunkGear } from './SteampunkGear';
 import { GithubIcon } from './SocialIcons';
 import {
-  FolderGit2,
   ExternalLink,
   Copy,
   Check,
@@ -226,11 +225,6 @@ export const ProjectsArchive = () => {
 
         {/* Cabeçalho da Seção */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#1e1711] border border-brass-dark/70 text-xs font-schematic text-brass-light mb-3">
-            <FolderGit2 className="w-4 h-4 text-copper-light" />
-            <span>ARQUIVO DE PATENTES MECÂNICAS & SOFTWARE</span>
-          </div>
-
           <h2 className="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-bold text-brass-gradient tracking-wide mb-4">
             Projetos Registrados no GitHub
           </h2>

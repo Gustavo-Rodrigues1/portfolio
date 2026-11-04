@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { profileData } from '../data/profile';
 import { SteampunkGear } from './SteampunkGear';
+import { SteampunkChain } from './SteampunkChain';
 import { GithubIcon, LinkedinIcon } from './SocialIcons';
 import {
   Mail,
@@ -98,6 +99,24 @@ export const ContactTelegraph = () => {
       <div className="absolute -bottom-16 -left-16 pointer-events-none opacity-10">
         <SteampunkGear size={240} teeth={12} color="copper" speed="spin-reverse-slow" />
       </div>
+
+      {/* Correntes de Metal de Fundo em Ângulos Diferentes (Subindo e Descendo) */}
+      <SteampunkChain
+        className="left-[6%] sm:left-[10%]"
+        angle={-17}
+        direction="up"
+        speed="normal"
+        width={28}
+        opacity={0.22}
+      />
+      <SteampunkChain
+        className="right-[7%] sm:right-[11%]"
+        angle={20}
+        direction="down"
+        speed="slow"
+        width={30}
+        opacity={0.24}
+      />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">

@@ -90,33 +90,39 @@ export const OfficialToolLogo = ({
 };
 
 /**
- * Chip / Pill Steampunk Clean:
+ * Chip / Pill Steampunk com Efeito de "Válvula Aquecida":
  * - Insígnia metálica circular elegante com o logotipo oficial no centro
- * - Nome da ferramenta ao lado
- * - Sem barras ou dados desnecessários
+ * - No hover: aquece termicamente com brilho âmbar de filamento incandescente (Thermionic Tube Heating)
+ * - Nome da ferramenta ao lado com transição para latão brilhante
  */
 export const SkillChip = ({ tool }) => {
   return (
     <div
-      className="group inline-flex items-center gap-3 px-4 sm:px-4.5 py-2 sm:py-2.5 rounded-full bg-[#15100c]/90 border border-brass-dark/70 hover:border-brass hover:shadow-[0_0_16px_rgba(241,210,137,0.3)] transition-all duration-300 hover:scale-105 cursor-default select-none shadow-md backdrop-blur-sm"
+      className="group heated-valve-glow inline-flex items-center gap-3 px-4 sm:px-4.5 py-2 sm:py-2.5 rounded-full bg-[#15100c]/90 border border-brass-dark/70 transition-all duration-300 cursor-default select-none shadow-md backdrop-blur-sm relative overflow-hidden"
     >
-      {/* Moldura de Insígnia Circular Steampunk */}
+      {/* 1. Brilho Térmico de Válvula Aquecendo no Fundo (Warm Thermal Bloom) */}
+      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-amber-600/0 via-amber-500/0 to-orange-500/0 group-hover:from-amber-600/25 group-hover:via-amber-500/35 group-hover:to-orange-500/20 blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+      {/* 2. Moldura de Insígnia / Válvula Termiônica Circular */}
       <div className="relative w-7 h-7 sm:w-8 sm:h-8 flex-shrink-0 flex items-center justify-center">
         {/* Borda / Aro de Latão com Efeito Metálico */}
-        <div className="absolute inset-0 rounded-full border border-brass-light/80 shadow-[inset_0_1px_2px_rgba(241,210,137,0.4),0_2px_4px_rgba(0,0,0,0.9)] bg-gradient-to-tr from-[#2a1d12] via-[#1a120b] to-[#0c0906] transition-all group-hover:border-brass group-hover:rotate-45 duration-500" />
-        
-        {/* Rebites discretos nos vértices (Aro Steampunk) */}
-        <span className="absolute -top-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-brass-light shadow" />
-        <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-brass-light shadow" />
-        
-        {/* Símbolo Original */}
-        <div className="relative z-10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+        <div className="absolute inset-0 rounded-full border border-brass-light/80 shadow-[inset_0_1px_2px_rgba(241,210,137,0.4),0_2px_4px_rgba(0,0,0,0.9)] bg-gradient-to-tr from-[#2a1d12] via-[#1a120b] to-[#0c0906] transition-all group-hover:border-steamAmber-glow group-hover:rotate-45 duration-500 group-hover:shadow-[0_0_14px_rgba(255,157,46,0.7),inset_0_0_8px_rgba(255,140,20,0.55)]" />
+
+        {/* Halo de filamento incandescente dentro da cápsula */}
+        <div className="absolute inset-0.5 rounded-full bg-gradient-to-tr from-amber-500/0 to-yellow-400/0 group-hover:from-amber-600/40 group-hover:to-yellow-400/30 blur-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+        {/* Rebites nos vértices que se iluminam ao aquecer */}
+        <span className="absolute -top-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-brass-light shadow group-hover:bg-steamAmber-bright group-hover:shadow-[0_0_4px_#ffbe5b] transition-colors" />
+        <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-brass-light shadow group-hover:bg-steamAmber-bright group-hover:shadow-[0_0_4px_#ffbe5b] transition-colors" />
+
+        {/* Símbolo Original com Brilho Térmico / Incandescência no Hover */}
+        <div className="relative z-10 flex items-center justify-center group-hover:scale-110 transition-all duration-300 group-hover:drop-shadow-[0_0_8px_rgba(255,180,60,0.75)]">
           <OfficialToolLogo id={tool.id} />
         </div>
       </div>
 
-      {/* Nome da Ferramenta */}
-      <span className="font-schematic text-xs sm:text-sm font-semibold tracking-wide text-[#dfd2be] group-hover:text-brass-light transition-colors whitespace-nowrap">
+      {/* Nome da Ferramenta que ganha tom de latão incandescente */}
+      <span className="relative z-10 font-schematic text-xs sm:text-sm font-semibold tracking-wide text-[#dfd2be] group-hover:text-[#ffe7a3] group-hover:drop-shadow-[0_0_8px_rgba(255,157,46,0.5)] transition-all duration-300 whitespace-nowrap">
         {tool.name}
       </span>
     </div>
