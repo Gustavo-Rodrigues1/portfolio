@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { profileData } from '../data/profile';
 import { SteampunkGear } from './SteampunkGear';
 import { SteampunkChain } from './SteampunkChain';
+import { SteampunkPortholeFrame } from './SteampunkPortholeFrame';
 import {
   GraduationCap,
   Briefcase,
@@ -134,44 +135,46 @@ export const AboutUFS = () => {
                 <SteampunkGear size={92} teeth={12} color="brass" speed="spin-reverse-slow" />
               </div>
 
-              {/* Anel Sutil Decorativo */}
-              <div className="absolute inset-[-10px] rounded-full border border-dashed border-brass-dark/40 pointer-events-none opacity-50" />
+              {/* Moldura de Escotilha Submarina & Astrolábio com a Foto */}
+              <SteampunkPortholeFrame
+                sizeClassName="w-48 h-48 sm:w-56 sm:h-56 md:w-60 md:h-60"
+                className="z-10"
+              >
+                <div className="relative w-full h-full rounded-full overflow-hidden group/photo cursor-pointer">
+                  <img
+                    src={photo || profileData.personal.avatar}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = profileData.personal.avatarFallback;
+                    }}
+                    alt={`Retrato de ${profileData.personal.name}`}
+                    className="w-full h-full object-cover rounded-full group-hover/photo:scale-105 transition-transform duration-500"
+                  />
 
-              {/* Foto 100% Redonda */}
-              <div className="relative w-full h-full rounded-full overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.95)] group/photo cursor-pointer z-10">
-                <img
-                  src={photo || profileData.personal.avatar}
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = profileData.personal.avatarFallback;
-                  }}
-                  alt={`Retrato de ${profileData.personal.name}`}
-                  className="w-full h-full object-cover rounded-full group-hover/photo:scale-105 transition-transform duration-500"
-                />
+                  {/* Overlay Interativo para Trocar Foto */}
+                  <label
+                    htmlFor="about-photo-input"
+                    title="Clique para testar uma foto sua agora ou salve em public/foto-perfil.jpg"
+                    className="absolute inset-0 rounded-full bg-black/65 opacity-0 group-hover/photo:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-center cursor-pointer text-center p-4 z-20"
+                  >
+                    <Camera className="w-8 h-8 text-brass-light mb-1.5 animate-bounce" />
+                    <span className="text-xs font-schematic font-bold text-brass-light">
+                      Alterar Imagem
+                    </span>
+                    <span className="text-[10px] font-schematic text-[#cbba9d] mt-0.5">
+                      foto-perfil.jpg
+                    </span>
+                  </label>
 
-                {/* Overlay Interativo para Trocar Foto */}
-                <label
-                  htmlFor="about-photo-input"
-                  title="Clique para testar uma foto sua agora ou salve em public/foto-perfil.jpg"
-                  className="absolute inset-0 rounded-full bg-black/65 opacity-0 group-hover/photo:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-center cursor-pointer text-center p-4 z-20"
-                >
-                  <Camera className="w-8 h-8 text-brass-light mb-1.5 animate-bounce" />
-                  <span className="text-xs font-schematic font-bold text-brass-light">
-                    Alterar Imagem
-                  </span>
-                  <span className="text-[10px] font-schematic text-[#cbba9d] mt-0.5">
-                    foto-perfil.jpg
-                  </span>
-                </label>
-
-                <input
-                  id="about-photo-input"
-                  type="file"
-                  accept="image/*"
-                  onChange={handlePhotoUpload}
-                  className="hidden"
-                />
-              </div>
+                  <input
+                    id="about-photo-input"
+                    type="file"
+                    accept="image/*"
+                    onChange={handlePhotoUpload}
+                    className="hidden"
+                  />
+                </div>
+              </SteampunkPortholeFrame>
 
             </div>
           </div>

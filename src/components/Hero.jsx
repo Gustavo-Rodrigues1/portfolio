@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { SteampunkGear } from './SteampunkGear';
 import { SteampunkChain } from './SteampunkChain';
+import { SteampunkPortholeFrame } from './SteampunkPortholeFrame';
 import { profileData } from '../data/profile';
 import { Camera } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './SocialIcons';
@@ -294,44 +295,46 @@ export const Hero = () => {
                 <SteampunkGear size={88} teeth={10} color="brass" speed="spin-reverse-slow" />
               </div>
 
-              {/* Trilho Circular de Cremalheira Sutil ao Redor da Foto */}
-              <div className="absolute inset-[-14px] sm:inset-[-18px] rounded-full border border-dashed border-brass-dark/40 pointer-events-none opacity-60" />
+              {/* Moldura de Escotilha Submarina & Astrolábio com a Foto */}
+              <SteampunkPortholeFrame
+                sizeClassName="w-52 h-52 sm:w-60 sm:h-60 md:w-68 md:h-68 lg:w-[280px] lg:h-[280px]"
+                className="z-10"
+              >
+                <div className="relative w-full h-full rounded-full overflow-hidden group/photo cursor-pointer">
+                  <img
+                    src={userPhoto || profileData.personal.avatar}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = profileData.personal.avatarFallback;
+                    }}
+                    alt={`Foto de ${profileData.personal.name}`}
+                    className="w-full h-full object-cover rounded-full group-hover/photo:scale-105 transition-transform duration-500"
+                  />
 
-              {/* Apenas a Foto Redonda e Limpa */}
-              <div className="relative w-64 h-64 sm:w-76 sm:h-76 md:w-84 md:h-84 lg:w-92 lg:h-92 rounded-full overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.95)] group/photo cursor-pointer z-10">
-                <img
-                  src={userPhoto || profileData.personal.avatar}
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = profileData.personal.avatarFallback;
-                  }}
-                  alt={`Foto de ${profileData.personal.name}`}
-                  className="w-full h-full object-cover rounded-full group-hover/photo:scale-105 transition-transform duration-500"
-                />
+                  {/* Overlay Interativo para Trocar/Testar Foto */}
+                  <label
+                    htmlFor="hero-round-photo-input"
+                    title="Clique para testar uma foto sua agora ou salve em public/foto-perfil.jpg"
+                    className="absolute inset-0 rounded-full bg-black/65 opacity-0 group-hover/photo:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-center cursor-pointer text-center p-4 z-30"
+                  >
+                    <Camera className="w-8 h-8 text-brass-light mb-1.5 animate-bounce" />
+                    <span className="text-xs sm:text-sm font-schematic font-bold text-brass-light">
+                      Atualizar Foto
+                    </span>
+                    <span className="text-[10px] sm:text-xs font-schematic text-[#cbba9d] mt-1 max-w-[200px]">
+                      Clique para escolher imagem
+                    </span>
+                  </label>
 
-                {/* Overlay Interativo para Trocar/Testar Foto */}
-                <label
-                  htmlFor="hero-round-photo-input"
-                  title="Clique para testar uma foto sua agora ou salve em public/foto-perfil.jpg"
-                  className="absolute inset-0 rounded-full bg-black/65 opacity-0 group-hover/photo:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-center cursor-pointer text-center p-4 z-30"
-                >
-                  <Camera className="w-8 h-8 text-brass-light mb-1.5 animate-bounce" />
-                  <span className="text-xs sm:text-sm font-schematic font-bold text-brass-light">
-                    Atualizar Foto
-                  </span>
-                  <span className="text-[10px] sm:text-xs font-schematic text-[#cbba9d] mt-1 max-w-[200px]">
-                    Clique para escolher imagem
-                  </span>
-                </label>
-
-                <input
-                  id="hero-round-photo-input"
-                  type="file"
-                  accept="image/*"
-                  onChange={handlePhotoUpload}
-                  className="hidden"
-                />
-              </div>
+                  <input
+                    id="hero-round-photo-input"
+                    type="file"
+                    accept="image/*"
+                    onChange={handlePhotoUpload}
+                    className="hidden"
+                  />
+                </div>
+              </SteampunkPortholeFrame>
 
             </div>
 
