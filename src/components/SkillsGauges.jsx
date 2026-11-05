@@ -1,39 +1,21 @@
 import React from 'react';
-import { SkillChip } from './SkillInsignia';
 import { SteampunkGear } from './SteampunkGear';
 import { SteampunkChain } from './SteampunkChain';
-
-const tools = [
-  { id: 'javascript', name: 'JavaScript' },
-  { id: 'typescript', name: 'TypeScript' },
-  { id: 'python', name: 'Python' },
-  { id: 'django', name: 'Django' },
-  { id: 'react', name: 'React.js' },
-  { id: 'tailwind', name: 'Tailwind CSS' },
-  { id: 'htmlcss', name: 'HTML5 & CSS3' },
-  { id: 'sql', name: 'SQL & PostgreSQL' },
-  { id: 'git', name: 'Git' },
-  { id: 'github', name: 'GitHub' },
-  { id: 'docker', name: 'Docker' },
-  { id: 'powerbi', name: 'Power BI' },
-  { id: 'excel', name: 'Microsoft Excel' },
-  { id: 'figma', name: 'Figma' },
-  { id: 'suporte', name: 'Suporte de TI & Hardware' },
-  { id: 'redes', name: 'Redes & Infraestrutura' },
-];
+import { ChainedSkills } from './ChainedSkills';
 
 export const SkillsGauges = () => {
   return (
     <section
       id="habilidades"
-      className="relative py-24 steampunk-bg-pattern border-b-2 border-brass-dark/60 overflow-hidden"
+      className="relative steampunk-bg-pattern border-b-2 border-brass-dark/60 overflow-hidden"
+      style={{ paddingBottom: '64px' }}
     >
       {/* Engrenagem de fundo decorativa */}
       <div className="absolute -bottom-20 -left-20 pointer-events-none opacity-10">
         <SteampunkGear size={280} teeth={14} color="brass" speed="spin-reverse-slow" />
       </div>
 
-      {/* Correntes de Metal de Fundo em Ângulos Diferentes (Subindo e Descendo) */}
+      {/* Correntes decorativas de fundo */}
       <SteampunkChain
         className="left-[5%] sm:left-[10%]"
         angle={-18}
@@ -51,12 +33,11 @@ export const SkillsGauges = () => {
         opacity={0.24}
       />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-
-        {/* Cabeçalho da Seção */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
+      {/* ── Cabeçalho ── */}
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
+        <div className="text-center max-w-3xl mx-auto">
           <h2 className="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-bold text-brass-gradient tracking-wide mb-4">
-            Habilidades & Tecnologias
+            Habilidades &amp; Tecnologias
           </h2>
 
           <div className="flex items-center justify-center gap-3 mb-6">
@@ -72,14 +53,13 @@ export const SkillsGauges = () => {
             automação de processos analíticos e suporte de infraestrutura.
           </p>
         </div>
+      </div>
 
-        {/* Layout Clean com Pílulas e Logotipos Originais */}
-        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 max-w-5xl mx-auto">
-          {tools.map((tool) => (
-            <SkillChip key={tool.id} tool={tool} />
-          ))}
-        </div>
-
+      {/* ── Correntes com Skills ──
+           Largura restrita ao max-w-3xl (mesma do parágrafo de texto),
+           centralizada. O mask-image faz as correntes "surgirem" da borda. */}
+      <div className="relative z-10 max-w-3xl mx-auto w-full px-2">
+        <ChainedSkills />
       </div>
     </section>
   );
