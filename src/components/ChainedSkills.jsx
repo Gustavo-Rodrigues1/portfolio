@@ -2,17 +2,14 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { OfficialToolLogo } from './SkillInsignia';
 
 /**
- * ChainedSkills — 16 correntes mecânicas independentes refinadas.
+ * ChainedSkills — 16 correntes mecânicas independentes com queda física por gatilho de viewport.
  *
- * Correções desta versão:
- * 1. Fade superior restaurado com precisão: camada de correntes isolada com
- *    gradiente vertical suave, fazendo as correntes surgirem do escuro do topo.
- * 2. Corrigido bug de elo "entrando e saindo do símbolo":
- *    - O comprimento da corrente agora termina estritamente no topo da medalha (len - MEDAL_R - 3px).
- *    - O número de elos (n) é fixo e pré-calculado por corrente, impedindo que elos
- *      sejam criados/destruídos ou pisquem/invadam o medalhão durante o balanço.
- *    - Adicionada pequena argola de suspensão no topo de cada medalha para fixação mecânica perfeita.
- * 3. As medalhas e tooltips ficam em camada 100% livre de máscaras, eliminando qualquer corte lateral.
+ * Efeito de Queda (Drop on Scroll):
+ * - Quando o visitante entra na seção de habilidades (detectado via IntersectionObserver):
+ * - Os símbolos e correntes emergem do fade escuro superior em cascata fluida.
+ * - Caem acelerando com física de gravidade/mola, dão um sutil repique metálico ao esticar
+ *   a corrente e iniciam a oscilação natural do pêndulo.
+ * - Toda a física de arrasto, hover térmico e balanço interativo continua plenamente ativa.
  */
 
 const GRAVITY    = 1600;
@@ -21,7 +18,7 @@ const MEDAL_R    = 19;
 const HOVER_DIST = 60;
 const HOVER_IMP  = 0.07;
 const DRAG_LERP  = 0.38;
-const PITCH      = 10.5; // Espaçamento fino e delicado dos elos
+const PITCH      = 10.5;
 
 const tools = [
   { id: 'javascript', name: 'JavaScript' },
@@ -65,6 +62,7 @@ export const ChainedSkills = () => {
   const uid          = React.useId().replace(/[^a-zA-Z0-9]/g, '');
   const containerRef = useRef(null);
   const pendulaRef   = useRef([]);
+  const hasEnteredRef = useRef(false);
   const mouseRef     = useRef({ x: -9999, y: -9999 });
   const dragRef      = useRef(null);
   const rafRef       = useRef(null);
@@ -76,7 +74,7 @@ export const ChainedSkills = () => {
   const [cw, setCw]             = useState(768);
   const [ch, setCh]             = useState(330);
 
-  // ── Inicialização & ResizeObserver ─────────────────────
+  // ── Inicialização, ResizeObserver & IntersectionObserver ──
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -89,20 +87,24 @@ export const ChainedSkills = () => {
 
       if (pendulaRef.current.length === 0) {
         pendulaRef.current = tools.map((tool, i) => {
-          const len = LENGTHS[i % LENGTHS.length];
-          const chainSpan = len - (MEDAL_R + 3);
-          // Número fixo de elos para evitar flickering durante oscilação
-          const nLinks = Math.max(2, Math.round(chainSpan / PITCH));
+          const targetLen = LENGTHS[i % LENGTHS.length];
+          const chainSpan = targetLen - (MEDAL_R + 3);
+          const maxLinks = Math.max(2, Math.round(chainSpan / PITCH));
           const ax = margin + (availableW * i) / (tools.length - 1);
           return {
             tool,
             ax,
             ay: 0,
-            len,
+            targetLen,
+            currentLen: 0,        // Começa recolhido no topo para queda
+            lenVel: 0,
+            dropDelay: i * 0.042, // Efeito cascata da esquerda para direita
+            dropTimer: 0,
+            hasBounced: false,
             chainSpan,
-            nLinks,
-            ang: (Math.random() - 0.5) * 0.12,
-            vel: (Math.random() - 0.5) * 0.02,
+            maxLinks,
+            ang: (Math.random() - 0.5) * 0.06,
+            vel: 0,
             grabbed: false,
           };
         });
@@ -119,40 +121,83 @@ export const ChainedSkills = () => {
 
     initOrUpdate();
 
+    // Gatilho de entrada na seção
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          hasEnteredRef.current = true;
+          io.disconnect();
+        }
+      },
+      { threshold: 0.12 }
+    );
+    io.observe(el);
+
     const ro = new ResizeObserver(() => {
       initOrUpdate();
     });
     ro.observe(el);
 
-    return () => ro.disconnect();
+    return () => {
+      io.disconnect();
+      ro.disconnect();
+    };
   }, []);
 
-  // ── Loop de Física Suave ───────────────────────────────
+  // ── Loop de Física: Queda Dinâmica + Pêndulo Oscilante ──
   useEffect(() => {
     const step = (ts) => {
       if (!dtRef.current) { dtRef.current = ts; rafRef.current = requestAnimationFrame(step); return; }
       const dt = Math.min((ts - dtRef.current) / 1000, 0.04);
       dtRef.current = ts;
       const { x: mx, y: my } = mouseRef.current;
+      const hasEntered = hasEnteredRef.current;
 
       pendulaRef.current.forEach((p) => {
-        if (p.grabbed) return;
-        const acc = -(GRAVITY / p.len) * Math.sin(p.ang);
-        p.vel = (p.vel + acc * dt) * (1 - DAMPING);
-        p.ang += p.vel * dt;
-        p.ang = Math.max(-0.68, Math.min(0.68, p.ang));
+        // 1. Simulação da Queda em Cascata a partir do topo
+        if (hasEntered) {
+          p.dropTimer += dt;
+          if (p.dropTimer >= p.dropDelay) {
+            if (p.currentLen < p.targetLen - 0.5 || Math.abs(p.lenVel) > 1.2) {
+              const springForce = (p.targetLen - p.currentLen) * 44;
+              const springDamp  = p.lenVel * 8.6;
+              p.lenVel += (springForce - springDamp) * dt;
+              p.currentLen += p.lenVel * dt;
 
-        if (dragRef.current === null) {
-          const sx = p.ax + p.len * Math.sin(p.ang);
-          const sy = p.ay + p.len * Math.cos(p.ang);
-          const d  = Math.hypot(sx - mx, sy - my);
-          if (d < HOVER_DIST) {
-            const push = (mx < sx ? 1 : -1) * HOVER_IMP * (1 - d / HOVER_DIST);
-            p.vel += push * dt * 8;
+              // Ao bater no final pela primeira vez, transfere impulso para oscilação
+              if (!p.hasBounced && p.currentLen >= p.targetLen - 3) {
+                p.hasBounced = true;
+                p.vel = (Math.random() - 0.5) * 0.22;
+              }
+            } else {
+              p.currentLen = p.targetLen;
+              p.lenVel = 0;
+            }
+          }
+        }
+
+        // 2. Física do Pêndulo (ativada conforme a corrente estica)
+        if (!p.grabbed) {
+          const effectiveLen = Math.max(30, p.currentLen);
+          const acc = -(GRAVITY / effectiveLen) * Math.sin(p.ang);
+          p.vel = (p.vel + acc * dt) * (1 - DAMPING);
+          p.ang += p.vel * dt;
+          p.ang = Math.max(-0.68, Math.min(0.68, p.ang));
+
+          // Interação do cursor se a medalha já estiver caída
+          if (dragRef.current === null && p.currentLen > 40) {
+            const sx = p.ax + p.currentLen * Math.sin(p.ang);
+            const sy = p.ay + p.currentLen * Math.cos(p.ang);
+            const d  = Math.hypot(sx - mx, sy - my);
+            if (d < HOVER_DIST) {
+              const push = (mx < sx ? 1 : -1) * HOVER_IMP * (1 - d / HOVER_DIST);
+              p.vel += push * dt * 8;
+            }
           }
         }
       });
 
+      // 3. Arraste interativo com o mouse
       const di = dragRef.current;
       if (di !== null && pendulaRef.current[di]) {
         const p      = pendulaRef.current[di];
@@ -177,8 +222,8 @@ export const ChainedSkills = () => {
   }, []);
 
   const tipOf = (p) => ({
-    x: p.ax + p.len * Math.sin(p.ang),
-    y: p.ay + p.len * Math.cos(p.ang),
+    x: p.ax + p.currentLen * Math.sin(p.ang),
+    y: p.ay + p.currentLen * Math.cos(p.ang),
   });
 
   const onMove = useCallback((e) => {
@@ -186,6 +231,7 @@ export const ChainedSkills = () => {
     mouseRef.current = { x, y };
     let found = null;
     pendulaRef.current.forEach(p => {
+      if (p.currentLen < 40) return;
       const { x: sx, y: sy } = tipOf(p);
       if (Math.hypot(sx - x, sy - y) < MEDAL_R + 8) found = p.tool.id;
     });
@@ -195,6 +241,7 @@ export const ChainedSkills = () => {
   const onDown = useCallback((e) => {
     const { x, y } = getXY(e);
     pendulaRef.current.forEach((p, i) => {
+      if (p.currentLen < 40) return;
       const { x: sx, y: sy } = tipOf(p);
       if (Math.hypot(sx - x, sy - y) < MEDAL_R + 12) {
         dragRef.current = i;
@@ -213,17 +260,19 @@ export const ChainedSkills = () => {
     setGrab(false);
   }, []);
 
-  // ── Render dos elos (termina estritamente na borda da medalha) ──
+  // ── Render das correntes (desce suavemente com p.currentLen) ──
   const buildLinks = (p) => {
-    // Ponto final da corrente: ancorado no topo da medalha (fora do corpo do símbolo)
-    const attachDist = p.len - (MEDAL_R + 2);
+    if (p.currentLen <= MEDAL_R + 2) return null;
+
+    const attachDist = Math.max(0, p.currentLen - (MEDAL_R + 2));
     const endX = p.ax + attachDist * Math.sin(p.ang);
     const endY = p.ay + attachDist * Math.cos(p.ang);
 
     const dx = endX - p.ax;
     const dy = endY - p.ay;
     const ang = Math.atan2(dy, dx) * 180 / Math.PI - 90;
-    const n = p.nLinks || Math.max(2, Math.round(attachDist / PITCH));
+    // Quantidade de elos visíveis cresce proporcionalmente à queda
+    const n = Math.max(1, Math.floor(attachDist / PITCH));
     const out = [];
 
     for (let j = 0; j < n; j++) {
@@ -232,7 +281,6 @@ export const ChainedSkills = () => {
       const ly = p.ay + dy * t;
 
       if (j % 2 === 0) {
-        // Elo frontal fino
         out.push(
           <g key={j} transform={`translate(${lx},${ly}) rotate(${ang})`}>
             <path
@@ -247,7 +295,6 @@ export const ChainedSkills = () => {
           </g>
         );
       } else {
-        // Elo lateral fino
         out.push(
           <g key={j} transform={`translate(${lx},${ly}) rotate(${ang})`} filter={`url(#${uid}fs)`}>
             <rect x="-2.8" y="-6.8" width="5.6" height="13.6" rx="2.8" ry="2.8"
@@ -278,8 +325,6 @@ export const ChainedSkills = () => {
     >
       {/* ═════════════════════════════════════════════════════════════════
           CAMADA 1: CORRENTES DE FUNDO COM FADE-IN SUPERIOR
-          A máscara CSS fica estritamente nesta div isolada.
-          Faz as correntes surgirem gradualmente do topo sem afetar nada lateral.
          ═════════════════════════════════════════════════════════════════ */}
       <div
         className="absolute inset-x-[-120px] top-0 bottom-0 pointer-events-none"
@@ -309,7 +354,6 @@ export const ChainedSkills = () => {
             </filter>
           </defs>
 
-          {/* Elos com opacidade de background (desenha dentro da div com margem estendida) */}
           <g opacity="0.30" transform="translate(120, 0)">
             {pends.map((p, i) => (
               <g key={`ch_${i}`}>{buildLinks(p)}</g>
@@ -319,8 +363,7 @@ export const ChainedSkills = () => {
       </div>
 
       {/* ═════════════════════════════════════════════════════════════════
-          CAMADA 2: MEDALHAS METÁLICAS COM ARGOLA DE ENCAIXE
-          100% livres de máscara, corte ou interferência visual.
+          CAMADA 2: MEDALHAS METÁLICAS
          ═════════════════════════════════════════════════════════════════ */}
       <svg className="absolute inset-0 w-full overflow-visible pointer-events-none" style={{ height: ch }} aria-hidden="true">
         <defs>
@@ -336,25 +379,28 @@ export const ChainedSkills = () => {
         </defs>
 
         {pends.map((p, i) => {
+          if (p.currentLen < 1) return null;
           const { x: sx, y: sy } = tipOf(p);
           const isHov  = hoveredId === p.tool.id;
           const isGrab = p.grabbed;
 
-          // Argola de suspensão no topo da medalha (conecta o medalhão ao último elo)
+          // Fade de entrada inicial enquanto emerge do topo
+          const enterOpacity = Math.min(1, Math.max(0, p.currentLen / 36));
+
           const ringDist = MEDAL_R + 2.5;
           const rx = sx - ringDist * Math.sin(p.ang);
           const ry = sy - ringDist * Math.cos(p.ang);
           const angDeg = p.ang * 180 / Math.PI;
 
           return (
-            <g key={`md_${i}`}>
-              {/* Argola de latão mecânica */}
+            <g key={`md_${i}`} opacity={enterOpacity}>
+              {/* Argola mecânica de latão */}
               <g transform={`translate(${rx}, ${ry}) rotate(${-angDeg})`}>
                 <ellipse cx="0" cy="0" rx="3.5" ry="4.5" fill="none" stroke="#d4a853" strokeWidth="1.2" />
                 <ellipse cx="0" cy="0" rx="1.8" ry="2.6" fill="#0f0a06" />
               </g>
 
-              {/* Aro externo reforçado */}
+              {/* Aro reforçado */}
               <circle cx={sx} cy={sy} r={MEDAL_R + 4.5}
                 fill="#1c1208"
                 stroke={isGrab ? '#fbbf24' : isHov ? '#f6d995' : '#c49b40'}
@@ -366,7 +412,7 @@ export const ChainedSkills = () => {
               {/* Friso técnico tracejado */}
               <circle cx={sx} cy={sy} r={MEDAL_R - 4.5}
                 fill="none" stroke="#d4a85328" strokeWidth="0.9" strokeDasharray="2 3" />
-              {/* Ponto especular */}
+              {/* Especular */}
               <circle cx={sx - 5} cy={sy - 5} r={3.5} fill="white" opacity="0.065" />
               {/* Glow térmico no hover */}
               {isHov && (
@@ -381,12 +427,13 @@ export const ChainedSkills = () => {
 
       {/* ═════════════════════════════════════════════════════════════════
           CAMADA 3: ÍCONES OFICIAIS & TOOLTIPS
-          Posicionados de forma inteligente para nunca vazar das laterais.
          ═════════════════════════════════════════════════════════════════ */}
       {pends.map((p, i) => {
+        if (p.currentLen < 1) return null;
         const { x: sx, y: sy } = tipOf(p);
         const isHov  = hoveredId === p.tool.id;
         const isGrab = p.grabbed;
+        const enterOpacity = Math.min(1, Math.max(0, p.currentLen / 36));
 
         const isRightEdge = p.ax > cw * 0.72;
         const isLeftEdge  = p.ax < cw * 0.28;
@@ -400,9 +447,15 @@ export const ChainedSkills = () => {
           <div
             key={`ic_${i}`}
             className="absolute pointer-events-none flex flex-col items-center"
-            style={{ left: sx, top: sy, transform: 'translate(-50%,-50%)', zIndex: isHov ? 40 : 20 }}
+            style={{
+              left: sx,
+              top: sy,
+              transform: 'translate(-50%,-50%)',
+              opacity: enterOpacity,
+              zIndex: isHov ? 40 : 20,
+            }}
           >
-            {isHov && (
+            {isHov && p.currentLen > 40 && (
               <div
                 className="absolute bottom-full mb-3 flex flex-col items-center whitespace-nowrap z-50"
                 style={{ transform: tooltipTransform }}
