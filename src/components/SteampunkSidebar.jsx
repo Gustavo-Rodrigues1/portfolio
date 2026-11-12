@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { SteampunkGear } from './SteampunkGear';
-import { ChevronUp, Compass, Home, User, Wrench, FolderGit2, Mail } from 'lucide-react';
+import { ChevronUp, Compass, Home, User, Briefcase, Wrench, FolderGit2, Mail } from 'lucide-react';
 
 /**
  * Lâmpada indicadora Steampunk horizontal (lado esquerdo da barra lateral)
@@ -120,7 +120,8 @@ export const SteampunkSidebar = () => {
 
   const sections = [
     { id: 'hero', label: 'Início', icon: Home, desc: 'Convés Principal' },
-    { id: 'experiencia', label: 'Sobre Mim', icon: User, desc: 'Trajetória & Interesses' },
+    { id: 'sobre', label: 'Sobre Mim', icon: User, desc: 'Trajetória & UFS' },
+    { id: 'experiencia', label: 'Experiência', icon: Briefcase, desc: 'Registros de Ofício' },
     { id: 'habilidades', label: 'Habilidades', icon: Wrench, desc: 'Insígnias Técnicas' },
     { id: 'projetos', label: 'Projetos', icon: FolderGit2, desc: 'Arquivo de Patentes' },
     { id: 'contato', label: 'Contato', icon: Mail, desc: 'Central Telegráfica' },

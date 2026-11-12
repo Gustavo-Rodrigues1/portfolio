@@ -7,7 +7,8 @@ import {
   Copy,
   Check,
   Layers,
-  Bookmark
+  Bookmark,
+  ArrowRight
 } from 'lucide-react';
 
 /**
@@ -289,32 +290,26 @@ export const ProjectsArchive = () => {
         >
           {/* Elemento Fantasma Invisível para Dimensionar a Altura do Palco de Forma Responsiva */}
           <div
-            className="w-[90%] sm:w-[75%] md:w-[62%] lg:w-[50%] max-w-[560px] opacity-0 pointer-events-none select-none p-6 sm:p-7"
+            className="w-[92%] sm:w-[78%] md:w-[65%] lg:w-[52%] max-w-[560px] opacity-0 pointer-events-none select-none p-6 sm:p-8"
             aria-hidden="true"
           >
-            <div className="steampunk-panel p-6 sm:p-7 rounded-lg border-2 border-transparent flex flex-col justify-between">
-              <div className="brass-plate p-2.5 rounded mb-5">
-                <span className="font-schematic text-[11px]">Patente: BR-UFS-0104-SI</span>
-              </div>
-              <h3 className="font-cinzel text-lg sm:text-xl font-bold mb-2">Painel de Indicadores & Gestão de Dados</h3>
-              <p className="text-xs font-schematic mb-4">Dashboard analítico com suporte a tomada de decisão</p>
-              <p className="text-xs sm:text-sm font-body leading-relaxed mb-6">
+            <div className="p-6 sm:p-8 rounded-3xl border border-transparent flex flex-col justify-between">
+              <h3 className="font-body text-2xl sm:text-3xl font-bold mb-3">Painel de Indicadores &amp; Gestão de Dados</h3>
+              <p className="text-xs sm:text-[13.5px] font-body leading-relaxed mb-6">
                 Plataforma interativa para consolidação de métricas, filtros em tempo real e visualização analítica desenvolvida com base nas competências de Sistemas de Informação.
               </p>
-              <div className="mb-6">
-                <div className="flex flex-wrap gap-1.5">
-                  <span className="px-2.5 py-1 text-[11px]">React</span>
-                  <span className="px-2.5 py-1 text-[11px]">Tailwind CSS</span>
-                  <span className="px-2.5 py-1 text-[11px]">JavaScript</span>
-                </div>
+              <div className="flex flex-wrap gap-2 mb-6">
+                <span className="px-3.5 py-1.5 rounded-full text-xs">React</span>
+                <span className="px-3.5 py-1.5 rounded-full text-xs">Tailwind CSS</span>
+                <span className="px-3.5 py-1.5 rounded-full text-xs">JavaScript</span>
               </div>
               <div className="pt-4 border-t border-transparent flex items-center justify-between">
-                <div className="h-8"></div>
+                <span className="h-6">View Live</span>
               </div>
             </div>
           </div>
 
-          {/* Cartões dos Projetos Renderizados nas Posições Calculadas */}
+          {/* Cartões dos Projetos Renderizados nas Posições Calculadas (Modelo Simplificado) */}
           {projects.map((project, index) => {
             let diff = index - currentIndex;
             if (diff > totalProjects / 2) diff -= totalProjects;
@@ -331,13 +326,14 @@ export const ProjectsArchive = () => {
                     goTo(index);
                   }
                 }}
-                className={`absolute top-0 left-1/2 w-[90%] sm:w-[75%] md:w-[62%] lg:w-[50%] max-w-[560px] h-full transition-all duration-700 ease-out ${!isCenter ? 'cursor-pointer' : ''
-                  }`}
+                className={`absolute top-0 left-1/2 w-[92%] sm:w-[78%] md:w-[65%] lg:w-[52%] max-w-[560px] h-full transition-all duration-700 ease-out ${
+                  !isCenter ? 'cursor-pointer' : ''
+                }`}
               >
                 {/* Camada Transparente de Clique para os Cartões Laterais */}
                 {!isCenter && (
                   <div
-                    className="absolute inset-0 z-30 rounded-lg hover:bg-black/10 transition-colors"
+                    className="absolute inset-0 z-30 rounded-3xl hover:bg-black/10 transition-colors"
                     title={`Ver ${project.title}`}
                   />
                 )}
@@ -345,79 +341,63 @@ export const ProjectsArchive = () => {
                 <div
                   key={isCenter ? `center-box-${currentIndex}` : `box-${project.id}`}
                   style={isCenter ? { transformOrigin: 'top center' } : undefined}
-                  className={`steampunk-panel p-6 sm:p-7 rounded-lg border-2 transition-colors duration-500 flex flex-col justify-between h-full group relative ${isCenter
-                    ? 'border-brass shadow-[0_0_35px_rgba(198,156,77,0.35)] animate-card-swing'
-                    : 'border-brass-dark/50 hover:border-brass-dark'
-                    }`}
+                  className={`p-6 sm:p-8 rounded-2xl sm:rounded-3xl border transition-all duration-500 flex flex-col justify-between h-full group relative overflow-hidden shadow-2xl ${
+                    isCenter
+                      ? 'bg-[#18130e]/95 backdrop-blur-md border-brass-light/80 shadow-[0_0_35px_rgba(255,157,46,0.22)]'
+                      : 'bg-[#120e0a]/90 backdrop-blur-sm border-brass-dark/40 hover:border-brass-dark/70'
+                  }`}
                 >
-                  {/* Rebites estruturais nos 4 cantos */}
-                  <div className="absolute top-2 left-2 w-2 h-2 rounded-full bg-brass-light border border-black shadow"></div>
-                  <div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-brass-light border border-black shadow"></div>
-                  <div className="absolute bottom-2 left-2 w-2 h-2 rounded-full bg-brass-light border border-black shadow"></div>
-                  <div className="absolute bottom-2 right-2 w-2 h-2 rounded-full bg-brass-light border border-black shadow"></div>
+                  {/* Arco decorativo geométrico sutil no canto superior direito (inspirado na imagem) */}
+                  <div className="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-white/[0.04] pointer-events-none" />
 
                   <div>
-                    {/* Título do Projeto */}
-                    <h3 className="font-cinzel text-lg sm:text-xl font-bold text-brass-light group-hover:text-brass-gradient transition-colors mb-2">
+                    {/* Título Principal em Destaque */}
+                    <h3 className="font-body text-2xl sm:text-3xl font-bold text-[#f5ecd5] tracking-tight group-hover:text-amber-300 transition-colors">
                       {project.title}
                     </h3>
 
-                    {/* Tagline / Subtítulo */}
-                    <p className="text-xs font-schematic text-copper-light mb-4">
-                      {project.tagline}
-                    </p>
-
-                    {/* Descrição Detalhada */}
-                    <p className="text-xs sm:text-sm text-[#cebeaa] font-body leading-relaxed mb-6">
+                    {/* Descrição Concisa e Limpa */}
+                    <p className="font-body text-xs sm:text-[13.5px] text-[#b8a793] leading-relaxed mt-3 mb-6">
                       {project.description}
                     </p>
 
-                    {/* Tecnologias Utilizadas (Estilo Engrenagens / Tags de Metal) */}
-                    <div className="mb-6">
-                      <span className="text-[10px] font-schematic text-[#8f7d66] uppercase block mb-2 flex items-center gap-1">
-                        <Layers className="w-3 h-3" />
-                        Componentes Técnicos:
-                      </span>
-                      <div className="flex flex-wrap gap-1.5">
-                        {project.techs.map((tech, i) => (
-                          <span
-                            key={i}
-                            className="px-2.5 py-1 rounded-sm bg-[#221a13] border border-brass-dark/50 text-brass-light text-[11px] font-schematic"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
+                    {/* Tecnologias em Pílulas Arredondadas (Tags) */}
+                    <div className="flex flex-wrap gap-2 sm:gap-2.5 mb-6">
+                      {project.techs.map((tech, i) => (
+                        <span
+                          key={i}
+                          className="px-3.5 py-1.5 rounded-full text-xs font-body font-medium bg-[#241e17] border border-brass-dark/40 text-[#dfd2be] hover:border-amber-400/60 hover:text-white transition-colors select-none"
+                        >
+                          {tech}
+                        </span>
+                      ))}
                     </div>
                   </div>
 
-                  {/* Barra de Ações do Projeto */}
-                  <div className="pt-4 border-t border-brass-dark/40 flex flex-wrap items-center justify-between gap-3">
-                    <div className="flex items-center gap-2">
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-steampunk px-3.5 py-1.5 rounded text-xs font-schematic font-bold text-brass-light hover:text-white uppercase flex items-center gap-1.5"
-                        title="Ver código no GitHub"
-                      >
-                        <GithubIcon className="w-4 h-4 text-copper-light" />
-                        <span>GitHub</span>
-                      </a>
+                  {/* Linha Divisória e Rodapé com Ações */}
+                  <div className="pt-4 sm:pt-5 border-t border-brass-dark/30 flex items-center justify-between mt-auto">
+                    {/* Link para visualização ao vivo */}
+                    <a
+                      href={project.liveUrl || project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-body text-sm sm:text-[15px] font-semibold text-[#f5ecd5] hover:text-steamAmber-bright transition-colors flex items-center gap-1.5 group/link"
+                    >
+                      <span>View Live</span>
+                      <ArrowRight className="w-4 h-4 transition-transform group-hover/link:translate-x-1" />
+                    </a>
 
-                      {project.liveUrl && (
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn-steampunk px-3.5 py-1.5 rounded text-xs font-schematic font-bold text-[#d8c8b4] hover:text-white uppercase flex items-center gap-1.5"
-                          title="Ver protótipo ao vivo"
-                        >
-                          <ExternalLink className="w-4 h-4 text-brass-light" />
-                          <span>Demonstração</span>
-                        </a>
-                      )}
-                    </div>
+                    {/* Ícone Direto para o GitHub */}
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Repositório GitHub de ${project.title}`}
+                      className="text-[#b8a793] hover:text-white hover:scale-110 transition-all p-1"
+                      title="Acessar repositório no GitHub"
+                    >
+                      <GithubIcon className="w-5 h-5" />
+                    </a>
                   </div>
 
                 </div>

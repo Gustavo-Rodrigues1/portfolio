@@ -5,6 +5,7 @@ import { SteampunkCursor } from './components/SteampunkCursor';
 import { SteampunkAtmosphere } from './components/SteampunkAtmosphere';
 import { Hero } from './components/Hero';
 import { AboutUFS } from './components/AboutUFS';
+import { ExperienceSection } from './components/ExperienceSection';
 import { SkillsGauges } from './components/SkillsGauges';
 import { ProjectsArchive } from './components/ProjectsArchive';
 import { ContactTelegraph } from './components/ContactTelegraph';
@@ -30,8 +31,11 @@ function App() {
         {/* Seção Hero: Apresentação, Retrato Mecânico e Manômetro Interativo */}
         <Hero />
 
-        {/* Seção Atuação Profissional & Certificações */}
+        {/* Seção Sobre Mim & Formação UFS */}
         <AboutUFS />
+
+        {/* Seção Exclusiva de Experiências Profissionais */}
+        <ExperienceSection />
 
         {/* Seção Insígnias de Habilidades Técnicas */}
         <SkillsGauges />

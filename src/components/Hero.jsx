@@ -5,15 +5,33 @@ import { SteampunkPortholeFrame } from './SteampunkPortholeFrame';
 import { profileData } from '../data/profile';
 import { Camera } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './SocialIcons';
+import { SteampunkTopHat } from './HeroAnimatedText';
 
 export const Hero = () => {
   const [userPhoto, setUserPhoto] = useState(null);
+  // 'intro' (warmup inicial) | 'flipping' (salto mortal no clique) | 'idle' (repouso perfeitamente visível)
+  const [hatMode, setHatMode] = useState('intro');
 
   const handlePhotoUpload = (e) => {
     const file = e.target.files?.[0];
     if (file) {
       const url = URL.createObjectURL(file);
       setUserPhoto(url);
+    }
+  };
+
+  const handleHatClick = () => {
+    // Dispara o salto mortal suave sem risco de sumir
+    setHatMode('idle');
+    requestAnimationFrame(() => {
+      setHatMode('flipping');
+    });
+  };
+
+  const handleHatAnimationEnd = (e) => {
+    // Interrompe apenas no elemento principal do chapéu (evita bubbling indesejado)
+    if (e.target === e.currentTarget) {
+      setHatMode('idle');
     }
   };
 
@@ -67,12 +85,12 @@ export const Hero = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
 
           {/* ============================================================ */}
-          {/* LADO ESQUERDO: Saudação em Português + Nome + 2 Frases       */}
+          {/* LADO ESQUERDO: Saudação + Nome Térmico + Cartola Interativa  */}
           {/* ============================================================ */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left">
+          <div className="lg:col-span-7 flex flex-col items-start text-left select-none">
 
-            {/* Linha Superior: Saudação em Português com Emoji de Aceno */}
-            <div className="flex items-center gap-2.5 mb-2 sm:mb-3">
+            {/* Linha Superior: Saudação com delay suave */}
+            <div className="flex items-center gap-2.5 mb-2 sm:mb-3 animate-heat-header">
               <span className="text-xl sm:text-2xl lg:text-3xl text-[#f3dec3] font-medium font-body tracking-tight">
                 Olá
               </span>
@@ -84,154 +102,38 @@ export const Hero = () => {
               </span>
             </div>
 
-            {/* Nome Gigante com Gradiente Metálico e Ponto Marcante */}
+            {/* Nome com Efeito Térmico + Cartola Acrobática */}
             <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tight leading-none mb-5 mt-6 sm:mt-8 font-body">
-              <span className="relative inline-block">
-
-                {/* Cartola Steampunk fiel ao modelo: feltro escuro, aba larga, faixa vermelha, óculos de latão */}
-                <span
-                  className="absolute pointer-events-none"
-                  style={{
-                    bottom: '68%',
-                    left: '-0.04em',
-                    width: '0.9em',
-                    height: 'auto',
-                    zIndex: 1,
-                    transform: 'rotate(-10deg)',
-                    transformOrigin: 'bottom center',
-                  }}
-                  aria-hidden="true"
-                >
-                  <svg viewBox="0 0 140 95" fill="none" xmlns="http://www.w3.org/2000/svg"
-                    className="w-full h-full drop-shadow-[0_8px_28px_rgba(0,0,0,0.95)]">
-                    <defs>
-                      {/* Feltro escuro do corpo */}
-                      <linearGradient id="hh-crown" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0%" stopColor="#141618" />
-                        <stop offset="10%" stopColor="#22272a" />
-                        <stop offset="48%" stopColor="#2c3135" />
-                        <stop offset="88%" stopColor="#22272a" />
-                        <stop offset="100%" stopColor="#141618" />
-                      </linearGradient>
-                      {/* Aba superior */}
-                      <linearGradient id="hh-brim" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#2c3135" />
-                        <stop offset="100%" stopColor="#161819" />
-                      </linearGradient>
-                      {/* Vidro óculos esquerdo */}
-                      <radialGradient id="hh-gl" cx="32%" cy="32%" r="62%">
-                        <stop offset="0%" stopColor="#d4eef8" stopOpacity="0.80" />
-                        <stop offset="45%" stopColor="#7ab4cc" stopOpacity="0.60" />
-                        <stop offset="100%" stopColor="#1a4a5e" stopOpacity="0.88" />
-                      </radialGradient>
-                      {/* Vidro óculos direito */}
-                      <radialGradient id="hh-gr" cx="32%" cy="32%" r="62%">
-                        <stop offset="0%" stopColor="#c8e8f4" stopOpacity="0.72" />
-                        <stop offset="45%" stopColor="#68a8c0" stopOpacity="0.55" />
-                        <stop offset="100%" stopColor="#16404e" stopOpacity="0.88" />
-                      </radialGradient>
-                    </defs>
-
-                    {/* ── Sombra projetada da aba ── */}
-                    <ellipse cx="70" cy="81" rx="66" ry="7" fill="#060708" opacity="0.55" />
-
-                    {/* ── Aba frontal (face de baixo) ── */}
-                    <ellipse cx="70" cy="78" rx="66" ry="8" fill="#161819" />
-
-                    {/* ── Aba superior (face de cima) ── */}
-                    <ellipse cx="70" cy="73" rx="66" ry="8"
-                      fill="url(#hh-brim)" stroke="#0e1012" strokeWidth="0.8" />
-
-                    {/* Curvatura lateral da aba (ligeiro upturn como no modelo) */}
-                    <path d="M 4 73 Q 2 68 8 64" stroke="#0e1012" strokeWidth="2" fill="none" strokeLinecap="round" />
-                    <path d="M 136 73 Q 138 68 132 64" stroke="#0e1012" strokeWidth="2" fill="none" strokeLinecap="round" />
-
-                    {/* ── Corpo da copa (feltro alto e cilíndrico) ── */}
-                    <path d="M 36 73 L 36 12 Q 36 4 70 4 Q 104 4 104 12 L 104 73 Z"
-                      fill="url(#hh-crown)" />
-
-                    {/* Topo da copa */}
-                    <ellipse cx="70" cy="9" rx="34" ry="6.5" fill="#2c3135" />
-                    <ellipse cx="70" cy="8" rx="30" ry="4.5" fill="#343b3f" opacity="0.7" />
-
-                    {/* Sombra lateral interna (profundidade) */}
-                    <rect x="36" y="12" width="9" height="61" fill="#060708" opacity="0.30" />
-                    <rect x="95" y="12" width="9" height="61" fill="#060708" opacity="0.18" />
-
-                    {/* Brilho sutil no feltro */}
-                    <rect x="38" y="14" width="5" height="54" rx="2.5" fill="white" opacity="0.035" />
-
-                    {/* ── Faixa vermelha (como no modelo) ── */}
-                    <rect x="36" y="57" width="68" height="16" fill="#9a1818" />
-                    <rect x="36" y="57" width="68" height="6" fill="#cc2828" />
-                    <rect x="36" y="63" width="68" height="3" fill="#7a0f0f" />
-                    <rect x="36" y="66" width="68" height="7" fill="#8c1616" />
-
-                    {/* ── Correia de couro dos óculos ── */}
-                    <rect x="24" y="61" width="92" height="7" rx="3.5" fill="#4a2e10" opacity="0.92" />
-                    <rect x="24" y="62" width="92" height="2" rx="1" fill="#6a4218" opacity="0.6" />
-
-                    {/* ════ ÓCULOS ESQUERDO (maior, mais à frente) ════ */}
-                    {/* Anel externo de latão */}
-                    <circle cx="56" cy="65" r="14" fill="#c8901c" />
-                    <circle cx="56" cy="65" r="14" fill="none" stroke="#f0c840" strokeWidth="2" />
-                    {/* Couro marrom */}
-                    <circle cx="56" cy="65" r="11.2" fill="#7e4418" />
-                    {/* Anel interno de latão */}
-                    <circle cx="56" cy="65" r="9" fill="#b07818" />
-                    <circle cx="56" cy="65" r="9" fill="none" stroke="#e8b830" strokeWidth="1.2" />
-                    {/* Vidro */}
-                    <circle cx="56" cy="65" r="7.2" fill="url(#hh-gl)" />
-                    {/* Reflexo */}
-                    <ellipse cx="52.5" cy="61.5" rx="2.4" ry="1.4" fill="white" opacity="0.5"
-                      transform="rotate(-30 52.5 61.5)" />
-                    {/* Parafusos / rebites */}
-                    <circle cx="56" cy="52" r="1.7" fill="#f0c840" stroke="#a07018" strokeWidth="0.6" />
-                    <circle cx="56" cy="78" r="1.7" fill="#f0c840" stroke="#a07018" strokeWidth="0.6" />
-                    <circle cx="43" cy="65" r="1.7" fill="#f0c840" stroke="#a07018" strokeWidth="0.6" />
-                    <circle cx="69" cy="65" r="1.7" fill="#f0c840" stroke="#a07018" strokeWidth="0.6" />
-                    {/* Mini engrenagem (canto inferior esquerdo) */}
-                    <circle cx="46" cy="72" r="4" fill="#c8901c" stroke="#f0c840" strokeWidth="0.8" />
-                    <circle cx="46" cy="72" r="2.2" fill="#141618" />
-                    <circle cx="46" cy="68" r="1" fill="#c8901c" />
-                    <circle cx="46" cy="76" r="1" fill="#c8901c" />
-                    <circle cx="42" cy="72" r="1" fill="#c8901c" />
-                    <circle cx="50" cy="72" r="1" fill="#c8901c" />
-
-                    {/* ════ ÓCULOS DIREITO (ligeiramente menor, meia-perspectiva) ════ */}
-                    {/* Anel externo */}
-                    <circle cx="86" cy="65" r="12" fill="#b07818" />
-                    <circle cx="86" cy="65" r="12" fill="none" stroke="#d8a828" strokeWidth="1.8" />
-                    {/* Couro */}
-                    <circle cx="86" cy="65" r="9.5" fill="#6a3a14" />
-                    {/* Anel interno */}
-                    <circle cx="86" cy="65" r="7.6" fill="#9a6810" />
-                    <circle cx="86" cy="65" r="7.6" fill="none" stroke="#d8a828" strokeWidth="1" />
-                    {/* Vidro */}
-                    <circle cx="86" cy="65" r="6" fill="url(#hh-gr)" />
-                    {/* Reflexo */}
-                    <ellipse cx="83" cy="62" rx="2" ry="1.2" fill="white" opacity="0.42"
-                      transform="rotate(-30 83 62)" />
-                    {/* Parafusos */}
-                    <circle cx="86" cy="54" r="1.4" fill="#d8a828" stroke="#906010" strokeWidth="0.5" />
-                    <circle cx="86" cy="76" r="1.4" fill="#d8a828" stroke="#906010" strokeWidth="0.5" />
-                    <circle cx="75" cy="65" r="1.4" fill="#d8a828" stroke="#906010" strokeWidth="0.5" />
-                    <circle cx="97" cy="65" r="1.4" fill="#d8a828" stroke="#906010" strokeWidth="0.5" />
-                  </svg>
-                </span>
+              <span className="relative inline-block animate-filament-glow">
+                {/* Cartola Steampunk interativa: salto suave no ar sem sumir ou travar */}
+                <SteampunkTopHat
+                  onClick={handleHatClick}
+                  onAnimationEnd={handleHatAnimationEnd}
+                  className={
+                    hatMode === 'intro'
+                      ? 'animate-hat-intro'
+                      : hatMode === 'flipping'
+                      ? 'animate-hat-flip'
+                      : ''
+                  }
+                  style={
+                    hatMode === 'idle'
+                      ? { transform: 'rotate(0deg)', opacity: 1 }
+                      : undefined
+                  }
+                />
 
                 <span className="bg-gradient-to-r from-[#ffd978] via-[#e59834] to-[#c85a17] bg-clip-text text-transparent drop-shadow-[0_4px_30px_rgba(245,158,11,0.45)]">
                   Gustavo
                 </span>
               </span>
-              <span className="text-copper-light drop-shadow-[0_0_20px_#e0985c]">.</span>
+              <span className="text-copper-light drop-shadow-[0_0_20px_#e0985c] inline-block animate-heat-dot">.</span>
             </h1>
 
-
-            {/* Frases de Destaque em Português */}
-            <div className="space-y-1.5 sm:space-y-2 mb-8 sm:mb-9 text-lg sm:text-2xl lg:text-[1.65rem] text-[#d8c8b4] font-body leading-snug">
+            {/* Frases de Destaque com surgimento térmico sincronizado */}
+            <div className="space-y-1.5 sm:space-y-2 mb-8 sm:mb-9 text-lg sm:text-2xl lg:text-[1.65rem] text-[#d8c8b4] font-body leading-snug animate-heat-subtitles">
               <p className="font-normal text-[#f5ecd5]">
-                Sou Desenvolvedor Full Stack & Estudante de Sistemas de Informação.
+                Sou Desenvolvedor Full Stack &amp; Estudante de Sistemas de Informação.
               </p>
               <p className="font-normal text-[#c7b49d]">
                 Eu crio{' '}
@@ -243,7 +145,7 @@ export const Hero = () => {
             </div>
 
             {/* Apenas GitHub e LinkedIn */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 animate-heat-subtitles">
               {socialLinks.map((item, idx) => {
                 const IconComponent = item.icon;
                 return (

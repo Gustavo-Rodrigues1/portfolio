@@ -9,6 +9,10 @@
   }
 
   /* Ocultar barra de rolagem nativa do navegador para utilizar exclusivamente a barra lateral Steampunk */
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
   html,
   body {
     scrollbar-width: none;
@@ -531,4 +535,102 @@
 
 .animate-spin-medium {
   animation: spin 18s linear infinite;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ANIMAÇÃO DE ENTRADA HERO: VÁLVULA TERMIÔNICA & SALTO MORTAL
+   ══════════════════════════════════════════════════════════════ */
+
+@keyframes filament-glow {
+  0% {
+    opacity: 0;
+    filter: brightness(0.1) drop-shadow(0 0 0 rgba(255, 157, 46, 0));
+    transform: translateY(4px);
+  }
+  20% {
+    opacity: 0.4;
+    filter: brightness(0.6) drop-shadow(0 0 15px rgba(255, 100, 0, 0.5));
+  }
+  50% {
+    opacity: 0.9;
+    filter: brightness(1.7) drop-shadow(0 0 42px rgba(255, 140, 20, 0.95));
+  }
+  75% {
+    opacity: 1;
+    filter: brightness(1.35) drop-shadow(0 0 48px rgba(255, 180, 50, 0.85));
+  }
+  100% {
+    opacity: 1;
+    filter: brightness(1) drop-shadow(0 4px 30px rgba(245, 158, 11, 0.45));
+    transform: translateY(0);
+  }
+}
+
+/* Salto Mortal Suave e Fluido de Entrada (Warmup) */
+@keyframes hat-intro-flip {
+  0% {
+    opacity: 0;
+    transform: translateY(0) rotate(0deg);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    /* Pequeno agachamento de impulso */
+    transform: translateY(4px) rotate(2deg);
+  }
+  75% {
+    /* Ápice do salto fluido no ar */
+    transform: translateY(-90px) rotate(180deg);
+  }
+  95% {
+    transform: translateY(2px) rotate(358deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(360deg);
+  }
+}
+
+/* Salto Mortal Suave e Fluido disparado ao Clicar na Cartola */
+@keyframes hat-smooth-flip {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  15% {
+    /* Agachamento suave de impulso */
+    transform: translateY(4px) rotate(2deg);
+  }
+  55% {
+    /* Ápice do salto acrobático no ar */
+    transform: translateY(-90px) rotate(180deg);
+  }
+  90% {
+    /* Aterrissagem suave no G */
+    transform: translateY(2px) rotate(358deg);
+  }
+  100% {
+    transform: translateY(0) rotate(360deg);
+  }
+}
+
+.animate-hat-intro {
+  animation: hat-intro-flip 2.4s 0.7s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.animate-hat-flip {
+  animation: hat-smooth-flip 0.95s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-heat-header {
+  animation: heat-fade-in 0.8s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-heat-subtitles {
+  animation: heat-fade-in 1s 2.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-heat-dot {
+  animation: heat-fade-in 0.6s 1.4s ease-out both;
 }

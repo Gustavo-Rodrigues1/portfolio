@@ -60,7 +60,7 @@ export const AboutUFS = () => {
 
   return (
     <section
-      id="experiencia"
+      id="sobre"
       className="relative py-28 bg-[#0e0c0a] border-b-2 border-brass-dark/60 overflow-hidden"
     >
       {/* Detalhes de Fundo com Engrenagens Steampunk */}
@@ -199,90 +199,35 @@ export const AboutUFS = () => {
                 </p>
 
                 <p>
-                  No campo profissional, atuo como <strong className="text-brass-light font-medium">Estagiário de TI na Secretaria de Estado da Comunicação Social (SECOM - Governo de Sergipe)</strong>,
-                  sendo responsável pelo suporte técnico de primeiro e segundo nível aos colaboradores, manutenção e montagem de computadores,
-                  configuração de redes locais, diagnóstico ágil de hardware e software, além de apoiar a sustentação da infraestrutura tecnológica da organização.
-                </p>
-
-                <p>
-                  Anteriormente, exerci atividades na <strong className="text-brass-light font-medium">Moura Dubeux</strong>,
-                  onde aperfeiçoei minhas competências analíticas utilizando Excel avançado e Sistemas de Apoio à Decisão (SAD) para manipulação,
-                  conferência e estruturação de dados corporativos e controle de fluxos operacionais.
+                  Busco continuamente aliar fundamentos teóricos a projetos práticos, aplicando linguagens modernas,
+                  bancos de dados relacionais e metodologias ágeis de desenvolvimento para criar soluções escaláveis, intuitivas e eficientes.
                 </p>
               </div>
             </div>
 
-          </div>
-
-        </div>
-
-        {/* ============================================================ */}
-        {/* COMPLEMENTO: LINHA DO TEMPO DAS EXPERIÊNCIAS PROFISSIONAIS   */}
-        {/* ============================================================ */}
-        <div className="pt-12 border-t border-brass-dark/50">
-
-          <div className="flex items-center gap-2 mb-8">
-            <Briefcase className="w-5 h-5 text-copper-light" />
-            <h3 className="font-cinzel text-xl sm:text-2xl font-bold text-brass-light">
-              Histórico Profissional Detalhado
-            </h3>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {profileData.experiences.map((exp, idx) => (
-              <div
-                key={idx}
-                className="steampunk-panel p-6 sm:p-7 rounded-lg border border-brass-dark/70 hover:border-brass/80 transition-all relative flex flex-col justify-between"
-              >
-                {/* Rebites nos 4 cantos */}
-                <div className="absolute top-2 left-2 w-1.5 h-1.5 rounded-full bg-brass-light border border-black shadow"></div>
-                <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-brass-light border border-black shadow"></div>
-                <div className="absolute bottom-2 left-2 w-1.5 h-1.5 rounded-full bg-brass-light border border-black shadow"></div>
-                <div className="absolute bottom-2 right-2 w-1.5 h-1.5 rounded-full bg-brass-light border border-black shadow"></div>
-
-                <div>
-                  <div className="flex items-start justify-between gap-4 mb-4">
-                    <div>
-                      <div className="flex items-center gap-2 text-[10px] font-schematic uppercase tracking-widest text-copper-light mb-1">
-                        <Calendar className="w-3 h-3 text-brass" />
-                        <span>{exp.period}</span>
-                        <span>•</span>
-                        <MapPin className="w-3 h-3 text-brass" />
-                        <span>{exp.location}</span>
-                      </div>
-
-                      <h4 className="font-cinzel text-lg sm:text-xl font-bold text-brass-light">
-                        {exp.role}
+            {/* Pilares Acadêmicos e Áreas de Domínio */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mt-2">
+              {interestPillars.map((pillar, idx) => {
+                const IconComponent = pillar.icon;
+                return (
+                  <div
+                    key={idx}
+                    className="p-3.5 rounded bg-[#16110c]/85 border border-brass-dark/50 hover:border-brass-light/70 transition-all shadow-sm group/pillar"
+                  >
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <IconComponent className={`w-4 h-4 ${pillar.color} transition-transform group-hover/pillar:scale-110`} />
+                      <h4 className="text-xs font-schematic font-bold text-brass-light">
+                        {pillar.title}
                       </h4>
-
-                      <span className="text-xs font-schematic text-[#cbba9d] flex items-center gap-1.5 mt-1 font-medium">
-                        <Building2 className="w-3.5 h-3.5 text-steamAmber-glow" />
-                        {exp.company}
-                      </span>
                     </div>
-
-                    <span className={`px-2.5 py-1 rounded text-[10px] font-schematic uppercase tracking-wider font-bold whitespace-nowrap ${exp.current
-                      ? 'bg-[#291e12] border border-steamAmber-glow/80 text-steamAmber-bright shadow-sm'
-                      : 'bg-[#1a140f] border border-brass-dark/50 text-[#a89680]'
-                      }`}>
-                      {exp.current ? 'Em Atividade' : 'Concluído'}
-                    </span>
+                    <p className="text-[11px] text-[#b8a791] font-light leading-snug">
+                      {pillar.desc}
+                    </p>
                   </div>
+                );
+              })}
+            </div>
 
-                  <p className="text-xs sm:text-sm text-[#cfbfab] font-light leading-relaxed mt-4 pt-4 border-t border-brass-dark/40">
-                    {exp.description}
-                  </p>
-                </div>
-
-                <div className="mt-5 pt-3 border-t border-brass-dark/20 flex items-center justify-between text-[10px] font-schematic text-copper-light">
-                  <span className="flex items-center gap-1">
-                    <Sparkles className="w-3 h-3 text-steamAmber-glow" />
-                    Modalidade: {exp.type}
-                  </span>
-                  <span className="text-brass">Registro Validado</span>
-                </div>
-              </div>
-            ))}
           </div>
 
         </div>
