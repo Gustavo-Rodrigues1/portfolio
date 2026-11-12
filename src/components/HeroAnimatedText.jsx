@@ -18,7 +18,7 @@ export const SteampunkTopHat = ({
   <div
     className="absolute pointer-events-none"
     style={{
-      bottom: '68%',
+      bottom: '58%',
       left: '-0.04em',
       width: '0.9em',
       height: 'auto',
@@ -33,7 +33,7 @@ export const SteampunkTopHat = ({
       onClick={onClick}
       onAnimationEnd={onAnimationEnd}
       title="Clique na cartola para vê-la dar um salto mortal no ar!"
-      className={`pointer-events-auto cursor-pointer block w-full h-full bg-transparent border-none p-0 outline-none select-none ${className}`}
+      className={`pointer-events-auto cursor-pointer block w-full h-full bg-transparent border-none p-0 m-0 leading-none outline-none select-none ${className}`}
       style={{
         transformOrigin: '50% 60%',
         ...style,

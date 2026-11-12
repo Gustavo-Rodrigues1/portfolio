@@ -118,7 +118,7 @@ export const Hero = () => {
                   }
                   style={
                     hatMode === 'idle'
-                      ? { transform: 'rotate(0deg)', opacity: 1 }
+                      ? { opacity: 1 }
                       : undefined
                   }
                 />
@@ -185,16 +185,6 @@ export const Hero = () => {
               {/* 2. Engrenagem Inferior Esquerda (Cobre) */}
               <div className="absolute -bottom-8 -left-8 sm:-bottom-10 sm:-left-10 pointer-events-none drop-shadow-[0_6px_18px_rgba(0,0,0,0.9)] z-20">
                 <SteampunkGear size={125} teeth={14} color="copper" speed="spin-reverse-slow" />
-              </div>
-
-              {/* 3. Engrenagem Superior Esquerda (Ferro Forjado) */}
-              <div className="absolute -top-4 -left-4 sm:-top-6 sm:-left-6 pointer-events-none drop-shadow-[0_4px_12px_rgba(0,0,0,0.85)] z-0 opacity-80">
-                <SteampunkGear size={78} teeth={10} color="iron" speed="spin-medium" />
-              </div>
-
-              {/* 4. Engrenagem Inferior Direita (Latão Polido) */}
-              <div className="absolute -bottom-5 -right-5 sm:-bottom-6 sm:-right-6 pointer-events-none drop-shadow-[0_4px_14px_rgba(0,0,0,0.85)] z-0 opacity-85">
-                <SteampunkGear size={88} teeth={10} color="brass" speed="spin-reverse-slow" />
               </div>
 
               {/* Moldura de Escotilha Submarina & Astrolábio com a Foto */}
