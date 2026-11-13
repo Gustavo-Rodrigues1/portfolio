@@ -3,6 +3,7 @@ import { profileData } from '../data/profile';
 import { SteampunkGear } from './SteampunkGear';
 import { SteampunkChain } from './SteampunkChain';
 import { GithubIcon, LinkedinIcon } from './SocialIcons';
+import { ScrollReveal } from './ScrollReveal';
 import {
   Mail,
   Phone,
@@ -122,7 +123,12 @@ export const ContactTelegraph = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
 
           {/* ════════════ COLUNA ESQUERDA: FALE COMIGO & CONTATOS ════════════ */}
-          <div className="lg:col-span-7 flex flex-col justify-center">
+          <ScrollReveal
+            variant="slide"
+            delay={0}
+            distance={32}
+            className="lg:col-span-7 flex flex-col justify-center"
+          >
 
             {/* Título Principal no Estilo do Modelo */}
             <h2 className="font-cinzel text-4xl sm:text-5xl lg:text-6xl font-extrabold text-brass-gradient tracking-wide mb-8 drop-shadow-md">
@@ -204,10 +210,15 @@ export const ContactTelegraph = () => {
 
             </div>
 
-          </div>
+          </ScrollReveal>
 
           {/* ════════════ COLUNA DIREITA: CARTA COM ADESIVO DE CERA FLUTUANDO ════════════ */}
-          <div className="lg:col-span-5 flex items-center justify-center relative py-8">
+          <ScrollReveal
+            variant="slide"
+            delay={180}
+            distance={32}
+            className="lg:col-span-5 flex items-center justify-center relative py-8"
+          >
 
             {/* Halo / Iluminação Âmbar de Fundo */}
             <div className="absolute w-72 h-96 rounded-full bg-steamAmber-glow/15 blur-3xl pointer-events-none" />
@@ -303,7 +314,7 @@ export const ContactTelegraph = () => {
 
             </div>
 
-          </div>
+          </ScrollReveal>
 
         </div>
       </div>

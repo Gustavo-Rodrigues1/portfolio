@@ -62,7 +62,7 @@ export const Navbar = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 animate-navbar-entrance ${
         scrolled
           ? 'bg-[#0f0c0a]/95 backdrop-blur-md border-b-2 border-brass-dark/70 shadow-2xl py-3'
           : 'bg-[#120f0d]/85 backdrop-blur-sm border-b-2 border-brass-dark/50 py-4 sm:py-4.5'

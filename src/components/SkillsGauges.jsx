@@ -2,6 +2,7 @@ import React from 'react';
 import { SteampunkGear } from './SteampunkGear';
 import { SteampunkChain } from './SteampunkChain';
 import { ChainedSkills } from './ChainedSkills';
+import { ScrollReveal } from './ScrollReveal';
 
 export const SkillsGauges = () => {
   return (
@@ -35,7 +36,7 @@ export const SkillsGauges = () => {
 
       {/* ── Cabeçalho ── */}
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
-        <div className="text-center max-w-3xl mx-auto">
+        <ScrollReveal delay={0} distance={28} className="text-center max-w-3xl mx-auto">
           <h2 className="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-bold text-brass-gradient tracking-wide mb-4">
             Habilidades &amp; Tecnologias
           </h2>
@@ -52,15 +53,15 @@ export const SkillsGauges = () => {
             Ferramentas, linguagens e tecnologias aplicadas na construção de soluções modernas,
             automação de processos analíticos e suporte de infraestrutura.
           </p>
-        </div>
+        </ScrollReveal>
       </div>
 
       {/* ── Correntes com Skills ──
            Largura restrita ao max-w-3xl (mesma do parágrafo de texto),
            centralizada. O mask-image faz as correntes "surgirem" da borda. */}
-      <div className="relative z-10 max-w-3xl mx-auto w-full px-2">
+      <ScrollReveal delay={180} distance={32} className="relative z-10 max-w-3xl mx-auto w-full px-2">
         <ChainedSkills />
-      </div>
+      </ScrollReveal>
     </section>
   );
 };

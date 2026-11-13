@@ -6,6 +6,7 @@ import { profileData } from '../data/profile';
 import { Camera } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './SocialIcons';
 import { SteampunkTopHat } from './HeroAnimatedText';
+import { ScrollReveal } from './ScrollReveal';
 
 export const Hero = () => {
   const [userPhoto, setUserPhoto] = useState(null);
@@ -81,7 +82,12 @@ export const Hero = () => {
         opacity={0.26}
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+      <ScrollReveal
+        initialVisible={true}
+        distance={24}
+        duration={750}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full"
+      >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
 
           {/* ============================================================ */}
@@ -113,8 +119,8 @@ export const Hero = () => {
                     hatMode === 'intro'
                       ? 'animate-hat-intro'
                       : hatMode === 'flipping'
-                      ? 'animate-hat-flip'
-                      : ''
+                        ? 'animate-hat-flip'
+                        : ''
                   }
                   style={
                     hatMode === 'idle'
@@ -145,7 +151,7 @@ export const Hero = () => {
             </div>
 
             {/* Apenas GitHub e LinkedIn */}
-            <div className="flex items-center gap-4 animate-heat-subtitles">
+            <div className="flex items-center gap-4 animate-social-pop">
               {socialLinks.map((item, idx) => {
                 const IconComponent = item.icon;
                 return (
@@ -178,29 +184,29 @@ export const Hero = () => {
               <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-steamAmber-dim/25 via-brass/15 to-copper/25 blur-3xl pointer-events-none" />
 
               {/* 1. Engrenagem Superior Direita (Latão) */}
-              <div className="absolute -top-7 -right-7 sm:-top-9 sm:-right-9 pointer-events-none drop-shadow-[0_6px_18px_rgba(0,0,0,0.9)] z-20">
+              <div className="absolute -top-7 -right-7 sm:-top-9 sm:-right-9 pointer-events-none drop-shadow-[0_6px_18px_rgba(0,0,0,0.9)] z-20 animate-gear-spin-in-1">
                 <SteampunkGear size={110} teeth={12} color="brass" speed="spin-slow" />
               </div>
 
               {/* 2. Engrenagem Inferior Esquerda (Cobre) */}
-              <div className="absolute -bottom-8 -left-8 sm:-bottom-10 sm:-left-10 pointer-events-none drop-shadow-[0_6px_18px_rgba(0,0,0,0.9)] z-20">
+              <div className="absolute -bottom-8 -left-8 sm:-bottom-10 sm:-left-10 pointer-events-none drop-shadow-[0_6px_18px_rgba(0,0,0,0.9)] z-20 animate-gear-spin-in-2">
                 <SteampunkGear size={125} teeth={14} color="copper" speed="spin-reverse-slow" />
               </div>
 
               {/* 3. Engrenagem Superior Esquerda (Ferro Forjado) */}
-              <div className="absolute -top-4 -left-4 sm:-top-6 sm:-left-6 pointer-events-none drop-shadow-[0_4px_12px_rgba(0,0,0,0.85)] z-0 opacity-80">
+              <div className="absolute -top-4 -left-4 sm:-top-6 sm:-left-6 pointer-events-none drop-shadow-[0_4px_12px_rgba(0,0,0,0.85)] z-0 opacity-80 animate-gear-spin-in-3">
                 <SteampunkGear size={78} teeth={10} color="iron" speed="spin-medium" />
               </div>
 
               {/* 4. Engrenagem Inferior Direita (Latão Polido) */}
-              <div className="absolute -bottom-5 -right-5 sm:-bottom-6 sm:-right-6 pointer-events-none drop-shadow-[0_4px_14px_rgba(0,0,0,0.85)] z-0 opacity-85">
+              <div className="absolute -bottom-5 -right-5 sm:-bottom-6 sm:-right-6 pointer-events-none drop-shadow-[0_4px_14px_rgba(0,0,0,0.85)] z-0 opacity-85 animate-gear-spin-in-4">
                 <SteampunkGear size={88} teeth={10} color="brass" speed="spin-reverse-slow" />
               </div>
 
               {/* Moldura de Escotilha Submarina & Astrolábio com a Foto */}
               <SteampunkPortholeFrame
                 sizeClassName="w-52 h-52 sm:w-60 sm:h-60 md:w-68 md:h-68 lg:w-[280px] lg:h-[280px]"
-                className="z-10"
+                className="z-10 animate-porthole-reveal"
               >
                 <div className="relative w-full h-full rounded-full overflow-hidden group/photo cursor-pointer">
                   <img
@@ -243,7 +249,7 @@ export const Hero = () => {
           </div>
 
         </div>
-      </div>
+      </ScrollReveal>
     </section>
   );
 };

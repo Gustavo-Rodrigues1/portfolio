@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { profileData } from '../data/profile';
 import { SteampunkGear } from './SteampunkGear';
 import { GithubIcon } from './SocialIcons';
+import { ScrollReveal } from './ScrollReveal';
 import {
   ExternalLink,
   Copy,
@@ -225,7 +226,7 @@ export const ProjectsArchive = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* Cabeçalho da Seção */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <ScrollReveal delay={0} distance={28} className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-bold text-brass-gradient tracking-wide mb-4">
             Projetos Registrados no GitHub
           </h2>
@@ -242,9 +243,10 @@ export const ProjectsArchive = () => {
             Mecanismos digitais forjados com precisão. Cada projeto representa um desafio de arquitetura,
             processamento de dados e experiência do usuário, documentado e versionado no GitHub.
           </p>
-        </div>
+        </ScrollReveal>
 
-        {/* Três Engrenagens Mecânicas Centrais Acima do Carrossel */}
+      {/* Três Engrenagens Mecânicas Centrais Acima do Carrossel */}
+      <ScrollReveal delay={180} distance={32}>
         <div className="relative flex items-end justify-center mb-3 pointer-events-none" style={{ height: '76px' }}>
           {/* Engrenagem Pequena (Esquerda - Cobre) */}
           <div
@@ -326,9 +328,8 @@ export const ProjectsArchive = () => {
                     goTo(index);
                   }
                 }}
-                className={`absolute top-0 left-1/2 w-[92%] sm:w-[78%] md:w-[65%] lg:w-[52%] max-w-[560px] h-full transition-all duration-700 ease-out ${
-                  !isCenter ? 'cursor-pointer' : ''
-                }`}
+                className={`absolute top-0 left-1/2 w-[92%] sm:w-[78%] md:w-[65%] lg:w-[52%] max-w-[560px] h-full transition-all duration-700 ease-out ${!isCenter ? 'cursor-pointer' : ''
+                  }`}
               >
                 {/* Camada Transparente de Clique para os Cartões Laterais */}
                 {!isCenter && (
@@ -341,11 +342,10 @@ export const ProjectsArchive = () => {
                 <div
                   key={isCenter ? `center-box-${currentIndex}` : `box-${project.id}`}
                   style={isCenter ? { transformOrigin: 'top center' } : undefined}
-                  className={`p-6 sm:p-8 rounded-2xl sm:rounded-3xl border transition-all duration-500 flex flex-col justify-between h-full group relative overflow-hidden shadow-2xl ${
-                    isCenter
+                  className={`p-6 sm:p-8 rounded-2xl sm:rounded-3xl border transition-all duration-500 flex flex-col justify-between h-full group relative overflow-hidden shadow-2xl ${isCenter
                       ? 'bg-[#18130e]/95 backdrop-blur-md border-brass-light/80 shadow-[0_0_35px_rgba(255,157,46,0.22)]'
                       : 'bg-[#120e0a]/90 backdrop-blur-sm border-brass-dark/40 hover:border-brass-dark/70'
-                  }`}
+                    }`}
                 >
                   {/* Arco decorativo geométrico sutil no canto superior direito (inspirado na imagem) */}
                   <div className="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-white/[0.04] pointer-events-none" />
@@ -540,22 +540,23 @@ export const ProjectsArchive = () => {
           </div>
 
         </div>
+      </ScrollReveal>
 
-        {/* Rodapé da Seção com Botão para Perfil Geral do GitHub */}
-        <div className="mt-14 text-center">
-          <a
-            href={profileData.social.github.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-steampunk inline-flex items-center gap-2 px-8 py-3.5 rounded text-xs sm:text-sm font-schematic font-bold text-brass-light hover:text-white uppercase tracking-wider shadow-lg group"
-          >
-            <GithubIcon className="w-5 h-5 text-copper-light group-hover:scale-110 transition-transform" />
-            <span>Explorar Todos os Repositórios no GitHub</span>
-            <ExternalLink className="w-4 h-4 text-brass-light" />
-          </a>
-        </div>
+      {/* Rodapé da Seção com Botão para Perfil Geral do GitHub */}
+      <ScrollReveal delay={250} distance={20} className="mt-14 text-center">
+        <a
+          href={profileData.social.github.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-steampunk inline-flex items-center gap-2 px-8 py-3.5 rounded text-xs sm:text-sm font-schematic font-bold text-brass-light hover:text-white uppercase tracking-wider shadow-lg group"
+        >
+          <GithubIcon className="w-5 h-5 text-copper-light group-hover:scale-110 transition-transform" />
+          <span>Explorar Todos os Repositórios no GitHub</span>
+          <ExternalLink className="w-4 h-4 text-brass-light" />
+        </a>
+      </ScrollReveal>
 
-      </div>
-    </section>
-  );
+    </div>
+  </section>
+);
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useId } from 'react';
 
 /**
  * Componente de engrenagem Steampunk em SVG puro
@@ -14,7 +14,8 @@ export const SteampunkGear = ({
   rotation = null,
   onClick,
 }) => {
-  const instanceId = React.useId ? React.useId().replace(/:/g, '') : color;
+  const rawId = useId();
+  const instanceId = rawId ? rawId.replace(/:/g, '') : color;
   const gearGradId = `gear-grad-${color}-${instanceId}`;
   const hubGradId = `hub-grad-${color}-${instanceId}`;
 

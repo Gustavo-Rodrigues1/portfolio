@@ -3,6 +3,7 @@ import { profileData } from '../data/profile';
 import { SteampunkGear } from './SteampunkGear';
 import { SteampunkChain } from './SteampunkChain';
 import { SteampunkPortholeFrame } from './SteampunkPortholeFrame';
+import { ScrollReveal } from './ScrollReveal';
 import {
   GraduationCap,
   Briefcase,
@@ -94,7 +95,7 @@ export const AboutUFS = () => {
         {/* ============================================================ */}
         {/* CABEÇALHO DA SEÇÃO: SOBRE MIM                                */}
         {/* ============================================================ */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <ScrollReveal delay={0} distance={28} className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-bold text-brass-gradient tracking-wide mb-4">
             Sobre Mim
           </h2>
@@ -111,7 +112,7 @@ export const AboutUFS = () => {
             Conheça minha jornada acadêmica na Universidade Federal de Sergipe, minha atuação prática
             no setor público e os interesses que impulsionam minha paixão por tecnologia.
           </p>
-        </div>
+        </ScrollReveal>
 
         {/* ============================================================ */}
         {/* BLOCO PRINCIPAL: FOTO À ESQUERDA & TEXTO À DIREITA           */}
@@ -121,7 +122,12 @@ export const AboutUFS = () => {
           {/* ---------------------------------------------------------- */}
           {/* LADO ESQUERDO: Apenas a Foto Redonda e Limpa               */}
           {/* ---------------------------------------------------------- */}
-          <div className="lg:col-span-5 flex flex-col items-center justify-center sticky top-28 py-4">
+          <ScrollReveal
+            variant="scale"
+            delay={150}
+            distance={28}
+            className="lg:col-span-5 flex flex-col items-center justify-center sticky top-28 py-4"
+          >
             <div className="relative w-64 h-64 sm:w-76 sm:h-76 md:w-80 md:h-80 flex items-center justify-center">
 
               {/* Brilho Suave Âmbar de Fundo */}
@@ -177,12 +183,16 @@ export const AboutUFS = () => {
               </SteampunkPortholeFrame>
 
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* ---------------------------------------------------------- */}
           {/* LADO DIREITO: Texto Resumindo Trajetória e Interesses      */}
           {/* ---------------------------------------------------------- */}
-          <div className="lg:col-span-7 flex flex-col">
+          <ScrollReveal
+            delay={250}
+            distance={32}
+            className="lg:col-span-7 flex flex-col"
+          >
 
             {/* Bloco 1: A Minha Trajetória */}
             <div className="mb-8">
@@ -228,7 +238,7 @@ export const AboutUFS = () => {
               })}
             </div>
 
-          </div>
+          </ScrollReveal>
 
         </div>
 
@@ -236,7 +246,7 @@ export const AboutUFS = () => {
         {/* COMPLEMENTO: CERTIFICAÇÕES TÉCNICAS OFICIAIS                */}
         {/* ============================================================ */}
         {profileData.certifications && profileData.certifications.length > 0 && (
-          <div className="mt-12 pt-8 border-t border-brass-dark/40">
+          <ScrollReveal delay={150} distance={24} className="mt-12 pt-8 border-t border-brass-dark/40">
             <div className="flex items-center gap-2 mb-4">
               <Award className="w-4 h-4 text-copper-light" />
               <span className="text-xs font-schematic uppercase tracking-widest text-copper-light font-bold">
@@ -258,7 +268,7 @@ export const AboutUFS = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </ScrollReveal>
         )}
 
       </div>
