@@ -39,7 +39,7 @@ export const profileData = {
       label: "gustavorodrigues3807@gmail.com",
     },
     whatsapp: {
-      number: "+55 (79) 99999-9999",
+      number: "+55 (79) 996110310",
       url: "https://wa.me/5579999999999",
       label: "+55 (79) 99999-9999",
     },

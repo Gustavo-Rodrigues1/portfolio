@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { SteampunkGear } from './SteampunkGear';
 import { SteampunkChain } from './SteampunkChain';
 import { SteampunkPortholeFrame } from './SteampunkPortholeFrame';
@@ -8,10 +8,21 @@ import { GithubIcon, LinkedinIcon } from './SocialIcons';
 import { SteampunkTopHat } from './HeroAnimatedText';
 import { ScrollReveal } from './ScrollReveal';
 
+// Letras do nome para o efeito de onda no hover
+const NAME_LETTERS = ['G', 'u', 's', 't', 'a', 'v', 'o'];
+// Delay entre cada letra na onda (ms) — mais espaçado = onda mais lenta
+const WAVE_STEP_MS = 90;
+// Duração da animação de cada letra (ms) — aumentado para movimento mais suave
+const WAVE_DURATION_MS = 620;
+
 export const Hero = () => {
   const [userPhoto, setUserPhoto] = useState(null);
-  // 'intro' (warmup inicial) | 'flipping' (salto mortal no clique) | 'idle' (repouso perfeitamente visível)
+  // 'intro' | 'flipping' | 'idle'
   const [hatMode, setHatMode] = useState('intro');
+  // Chave que incrementa a cada onda para forçar restart da animação CSS
+  const [waveKey, setWaveKey] = useState(0);
+  const [isWaving, setIsWaving] = useState(false);
+  const waveTimer = useRef(null);
 
   const handlePhotoUpload = (e) => {
     const file = e.target.files?.[0];
@@ -21,16 +32,23 @@ export const Hero = () => {
     }
   };
 
-  const handleHatClick = () => {
-    // Dispara o salto mortal suave sem risco de sumir
+  // Dispara a onda ao entrar no container do nome + ativa a cartola
+  const handleNameHover = () => {
+    if (isWaving) return;
+    clearTimeout(waveTimer.current);
+    setWaveKey((k) => k + 1);
+    setIsWaving(true);
+    // Também dispara a animação da cartola
     setHatMode('idle');
     requestAnimationFrame(() => {
       setHatMode('flipping');
     });
+    // Aguarda todas as letras terminarem antes de liberar nova onda
+    const totalDuration = (NAME_LETTERS.length - 1) * WAVE_STEP_MS + WAVE_DURATION_MS;
+    waveTimer.current = setTimeout(() => setIsWaving(false), totalDuration);
   };
 
   const handleHatAnimationEnd = (e) => {
-    // Interrompe apenas no elemento principal do chapéu (evita bubbling indesejado)
     if (e.target === e.currentTarget) {
       setHatMode('idle');
     }
@@ -108,30 +126,40 @@ export const Hero = () => {
               </span>
             </div>
 
-            {/* Nome com Efeito Térmico + Cartola Acrobática */}
+            {/* Nome com Efeito Térmico + Cartola Acrobática + Onda de Letras */}
             <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tight leading-none mb-5 mt-6 sm:mt-8 font-body">
-              <span className="relative inline-block animate-filament-glow">
-                {/* Cartola Steampunk interativa: salto suave no ar sem sumir ou travar */}
-                <SteampunkTopHat
-                  onClick={handleHatClick}
-                  onAnimationEnd={handleHatAnimationEnd}
-                  className={
-                    hatMode === 'intro'
-                      ? 'animate-hat-intro'
-                      : hatMode === 'flipping'
-                        ? 'animate-hat-flip'
-                        : ''
-                  }
-                  style={
-                    hatMode === 'idle'
-                      ? { transform: 'rotate(0deg)', opacity: 1 }
-                      : undefined
-                  }
-                />
-
-                <span className="bg-gradient-to-r from-[#ffd978] via-[#e59834] to-[#c85a17] bg-clip-text text-transparent drop-shadow-[0_4px_30px_rgba(245,158,11,0.45)]">
-                  Gustavo
-                </span>
+              {/* Container do nome: hover aqui dispara a onda */}
+              <span
+                className="relative inline-flex animate-filament-glow cursor-default"
+                onMouseEnter={handleNameHover}
+              >
+                {NAME_LETTERS.map((letter, idx) => (
+                  <span
+                    key={`${idx}-${waveKey}`}
+                    className={`relative inline-block bg-gradient-to-r from-[#ffd978] via-[#e59834] to-[#c85a17] bg-clip-text text-transparent drop-shadow-[0_4px_30px_rgba(245,158,11,0.45)] select-none${isWaving ? ' letter-wave-active' : ''}`}
+                    style={isWaving ? { animationDelay: `${idx * WAVE_STEP_MS}ms` } : undefined}
+                  >
+                    {/* Cartola Steampunk — apenas sobre o G */}
+                    {idx === 0 && (
+                      <SteampunkTopHat
+                        onAnimationEnd={handleHatAnimationEnd}
+                        className={
+                          hatMode === 'intro'
+                            ? 'animate-hat-intro'
+                            : hatMode === 'flipping'
+                              ? 'animate-hat-flip'
+                              : ''
+                        }
+                        style={
+                          hatMode === 'idle'
+                            ? { transform: 'rotate(0deg)', opacity: 1 }
+                            : undefined
+                        }
+                      />
+                    )}
+                    {letter}
+                  </span>
+                ))}
               </span>
               <span className="text-copper-light drop-shadow-[0_0_20px_#e0985c] inline-block animate-heat-dot">.</span>
             </h1>

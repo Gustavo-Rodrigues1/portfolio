@@ -12,7 +12,6 @@ import React from 'react';
 export const SteampunkTopHat = ({
   className = '',
   style = {},
-  onClick,
   onAnimationEnd,
 }) => (
   <div
@@ -28,17 +27,13 @@ export const SteampunkTopHat = ({
     }}
     aria-hidden="true"
   >
-    <button
-      type="button"
-      onClick={onClick}
+    <div
       onAnimationEnd={onAnimationEnd}
-      title="Clique na cartola para vê-la dar um salto mortal no ar!"
-      className={`pointer-events-auto cursor-pointer block w-full h-full bg-transparent border-none p-0 outline-none select-none ${className}`}
+      className={`block w-full h-full bg-transparent border-none p-0 outline-none select-none ${className}`}
       style={{
         transformOrigin: '50% 60%',
         ...style,
       }}
-      aria-label="Cartola Steampunk Interativa"
     >
       <svg
         viewBox="0 0 140 95"
@@ -116,6 +111,6 @@ export const SteampunkTopHat = ({
         <circle cx="75" cy="65" r="1.4" fill="#d8a828" stroke="#906010" strokeWidth="0.5" />
         <circle cx="97" cy="65" r="1.4" fill="#d8a828" stroke="#906010" strokeWidth="0.5" />
       </svg>
-    </button>
+    </div>
   </div>
 );
