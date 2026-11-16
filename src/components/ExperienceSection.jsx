@@ -2,6 +2,7 @@ import React from 'react';
 import { profileData } from '../data/profile';
 import { SteampunkGear } from './SteampunkGear';
 import { SteampunkChain } from './SteampunkChain';
+import { ScrollReveal } from './ScrollReveal';
 import {
   Briefcase,
   Building2,
@@ -91,7 +92,7 @@ export const ExperienceSection = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* ════ Cabeçalho da Seção ════ */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <ScrollReveal delay={0} distance={28} className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center justify-center p-3 rounded-full bg-[#1c140d] border border-brass-dark/80 shadow-[0_0_15px_rgba(255,157,46,0.3)] mb-4">
             <Briefcase className="w-6 h-6 text-steamAmber-glow" />
           </div>
@@ -112,7 +113,7 @@ export const ExperienceSection = () => {
             Histórico de atuação profissional, papéis desempenhados e contribuições práticas
             no suporte de tecnologia da informação, sustentação de infraestrutura e análise operacional.
           </p>
-        </div>
+        </ScrollReveal>
 
         {/* ════ Linha do Tempo de Experiências ════ */}
         <div className="space-y-8 relative">
@@ -126,8 +127,10 @@ export const ExperienceSection = () => {
             const IconComponent = extra.icon;
 
             return (
-              <div
+              <ScrollReveal
                 key={idx}
+                delay={idx * 160}
+                distance={32}
                 className="steampunk-panel p-6 sm:p-8 rounded-xl border border-brass-dark/70 hover:border-brass/90 transition-all duration-300 relative group shadow-2xl hover:shadow-[0_0_25px_rgba(255,157,46,0.2)]"
               >
                 {/* Rebites Mecânicos nos 4 Cantos */}
@@ -246,7 +249,7 @@ export const ExperienceSection = () => {
                   </div>
 
                 </div>
-              </div>
+              </ScrollReveal>
             );
           })}
 
