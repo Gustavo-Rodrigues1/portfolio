@@ -3,7 +3,7 @@ import { profileData } from '../data/profile';
 import { SteampunkGear } from './SteampunkGear';
 import { SteampunkChain } from './SteampunkChain';
 import { ScrollReveal } from './ScrollReveal';
-import { Briefcase, Building2, Calendar, MapPin } from 'lucide-react';
+import { Briefcase, Building2, Calendar, MapPin, Award, CheckCircle2 } from 'lucide-react';
 
 // Descrições curtas por empresa para a trilha
 const EXPERIENCE_SUMMARIES = {
@@ -52,9 +52,9 @@ export const ExperienceSection = () => (
       opacity={0.22}
     />
 
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
-      {/* ════ Cabeçalho ════ */}
+      {/* ════ Cabeçalho da Seção de Experiência ════ */}
       <ScrollReveal delay={0} distance={28} className="text-center max-w-3xl mx-auto mb-20">
         <div className="inline-flex items-center justify-center p-3 rounded-full bg-[#1c140d] border border-brass-dark/80 shadow-[0_0_15px_rgba(255,157,46,0.3)] mb-4">
           <Briefcase className="w-6 h-6 text-steamAmber-glow" />
@@ -79,7 +79,7 @@ export const ExperienceSection = () => (
       </ScrollReveal>
 
       {/* ════ Trilha de Experiências ════ */}
-      <div className="relative">
+      <div className="max-w-4xl mx-auto relative mb-24">
 
         {/* Linha vertical da trilha */}
         <div className="absolute left-6 sm:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-brass/50 via-brass-dark/40 to-transparent" />
@@ -208,6 +208,88 @@ export const ExperienceSection = () => (
           })}
         </div>
       </div>
+
+      {/* ════ Certificados & Habilitações Oficiais (Design do Card do Carrossel) ════ */}
+      {profileData.certifications && profileData.certifications.length > 0 && (
+        <div className="mt-20 pt-16 border-t-2 border-brass-dark/40">
+          <ScrollReveal delay={0} distance={28} className="text-center max-w-3xl mx-auto mb-14">
+            <div className="inline-flex items-center justify-center p-3 rounded-full bg-[#1c140d] border border-brass-dark/80 shadow-[0_0_15px_rgba(255,157,46,0.3)] mb-4">
+              <Award className="w-6 h-6 text-steamAmber-glow" />
+            </div>
+
+            <h3 className="font-cinzel text-2xl sm:text-3xl lg:text-4xl font-bold text-brass-gradient tracking-wide mb-3">
+              Certificações &amp; Habilitações Oficiais
+            </h3>
+
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="h-px w-12 bg-brass/60" />
+              <span className="text-copper-light text-xs font-schematic uppercase tracking-widest">
+                Atestados Técnicos &amp; Domínio de Ferramentas
+              </span>
+              <span className="h-px w-12 bg-brass/60" />
+            </div>
+
+            <p className="text-[#c5b59e] text-sm sm:text-base leading-relaxed">
+              Credenciais e certificados técnicos que comprovam dedicação contínua ao aprimoramento prático e excelência em engenharia e dados.
+            </p>
+          </ScrollReveal>
+
+          {/* Grade de Cards com Modelo do Carrossel de Projetos */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+            {profileData.certifications.map((cert, idx) => (
+              <ScrollReveal key={idx} delay={idx * 110} distance={24} className="h-full">
+                <div className="p-6 sm:p-7 rounded-2xl sm:rounded-3xl border transition-all duration-500 flex flex-col justify-between h-full group relative overflow-hidden shadow-2xl hover:scale-[1.03] hover:-translate-y-2 bg-[#18130e]/95 backdrop-blur-md border-brass-light/80 shadow-[0_0_35px_rgba(255,157,46,0.22)] hover:border-amber-300 hover:shadow-[0_0_48px_rgba(255,185,75,0.4)]">
+
+                  {/* Efeito Contínuo de Reflexo Metálico Cintilante ao Passar o Cursor */}
+                  <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 overflow-hidden">
+                    <div className="w-[130%] h-[220%] -top-[60%] absolute metallic-sheen-layer animate-metallic-sheen" />
+                  </div>
+
+                  {/* Formas Geométricas Orgânicas Decorativas que Deformam e Mudam de Forma */}
+                  <div className="absolute -top-14 -right-14 w-44 h-44 bg-gradient-to-br from-amber-400/[0.09] via-white/[0.04] to-transparent pointer-events-none blur-[1px] animate-morph-a opacity-80 group-hover:opacity-100 transition-opacity duration-700" />
+                  <div className="absolute -bottom-10 -right-8 w-36 h-36 bg-gradient-to-tr from-copper-light/[0.07] via-brass-light/[0.03] to-transparent pointer-events-none blur-[1px] animate-morph-b opacity-70 group-hover:opacity-100 transition-opacity duration-700" />
+                  <div className="absolute top-1/3 -left-10 w-28 h-28 bg-gradient-to-r from-steamAmber-bright/[0.06] to-transparent pointer-events-none blur-[2px] animate-morph-c opacity-60 group-hover:opacity-90 transition-opacity duration-700" />
+
+                  <div className="relative z-10">
+                    {/* Badge da Categoria / Emissor no topo */}
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="px-3.5 py-1.5 rounded-full text-xs font-body font-semibold bg-[#241e17] border border-brass-dark/50 text-[#e4d7c5] group-hover:text-amber-200 group-hover:border-amber-400 group-hover:bg-[#2e2319] group-hover:shadow-[0_0_16px_rgba(255,190,91,0.7)] group-hover:scale-105 transition-all duration-300 cursor-default select-none">
+                        {cert.issuer}
+                      </span>
+
+                      <div className="w-8 h-8 rounded-full bg-[#201810] border border-brass-dark/70 flex items-center justify-center group-hover:border-amber-400 group-hover:shadow-[0_0_12px_rgba(255,190,91,0.5)] transition-all duration-300">
+                        <Award className="w-4 h-4 text-steamAmber-glow group-hover:scale-110 group-hover:text-amber-300 transition-transform" />
+                      </div>
+                    </div>
+
+                    {/* Título Principal do Certificado */}
+                    <h4 className="font-body text-xl sm:text-2xl font-bold text-[#f5ecd5] tracking-tight group-hover:text-amber-300 transition-colors mb-2">
+                      {cert.name}
+                    </h4>
+
+                    <p className="font-body text-xs sm:text-[13px] text-[#b8a793] leading-relaxed mb-6">
+                      Habilitação técnica com validação prática de conceitos, domínio de fluxo e aplicação em projetos reais.
+                    </p>
+                  </div>
+
+                  {/* Linha Divisória e Rodapé com Selo de Validação */}
+                  <div className="pt-4 sm:pt-5 border-t border-brass-dark/30 flex items-center justify-between mt-auto relative z-10">
+                    <span className="flex items-center gap-1.5 text-xs font-schematic text-steamAmber-bright">
+                      <CheckCircle2 className="w-4 h-4 text-steamAmber-bright" />
+                      <span>Certificação Homologada</span>
+                    </span>
+
+                    <span className="font-schematic text-[11px] text-brass-dark font-mono font-bold">
+                      CERT-0{idx + 1}
+                    </span>
+                  </div>
+
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      )}
 
     </div>
   </section>

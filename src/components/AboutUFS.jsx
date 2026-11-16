@@ -5,20 +5,11 @@ import { SteampunkChain } from './SteampunkChain';
 import { SteampunkPortholeFrame } from './SteampunkPortholeFrame';
 import { ScrollReveal } from './ScrollReveal';
 import {
-  GraduationCap,
-  Briefcase,
-  Building2,
-  Calendar,
-  MapPin,
-  Award,
   Code2,
   Database,
   ShieldCheck,
   Workflow,
-  Sparkles,
-  Camera,
-  Compass,
-  ArrowRight
+  Camera
 } from 'lucide-react';
 
 export const AboutUFS = () => {
@@ -241,35 +232,6 @@ export const AboutUFS = () => {
           </ScrollReveal>
 
         </div>
-
-        {/* ============================================================ */}
-        {/* COMPLEMENTO: CERTIFICAÇÕES TÉCNICAS OFICIAIS                */}
-        {/* ============================================================ */}
-        {profileData.certifications && profileData.certifications.length > 0 && (
-          <ScrollReveal delay={150} distance={24} className="mt-12 pt-8 border-t border-brass-dark/40">
-            <div className="flex items-center gap-2 mb-4">
-              <Award className="w-4 h-4 text-copper-light" />
-              <span className="text-xs font-schematic uppercase tracking-widest text-copper-light font-bold">
-                Certificações & Habilitações Oficiais
-              </span>
-            </div>
-
-            <div className="flex flex-wrap gap-3">
-              {profileData.certifications.map((cert, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-center gap-2.5 px-4 py-2.5 rounded bg-[#18130e] border border-brass-dark/60 text-xs font-schematic text-brass-light hover:border-brass-light/80 transition-all shadow-sm"
-                >
-                  <Award className="w-4 h-4 text-steamAmber-glow flex-shrink-0" />
-                  <div>
-                    <span className="font-semibold block">{cert.name}</span>
-                    <span className="text-[10px] text-copper-light block font-light">{cert.issuer}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </ScrollReveal>
-        )}
 
       </div>
     </section>
