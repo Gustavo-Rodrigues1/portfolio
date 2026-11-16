@@ -9,7 +9,8 @@ import {
   Database,
   ShieldCheck,
   Workflow,
-  Camera
+  Camera,
+  Award
 } from 'lucide-react';
 
 export const AboutUFS = () => {
@@ -232,6 +233,53 @@ export const AboutUFS = () => {
           </ScrollReveal>
 
         </div>
+
+        {/* ============================================================ */}
+        {/* COMPLEMENTO: CERTIFICAÇÕES TÉCNICAS OFICIAIS                */}
+        {/* ============================================================ */}
+        {profileData.certifications && profileData.certifications.length > 0 && (
+          <ScrollReveal delay={150} distance={24} className="mt-14 pt-8 border-t border-brass-dark/40">
+            <div className="flex items-center gap-2 mb-5">
+              <Award className="w-4 h-4 text-copper-light" />
+              <span className="text-xs font-schematic uppercase tracking-widest text-copper-light font-bold">
+                Certificações &amp; Habilitações Oficiais
+              </span>
+            </div>
+
+            <div className="flex flex-wrap gap-3 sm:gap-3.5">
+              {profileData.certifications.map((cert, idx) => (
+                <div
+                  key={idx}
+                  className="relative px-4 py-3 rounded-xl sm:rounded-2xl border transition-all duration-300 flex items-center gap-3.5 group overflow-hidden bg-[#18130e]/95 backdrop-blur-md border-brass-light/75 shadow-[0_4px_16px_rgba(0,0,0,0.6)] hover:border-amber-300 hover:shadow-[0_0_24px_rgba(255,185,75,0.35)] hover:scale-[1.03] hover:-translate-y-1 select-none"
+                >
+                  {/* Efeito Contínuo de Reflexo Metálico Cintilante ao Passar o Cursor */}
+                  <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 overflow-hidden rounded-xl sm:rounded-2xl">
+                    <div className="w-[130%] h-[220%] -top-[60%] absolute metallic-sheen-layer animate-metallic-sheen" />
+                  </div>
+
+                  {/* Formas Geométricas Orgânicas Decorativas que Deformam */}
+                  <div className="absolute -top-8 -right-8 w-20 h-20 bg-gradient-to-br from-amber-400/[0.09] via-white/[0.03] to-transparent pointer-events-none blur-[1px] animate-morph-a opacity-70 group-hover:opacity-100 transition-opacity duration-700" />
+                  <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-gradient-to-tr from-copper-light/[0.07] to-transparent pointer-events-none blur-[1px] animate-morph-b opacity-60 group-hover:opacity-100 transition-opacity duration-700" />
+
+                  {/* Ícone em Círculo Mecânico com Glow */}
+                  <div className="relative z-10 w-8 h-8 rounded-full bg-[#201810] border border-brass-dark/70 flex items-center justify-center flex-shrink-0 group-hover:border-amber-400 group-hover:shadow-[0_0_12px_rgba(255,190,91,0.5)] transition-all duration-300">
+                    <Award className="w-4 h-4 text-steamAmber-glow group-hover:scale-110 group-hover:text-amber-300 transition-transform" />
+                  </div>
+
+                  {/* Nome do Certificado e Emissor */}
+                  <div className="relative z-10">
+                    <span className="font-body font-semibold text-xs sm:text-sm text-[#f5ecd5] group-hover:text-amber-300 transition-colors block leading-tight">
+                      {cert.name}
+                    </span>
+                    <span className="font-schematic text-[11px] text-[#cbba9d] mt-0.5 block font-light">
+                      {cert.issuer}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
+        )}
 
       </div>
     </section>
