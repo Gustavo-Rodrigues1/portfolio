@@ -284,7 +284,7 @@ export const ProjectsArchive = () => {
 
         {/* Palco do Carrossel (3 Projetos: Central em Destaque e 2 Laterais Turvas) */}
         <div
-          className="relative flex items-center justify-center overflow-hidden py-4"
+          className="relative flex items-center justify-center py-6 sm:py-8"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           onTouchStart={handleTouchStart}
@@ -300,13 +300,13 @@ export const ProjectsArchive = () => {
               <p className="text-xs sm:text-[13.5px] font-body leading-relaxed mb-6">
                 Plataforma interativa para consolidação de métricas, filtros em tempo real e visualização analítica desenvolvida com base nas competências de Sistemas de Informação.
               </p>
-              <div className="flex flex-wrap gap-2 mb-6">
-                <span className="px-3.5 py-1.5 rounded-full text-xs">React</span>
-                <span className="px-3.5 py-1.5 rounded-full text-xs">Tailwind CSS</span>
-                <span className="px-3.5 py-1.5 rounded-full text-xs">JavaScript</span>
+              <div className="flex flex-wrap gap-2.5 sm:gap-3 mb-6">
+                <span className="px-4.5 py-2 rounded-full text-xs sm:text-sm">React</span>
+                <span className="px-4.5 py-2 rounded-full text-xs sm:text-sm">Tailwind CSS</span>
+                <span className="px-4.5 py-2 rounded-full text-xs sm:text-sm">JavaScript</span>
               </div>
               <div className="pt-4 border-t border-transparent flex items-center justify-between">
-                <span className="h-6">View Live</span>
+                <span className="h-8">View Live</span>
               </div>
             </div>
           </div>
@@ -342,13 +342,21 @@ export const ProjectsArchive = () => {
                 <div
                   key={isCenter ? `center-box-${currentIndex}` : `box-${project.id}`}
                   style={isCenter ? { transformOrigin: 'top center' } : undefined}
-                  className={`p-6 sm:p-8 rounded-2xl sm:rounded-3xl border transition-all duration-500 flex flex-col justify-between h-full group relative overflow-hidden shadow-2xl ${isCenter
-                      ? 'bg-[#18130e]/95 backdrop-blur-md border-brass-light/80 shadow-[0_0_35px_rgba(255,157,46,0.22)]'
+                  className={`p-6 sm:p-8 rounded-2xl sm:rounded-3xl border transition-all duration-500 flex flex-col justify-between h-full group relative overflow-hidden shadow-2xl hover:scale-[1.04] hover:-translate-y-2.5 ${
+                    isCenter
+                      ? 'bg-[#18130e]/95 backdrop-blur-md border-brass-light/80 shadow-[0_0_35px_rgba(255,157,46,0.22)] hover:border-amber-300 hover:shadow-[0_0_48px_rgba(255,185,75,0.4)]'
                       : 'bg-[#120e0a]/90 backdrop-blur-sm border-brass-dark/40 hover:border-brass-dark/70'
-                    }`}
+                  }`}
                 >
-                  {/* Arco decorativo geométrico sutil no canto superior direito (inspirado na imagem) */}
-                  <div className="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-white/[0.04] pointer-events-none" />
+                  {/* Efeito Contínuo de Reflexo Metálico Cintilante ao Passar o Cursor */}
+                  <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 overflow-hidden">
+                    <div className="w-[130%] h-[220%] -top-[60%] absolute metallic-sheen-layer animate-metallic-sheen" />
+                  </div>
+
+                  {/* Formas Geométricas Orgânicas Decorativas que Deformam e Mudam de Forma */}
+                  <div className="absolute -top-16 -right-16 w-60 h-60 bg-gradient-to-br from-amber-400/[0.09] via-white/[0.04] to-transparent pointer-events-none blur-[1px] animate-morph-a opacity-80 group-hover:opacity-100 transition-opacity duration-700" />
+                  <div className="absolute -bottom-12 -right-10 w-44 h-44 bg-gradient-to-tr from-copper-light/[0.07] via-brass-light/[0.03] to-transparent pointer-events-none blur-[1px] animate-morph-b opacity-70 group-hover:opacity-100 transition-opacity duration-700" />
+                  <div className="absolute top-1/3 -left-12 w-32 h-32 bg-gradient-to-r from-steamAmber-bright/[0.06] to-transparent pointer-events-none blur-[2px] animate-morph-c opacity-60 group-hover:opacity-90 transition-opacity duration-700" />
 
                   <div>
                     {/* Título Principal em Destaque */}
@@ -361,12 +369,12 @@ export const ProjectsArchive = () => {
                       {project.description}
                     </p>
 
-                    {/* Tecnologias em Pílulas Arredondadas (Tags) */}
-                    <div className="flex flex-wrap gap-2 sm:gap-2.5 mb-6">
+                    {/* Tecnologias em Pílulas Maiores que Brilham e Aumentam no Hover */}
+                    <div className="flex flex-wrap gap-2.5 sm:gap-3 mb-6">
                       {project.techs.map((tech, i) => (
                         <span
                           key={i}
-                          className="px-3.5 py-1.5 rounded-full text-xs font-body font-medium bg-[#241e17] border border-brass-dark/40 text-[#dfd2be] hover:border-amber-400/60 hover:text-white transition-colors select-none"
+                          className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-body font-semibold bg-[#241e17] border border-brass-dark/50 text-[#e4d7c5] hover:text-amber-200 hover:border-amber-400 hover:bg-[#2e2319] hover:shadow-[0_0_16px_rgba(255,190,91,0.7)] hover:scale-110 hover:-translate-y-0.5 transition-all duration-300 cursor-default select-none"
                         >
                           {tech}
                         </span>
@@ -387,16 +395,16 @@ export const ProjectsArchive = () => {
                       <ArrowRight className="w-4 h-4 transition-transform group-hover/link:translate-x-1" />
                     </a>
 
-                    {/* Ícone Direto para o GitHub */}
+                    {/* Ícone Maior do GitHub com Efeito de Brilho */}
                     <a
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Repositório GitHub de ${project.title}`}
-                      className="text-[#b8a793] hover:text-white hover:scale-110 transition-all p-1"
+                      className="text-[#b8a793] hover:text-amber-300 hover:drop-shadow-[0_0_12px_rgba(255,190,91,0.85)] hover:scale-120 transition-all duration-300 p-1.5 flex items-center justify-center"
                       title="Acessar repositório no GitHub"
                     >
-                      <GithubIcon className="w-5 h-5" />
+                      <GithubIcon className="w-7 h-7 sm:w-8 sm:h-8" />
                     </a>
                   </div>
 

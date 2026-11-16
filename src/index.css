@@ -585,11 +585,7 @@
 
 /* Salto Mortal Suave e Fluido de Entrada (Warmup) */
 @keyframes hat-intro-flip {
-  0% {
-    opacity: 0;
-    transform: translateY(0) rotate(0deg);
-  }
-  30% {
+  0%, 30% {
     opacity: 1;
     transform: translateY(0) rotate(0deg);
   }
@@ -670,7 +666,7 @@
 }
 
 .animate-heat-dot {
-  animation: heat-fade-in 0.6s 0.5s ease-out both;
+  animation: heat-fade-in 0.6s 0.8s ease-out both;
 }
 
 @keyframes social-pop-in {
@@ -782,4 +778,95 @@
 
 .animate-navbar-entrance {
   animation: navbar-slide-down 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   FORMAS GEOMÉTRICAS ORGÂNICAS DEFORMANTES (CARD BACKGROUNDS)
+   ══════════════════════════════════════════════════════════════ */
+@keyframes morph-shape-a {
+  0%, 100% {
+    border-radius: 62% 38% 46% 54% / 40% 58% 42% 60%;
+    transform: rotate(0deg) scale(1);
+  }
+  33% {
+    border-radius: 40% 60% 65% 35% / 60% 30% 70% 40%;
+    transform: rotate(120deg) scale(1.12);
+  }
+  66% {
+    border-radius: 55% 45% 30% 70% / 35% 65% 35% 65%;
+    transform: rotate(240deg) scale(0.92);
+  }
+}
+
+@keyframes morph-shape-b {
+  0%, 100% {
+    border-radius: 45% 55% 70% 30% / 55% 40% 60% 45%;
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    border-radius: 70% 30% 45% 55% / 35% 65% 35% 65%;
+    transform: rotate(-180deg) scale(1.15);
+  }
+}
+
+@keyframes morph-shape-c {
+  0%, 100% {
+    border-radius: 50% 50% 35% 65% / 65% 45% 55% 35%;
+    transform: rotate(0deg) translate(0, 0);
+  }
+  50% {
+    border-radius: 35% 65% 60% 40% / 40% 60% 40% 60%;
+    transform: rotate(180deg) translate(8px, -10px);
+  }
+}
+
+.animate-morph-a {
+  animation: morph-shape-a 14s ease-in-out infinite;
+}
+
+.animate-morph-b {
+  animation: morph-shape-b 19s ease-in-out infinite;
+}
+
+.animate-morph-c {
+  animation: morph-shape-c 12s ease-in-out infinite;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   REFLEXO METÁLICO CINTILANTE CONTÍNUO (METALLIC SHEEN SWEEP)
+   ══════════════════════════════════════════════════════════════ */
+@keyframes metallic-sheen-sweep {
+  0% {
+    transform: translateX(-160%) skewX(-25deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  58% {
+    transform: translateX(210%) skewX(-25deg);
+    opacity: 1;
+  }
+  65%, 100% {
+    transform: translateX(210%) skewX(-25deg);
+    opacity: 0;
+  }
+}
+
+.metallic-sheen-layer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 235, 175, 0.04) 20%,
+    rgba(255, 245, 215, 0.18) 46%,
+    rgba(255, 255, 255, 0.38) 50%,
+    rgba(255, 245, 215, 0.18) 54%,
+    rgba(255, 210, 130, 0.06) 75%,
+    transparent 100%
+  );
+  filter: drop-shadow(0 0 14px rgba(255, 220, 140, 0.6));
+}
+
+.animate-metallic-sheen {
+  animation: metallic-sheen-sweep 2.5s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
 }

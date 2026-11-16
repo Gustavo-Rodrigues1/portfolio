@@ -17,7 +17,7 @@ export const SteampunkTopHat = ({
   <div
     className="absolute pointer-events-none"
     style={{
-      bottom: '68%',
+      bottom: '58%',
       left: '-0.04em',
       width: '0.9em',
       height: 'auto',
