@@ -930,19 +930,15 @@
 /* ══════════════════════════════════════════════════════════════
    BRILHO E BOLHAS DO LÍQUIDO DA BARRA MECÂNICA
    ══════════════════════════════════════════════════════════════ */
-@keyframes liquid-bubble-bob-1 {
-  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.9; }
-  50% { transform: translate(-2.5px, -1px) scale(1.15); opacity: 1; }
-}
 
-@keyframes liquid-bubble-bob-2 {
-  0%, 100% { transform: translate(0, 0) scale(1.1); opacity: 0.85; }
-  50% { transform: translate(2.5px, 0.8px) scale(0.85); opacity: 1; }
-}
-
-@keyframes liquid-bubble-bob-3 {
-  0%, 100% { transform: translate(0, 0) scale(0.9); opacity: 0.75; }
-  50% { transform: translate(-1.5px, 1px) scale(1.2); opacity: 0.95; }
+/* Bolha transparente que nasce na esquerda e flui até 100% da barra.
+   O container da barra tem overflow:hidden, então 100% = fim da barra. */
+@keyframes bubble-flow-right {
+  0%   { left: -4px;   opacity: 0;    transform: translateY(-50%) scale(0.6); }
+  7%   { left: 2%;     opacity: 1;    transform: translateY(calc(-50% - 1px)) scale(1); }
+  50%  { left: 50%;    opacity: 0.85; transform: translateY(calc(-50% + 1px)) scale(1.05); }
+  93%  { left: 97%;    opacity: 0.5;  transform: translateY(-50%) scale(0.9); }
+  100% { left: 102%;   opacity: 0;    transform: translateY(-50%) scale(0.7); }
 }
 
 @keyframes liquid-shimmer-sweep {

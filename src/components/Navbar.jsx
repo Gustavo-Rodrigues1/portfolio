@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { SteampunkGear } from './SteampunkGear';
 import { profileData } from '../data/profile';
 import { Menu, X } from 'lucide-react';
@@ -147,6 +147,40 @@ export const Navbar = () => {
       setMobileMenuOpen(false);
     }
   };
+
+  // ── Bolhas dinâmicas que percorrem a barra da esquerda para a direita ──
+  const [bubbles, setBubbles] = useState([]);
+  const bubbleIdRef = useRef(0);
+  const bubbleBarWidth = useMemo(
+    () => navBounds.endX - navBounds.startX,
+    [navBounds.startX, navBounds.endX]
+  );
+
+  useEffect(() => {
+    if (bubbleBarWidth <= 0) return;
+
+    let spawnTimer;
+
+    const spawnBubble = () => {
+      const id = ++bubbleIdRef.current;
+      const size = 3 + Math.random() * 4;           // 3–7 px
+      const topPct = 15 + Math.random() * 65;       // 15–80% da altura da barra
+      const duration = 3500 + Math.random() * 4000; // 3.5–7.5 s para cruzar
+
+      setBubbles(prev => [...prev, { id, size, topPct, duration }]);
+
+      // Remove a bolha depois que ela termina
+      setTimeout(() => {
+        setBubbles(prev => prev.filter(b => b.id !== id));
+      }, duration + 300);
+
+      // Agenda o próximo spawn com intervalo aleatório
+      spawnTimer = setTimeout(spawnBubble, 450 + Math.random() * 650);
+    };
+
+    spawnTimer = setTimeout(spawnBubble, 300);
+    return () => clearTimeout(spawnTimer);
+  }, [bubbleBarWidth]);
 
   return (
     <header ref={headerRef} className="fixed top-0 left-0 right-0 z-50 animate-navbar-entrance">
@@ -320,29 +354,21 @@ export const Navbar = () => {
                   }}
                 />
 
-                {/* Pequenas bolhas alquímicas flutuando no interior do fluido */}
-                {[
-                  { left: '8%', top: '20%', size: '2.5px', anim: 'liquid-bubble-bob-1 1.8s ease-in-out infinite' },
-                  { left: '20%', top: '45%', size: '3px', anim: 'liquid-bubble-bob-2 2.1s ease-in-out infinite 0.2s' },
-                  { left: '35%', top: '15%', size: '2px', anim: 'liquid-bubble-bob-3 1.6s ease-in-out infinite 0.5s' },
-                  { left: '50%', top: '40%', size: '3.5px', anim: 'liquid-bubble-bob-1 2.4s ease-in-out infinite 0.3s' },
-                  { left: '65%', top: '20%', size: '2.5px', anim: 'liquid-bubble-bob-2 1.9s ease-in-out infinite 0.7s' },
-                  { left: '78%', top: '45%', size: '3px', anim: 'liquid-bubble-bob-3 2.0s ease-in-out infinite 0.4s' },
-                  { left: '88%', top: '20%', size: '2px', anim: 'liquid-bubble-bob-1 1.7s ease-in-out infinite 0.8s' },
-                  { left: '96%', top: '35%', size: '3px', anim: 'liquid-bubble-bob-2 2.2s ease-in-out infinite 0.1s' },
-                ].map((b, i) => (
+                {/* Bolhas dinâmicas transparentes que percorrem a barra da esquerda para direita */}
+                {bubbles.map((b) => (
                   <div
-                    key={`b-${i}`}
+                    key={b.id}
                     className="absolute rounded-full pointer-events-none"
                     style={{
-                      left: b.left,
-                      top: b.top,
-                      width: b.size,
-                      height: b.size,
-                      border: '0.8px solid rgba(255, 255, 255, 0.95)',
-                      background: 'radial-gradient(circle at 35% 30%, #ffffff 0%, rgba(255, 240, 180, 0.75) 45%, rgba(255, 170, 40, 0.2) 80%, transparent 100%)',
-                      boxShadow: '0 0 3px rgba(255, 255, 255, 0.85), inset 0 0 1px #fff',
-                      animation: b.anim,
+                      '--bar-width': `${bubbleBarWidth}px`,
+                      width: `${b.size}px`,
+                      height: `${b.size}px`,
+                      top: `${b.topPct}%`,
+                      left: 0,
+                      background: 'radial-gradient(circle at 35% 30%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.08) 60%, transparent 100%)',
+                      border: '0.8px solid rgba(255,255,255,0.35)',
+                      boxShadow: '0 0 4px rgba(255,255,255,0.4), inset 0 0 2px rgba(255,255,255,0.3)',
+                      animation: `bubble-flow-right ${b.duration}ms linear forwards`,
                     }}
                   />
                 ))}
