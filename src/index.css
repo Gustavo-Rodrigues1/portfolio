@@ -855,3 +855,99 @@
 .animate-metallic-sheen {
   animation: metallic-sheen-sweep 2.5s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
 }
+
+/* ══════════════════════════════════════════════════════════════
+   FAÍSCAS MECÂNICAS DA ENGRENAGEM DA NAVBAR (GEAR FRICTION SPARKS)
+   ══════════════════════════════════════════════════════════════ */
+/* Faíscas ejetadas para trás e para baixo à esquerda (quando o trem de engrenagens se move para a direita) */
+@keyframes spark-shoot-l1 {
+  0% { transform: translate(0, 0) scale(1.3); opacity: 1; }
+  100% { transform: translate(-22px, 14px) scale(0.2); opacity: 0; }
+}
+@keyframes spark-shoot-l2 {
+  0% { transform: translate(0, 0) scale(1.1); opacity: 1; }
+  100% { transform: translate(-34px, 20px) scale(0.15); opacity: 0; }
+}
+@keyframes spark-shoot-l3 {
+  0% { transform: translate(0, 0) scale(1.4); opacity: 1; }
+  100% { transform: translate(-14px, 24px) scale(0.2); opacity: 0; }
+}
+@keyframes spark-shoot-l4 {
+  0% { transform: translate(0, 0) scale(1.2); opacity: 1; }
+  100% { transform: translate(-42px, 10px) scale(0.15); opacity: 0; }
+}
+@keyframes spark-shoot-l5 {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(-28px, 28px) scale(0.2); opacity: 0; }
+}
+@keyframes spark-shoot-l6 {
+  0% { transform: translate(0, 0) scale(1.3); opacity: 1; }
+  100% { transform: translate(-18px, 32px) scale(0.1); opacity: 0; }
+}
+@keyframes spark-shoot-l7 {
+  0% { transform: translate(0, 0) scale(1.5); opacity: 1; }
+  100% { transform: translate(-38px, 16px) scale(0.1); opacity: 0; }
+}
+@keyframes spark-shoot-l8 {
+  0% { transform: translate(0, 0) scale(1.1); opacity: 1; }
+  100% { transform: translate(-10px, 36px) scale(0.2); opacity: 0; }
+}
+
+/* Faíscas ejetadas para trás e para baixo à direita (quando o trem de engrenagens se move para a esquerda) */
+@keyframes spark-shoot-r1 {
+  0% { transform: translate(0, 0) scale(1.3); opacity: 1; }
+  100% { transform: translate(22px, 14px) scale(0.2); opacity: 0; }
+}
+@keyframes spark-shoot-r2 {
+  0% { transform: translate(0, 0) scale(1.1); opacity: 1; }
+  100% { transform: translate(34px, 20px) scale(0.15); opacity: 0; }
+}
+@keyframes spark-shoot-r3 {
+  0% { transform: translate(0, 0) scale(1.4); opacity: 1; }
+  100% { transform: translate(14px, 24px) scale(0.2); opacity: 0; }
+}
+@keyframes spark-shoot-r4 {
+  0% { transform: translate(0, 0) scale(1.2); opacity: 1; }
+  100% { transform: translate(42px, 10px) scale(0.15); opacity: 0; }
+}
+@keyframes spark-shoot-r5 {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(28px, 28px) scale(0.2); opacity: 0; }
+}
+@keyframes spark-shoot-r6 {
+  0% { transform: translate(0, 0) scale(1.3); opacity: 1; }
+  100% { transform: translate(18px, 32px) scale(0.1); opacity: 0; }
+}
+@keyframes spark-shoot-r7 {
+  0% { transform: translate(0, 0) scale(1.5); opacity: 1; }
+  100% { transform: translate(38px, 16px) scale(0.1); opacity: 0; }
+}
+@keyframes spark-shoot-r8 {
+  0% { transform: translate(0, 0) scale(1.1); opacity: 1; }
+  100% { transform: translate(10px, 36px) scale(0.2); opacity: 0; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   BRILHO E BOLHAS DO LÍQUIDO DA BARRA MECÂNICA
+   ══════════════════════════════════════════════════════════════ */
+@keyframes liquid-bubble-bob-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.9; }
+  50% { transform: translate(-2.5px, -1px) scale(1.15); opacity: 1; }
+}
+
+@keyframes liquid-bubble-bob-2 {
+  0%, 100% { transform: translate(0, 0) scale(1.1); opacity: 0.85; }
+  50% { transform: translate(2.5px, 0.8px) scale(0.85); opacity: 1; }
+}
+
+@keyframes liquid-bubble-bob-3 {
+  0%, 100% { transform: translate(0, 0) scale(0.9); opacity: 0.75; }
+  50% { transform: translate(-1.5px, 1px) scale(1.2); opacity: 0.95; }
+}
+
+@keyframes liquid-shimmer-sweep {
+  0% { transform: translateX(-150%); opacity: 0; }
+  25% { opacity: 0.8; }
+  65% { opacity: 0.8; }
+  100% { transform: translateX(250%); opacity: 0; }
+}
