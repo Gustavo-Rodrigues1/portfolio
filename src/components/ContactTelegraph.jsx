@@ -135,106 +135,133 @@ export const ContactTelegraph = () => {
             </div>
 
               {/* Informações de Contato Direto: Email, Telefone e Localidade */}
-              <div className="space-y-3 max-w-lg mb-6">
+              <div className="space-y-3.5 max-w-lg mb-6">
 
-                      {/* 1. Caixa E-mail */}
-                      <div className="steampunk-panel p-3.5 rounded-lg border border-brass-dark/60 hover:border-brass/90 transition-all flex items-center justify-between group shadow-md">
-                        <div className="flex items-center gap-3.5 min-w-0">
-                          <div className="w-10 h-10 rounded-lg bg-[#1e1711] border border-brass-dark flex items-center justify-center text-brass-light group-hover:scale-105 group-hover:border-brass-light transition-all shadow-inner flex-shrink-0">
-                            <Mail className="w-5 h-5 text-steamAmber-bright" />
-                          </div>
-                            <div className="min-w-0">
-                              <span className="text-[10px] font-schematic uppercase tracking-widest text-copper-light block font-semibold leading-tight">
-                                E-mail
-                              </span>
-                              <a
-                                href={profileData.social.email.url}
-                                className="text-xs sm:text-sm font-schematic text-[#f5ecd5] hover:text-brass-light transition-colors truncate block"
-                                title={profileData.social.email.address}
-                              >
-                                {profileData.social.email.address}
-                              </a>
-                            </div>
-                          </div>
+                {/* 1. Caixa E-mail */}
+                <div className="relative p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border transition-all duration-300 flex items-center justify-between group overflow-hidden bg-[#18130e]/95 backdrop-blur-md border-brass-light/75 shadow-[0_4px_16px_rgba(0,0,0,0.6)] hover:border-amber-300 hover:shadow-[0_0_24px_rgba(255,185,75,0.35)] hover:scale-[1.02] hover:-translate-y-0.5 select-none">
+                  {/* Efeito Contínuo de Reflexo Metálico Cintilante ao Passar o Cursor */}
+                  <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 overflow-hidden rounded-xl sm:rounded-2xl">
+                    <div className="w-[130%] h-[220%] -top-[60%] absolute metallic-sheen-layer animate-metallic-sheen" />
+                  </div>
 
-                <button
-                            type="button"
-                            onClick={() => handleCopy(profileData.social.email.address, 'email')}
-                            title="Copiar endereço de e-mail"
-                            className="btn-steampunk px-2.5 py-1.5 rounded text-[11px] font-schematic font-bold text-brass-light hover:text-white uppercase flex items-center gap-1.5 flex-shrink-0 ml-2 cursor-pointer"
-                          >
-                          {copiedField === 'email' ? (
-                            <>
-                              <Check className="w-3.5 h-3.5 text-green-400" />
-                              <span className="text-green-400">Copiado</span>
-                            </>
-                          ) : (
-                            <>
-                              <Copy className="w-3.5 h-3.5" />
-                              <span>Copiar</span>
-                            </>
-                          )}
-                        </button>
-                      </div>
+                  {/* Formas Geométricas Orgânicas Decorativas */}
+                  <div className="absolute -top-8 -right-8 w-24 h-24 bg-gradient-to-br from-amber-400/[0.09] via-white/[0.03] to-transparent pointer-events-none blur-[1px] animate-morph-a opacity-70 group-hover:opacity-100 transition-opacity duration-700" />
+                  <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-gradient-to-tr from-copper-light/[0.07] to-transparent pointer-events-none blur-[1px] animate-morph-b opacity-60 group-hover:opacity-100 transition-opacity duration-700" />
 
-                            {/* 2. Caixa Telefone */}
-                            <div className="steampunk-panel p-3.5 rounded-lg border border-brass-dark/60 hover:border-brass/90 transition-all flex items-center justify-between group shadow-md">
-                              <div className="flex items-center gap-3.5 min-w-0">
-                                <div className="w-10 h-10 rounded-lg bg-[#1e1711] border border-brass-dark flex items-center justify-center text-brass-light group-hover:scale-105 group-hover:border-brass-light transition-all shadow-inner flex-shrink-0">
-                                  <Phone className="w-5 h-5 text-steamAmber-bright" />
-                                </div>
-                                  <div className="min-w-0">
-                                    <span className="text-[10px] font-schematic uppercase tracking-widest text-copper-light block font-semibold leading-tight">
-                                      Telefone
-                                    </span>
-                                    <a
-                                      href={profileData.social.whatsapp.url}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="text-xs sm:text-sm font-schematic text-[#f5ecd5] hover:text-brass-light transition-colors truncate block"
-                                      title={profileData.social.whatsapp.number}
-                                    >
-                                      {profileData.social.whatsapp.number}
-                                    </a>
-                                  </div>
-                                </div>
+                  <div className="relative z-10 flex items-center gap-3.5 min-w-0">
+                    <div className="w-10 h-10 rounded-full bg-[#201810] border border-brass-dark/70 flex items-center justify-center text-brass-light group-hover:border-amber-400 group-hover:shadow-[0_0_12px_rgba(255,190,91,0.5)] transition-all duration-300 flex-shrink-0">
+                      <Mail className="w-5 h-5 text-steamAmber-glow group-hover:scale-110 group-hover:text-amber-300 transition-transform" />
+                    </div>
+                    <div className="min-w-0">
+                      <span className="text-[10px] font-schematic uppercase tracking-widest text-copper-light block font-semibold leading-tight">
+                        E-mail
+                      </span>
+                      <a
+                        href={profileData.social.email.url}
+                        className="text-xs sm:text-sm font-body font-semibold text-[#f5ecd5] group-hover:text-amber-300 transition-colors truncate block"
+                        title={profileData.social.email.address}
+                      >
+                        {profileData.social.email.address}
+                      </a>
+                    </div>
+                  </div>
 
-                <button
-                                  type="button"
-                                  onClick={() => handleCopy(profileData.social.whatsapp.number, 'phone')}
-                                  title="Copiar número de telefone"
-                                  className="btn-steampunk px-2.5 py-1.5 rounded text-[11px] font-schematic font-bold text-brass-light hover:text-white uppercase flex items-center gap-1.5 flex-shrink-0 ml-2 cursor-pointer"
-                                >
-                                {copiedField === 'phone' ? (
-                                  <>
-                                    <Check className="w-3.5 h-3.5 text-green-400" />
-                                    <span className="text-green-400">Copiado</span>
-                                  </>
-                                ) : (
-                                  <>
-                                    <Copy className="w-3.5 h-3.5" />
-                                    <span>Copiar</span>
-                                  </>
-                                )}
-                              </button>
-                            </div>
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(profileData.social.email.address, 'email')}
+                    title="Copiar endereço de e-mail"
+                    className="relative z-10 btn-steampunk px-2.5 py-1.5 rounded text-[11px] font-schematic font-bold text-brass-light hover:text-white uppercase flex items-center gap-1.5 flex-shrink-0 ml-2 cursor-pointer shadow-sm"
+                  >
+                    {copiedField === 'email' ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-green-400" />
+                        <span className="text-green-400">Copiado</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5" />
+                        <span>Copiar</span>
+                      </>
+                    )}
+                  </button>
+                </div>
 
-                                {/* 3. Caixa Localidade */}
-                                <div className="steampunk-panel p-3.5 rounded-lg border border-brass-dark/50 flex items-center gap-3.5 shadow-md">
-                                  <div className="w-10 h-10 rounded-lg bg-[#1e1711] border border-brass-dark flex items-center justify-center text-brass-light shadow-inner flex-shrink-0">
-                                    <MapPin className="w-5 h-5 text-copper-light" />
-                                  </div>
-                                      <div className="min-w-0">
-                                        <span className="text-[10px] font-schematic uppercase tracking-widest text-copper-light block font-semibold leading-tight">
-                                          Localidade
-                                        </span>
-                                          <span className="text-xs sm:text-sm font-schematic text-[#cfbfab] font-medium block truncate">
-                                            {profileData.personal.location}
-                                          </span>
-                                      </div>
-                                  </div>
+                {/* 2. Caixa Telefone */}
+                <div className="relative p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border transition-all duration-300 flex items-center justify-between group overflow-hidden bg-[#18130e]/95 backdrop-blur-md border-brass-light/75 shadow-[0_4px_16px_rgba(0,0,0,0.6)] hover:border-amber-300 hover:shadow-[0_0_24px_rgba(255,185,75,0.35)] hover:scale-[1.02] hover:-translate-y-0.5 select-none">
+                  {/* Efeito Contínuo de Reflexo Metálico Cintilante ao Passar o Cursor */}
+                  <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 overflow-hidden rounded-xl sm:rounded-2xl">
+                    <div className="w-[130%] h-[220%] -top-[60%] absolute metallic-sheen-layer animate-metallic-sheen" />
+                  </div>
 
-                                </div>
+                  {/* Formas Geométricas Orgânicas Decorativas */}
+                  <div className="absolute -top-8 -right-8 w-24 h-24 bg-gradient-to-br from-amber-400/[0.09] via-white/[0.03] to-transparent pointer-events-none blur-[1px] animate-morph-a opacity-70 group-hover:opacity-100 transition-opacity duration-700" />
+                  <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-gradient-to-tr from-copper-light/[0.07] to-transparent pointer-events-none blur-[1px] animate-morph-b opacity-60 group-hover:opacity-100 transition-opacity duration-700" />
+
+                  <div className="relative z-10 flex items-center gap-3.5 min-w-0">
+                    <div className="w-10 h-10 rounded-full bg-[#201810] border border-brass-dark/70 flex items-center justify-center text-brass-light group-hover:border-amber-400 group-hover:shadow-[0_0_12px_rgba(255,190,91,0.5)] transition-all duration-300 flex-shrink-0">
+                      <Phone className="w-5 h-5 text-steamAmber-glow group-hover:scale-110 group-hover:text-amber-300 transition-transform" />
+                    </div>
+                    <div className="min-w-0">
+                      <span className="text-[10px] font-schematic uppercase tracking-widest text-copper-light block font-semibold leading-tight">
+                        Telefone
+                      </span>
+                      <a
+                        href={profileData.social.whatsapp.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs sm:text-sm font-body font-semibold text-[#f5ecd5] group-hover:text-amber-300 transition-colors truncate block"
+                        title={profileData.social.whatsapp.number}
+                      >
+                        {profileData.social.whatsapp.number}
+                      </a>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(profileData.social.whatsapp.number, 'phone')}
+                    title="Copiar número de telefone"
+                    className="relative z-10 btn-steampunk px-2.5 py-1.5 rounded text-[11px] font-schematic font-bold text-brass-light hover:text-white uppercase flex items-center gap-1.5 flex-shrink-0 ml-2 cursor-pointer shadow-sm"
+                  >
+                    {copiedField === 'phone' ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-green-400" />
+                        <span className="text-green-400">Copiado</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5" />
+                        <span>Copiar</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                {/* 3. Caixa Localidade */}
+                <div className="relative p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border transition-all duration-300 flex items-center gap-3.5 group overflow-hidden bg-[#18130e]/95 backdrop-blur-md border-brass-light/75 shadow-[0_4px_16px_rgba(0,0,0,0.6)] hover:border-amber-300 hover:shadow-[0_0_24px_rgba(255,185,75,0.35)] hover:scale-[1.02] hover:-translate-y-0.5 select-none">
+                  {/* Efeito Contínuo de Reflexo Metálico Cintilante ao Passar o Cursor */}
+                  <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 overflow-hidden rounded-xl sm:rounded-2xl">
+                    <div className="w-[130%] h-[220%] -top-[60%] absolute metallic-sheen-layer animate-metallic-sheen" />
+                  </div>
+
+                  {/* Formas Geométricas Orgânicas Decorativas */}
+                  <div className="absolute -top-8 -right-8 w-24 h-24 bg-gradient-to-br from-amber-400/[0.09] via-white/[0.03] to-transparent pointer-events-none blur-[1px] animate-morph-a opacity-70 group-hover:opacity-100 transition-opacity duration-700" />
+                  <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-gradient-to-tr from-copper-light/[0.07] to-transparent pointer-events-none blur-[1px] animate-morph-b opacity-60 group-hover:opacity-100 transition-opacity duration-700" />
+
+                  <div className="relative z-10 w-10 h-10 rounded-full bg-[#201810] border border-brass-dark/70 flex items-center justify-center text-brass-light group-hover:border-amber-400 group-hover:shadow-[0_0_12px_rgba(255,190,91,0.5)] transition-all duration-300 flex-shrink-0">
+                    <MapPin className="w-5 h-5 text-steamAmber-glow group-hover:scale-110 group-hover:text-amber-300 transition-transform" />
+                  </div>
+                  <div className="relative z-10 min-w-0">
+                    <span className="text-[10px] font-schematic uppercase tracking-widest text-copper-light block font-semibold leading-tight">
+                      Localidade
+                    </span>
+                    <span className="text-xs sm:text-sm font-body font-semibold text-[#f5ecd5] group-hover:text-amber-300 transition-colors block truncate">
+                      {profileData.personal.location}
+                    </span>
+                  </div>
+                </div>
+
+              </div>
 
                                 {/* Embaixo: Botões do LinkedIn e GitHub com APENAS OS SÍMBOLOS */}
                                 <div className="pt-2">

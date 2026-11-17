@@ -1,6 +1,5 @@
 import React from 'react';
 import { Navbar } from './components/Navbar';
-import { SteampunkSidebar } from './components/SteampunkSidebar';
 import { SteampunkCursor } from './components/SteampunkCursor';
 import { SteampunkAtmosphere } from './components/SteampunkAtmosphere';
 import { Hero } from './components/Hero';
@@ -22,9 +21,6 @@ function App() {
 
       {/* Barra de Navegação Mecânica Fixa Superior */}
       <Navbar />
-
-      {/* Barra Lateral Mecânica com Engrenagem de Rolagem Interativa */}
-      <SteampunkSidebar />
 
       {/* Conteúdo Principal */}
       <main className="flex-grow">

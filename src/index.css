@@ -8,24 +8,9 @@
     --amber-glow: rgba(255, 157, 46, 0.6);
   }
 
-  /* Ocultar barra de rolagem nativa do navegador para utilizar exclusivamente a barra lateral Steampunk */
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
-  }
-  html,
-  body {
-    scrollbar-width: none;
-    /* Firefox */
-    -ms-overflow-style: none;
-    /* IE e Edge */
-  }
-
-  ::-webkit-scrollbar {
-    display: none;
-    /* Chrome, Safari, Opera e novo Edge */
-    width: 0;
-    height: 0;
   }
 
   /* 5. Cursor Nativo de Latão Vitoriano (Ativo exclusivamente em desktop/mouse fino) */

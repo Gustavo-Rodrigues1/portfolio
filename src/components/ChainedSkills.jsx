@@ -446,15 +446,29 @@ export const ChainedSkills = () => {
         return (
           <div
             key={`ic_${i}`}
-            className="absolute pointer-events-none flex flex-col items-center"
+            className="absolute pointer-events-none flex flex-col items-center justify-center"
             style={{
               left: sx,
               top: sy,
+              width: (MEDAL_R + 4.5) * 2,
+              height: (MEDAL_R + 4.5) * 2,
               transform: 'translate(-50%,-50%)',
               opacity: enterOpacity,
               zIndex: isHov ? 40 : 20,
             }}
           >
+            {/* Efeito de Reflexo Metálico Cintilante na Esfera (Apenas no Hover) */}
+            <div
+              className={`absolute inset-0 rounded-full overflow-hidden pointer-events-none transition-all duration-300 ${
+                isHov ? 'opacity-100 scale-105' : 'opacity-0'
+              }`}
+              style={{
+                boxShadow: isHov ? '0 0 16px rgba(255, 185, 75, 0.6)' : undefined,
+              }}
+            >
+              <div className="w-[140%] h-[220%] -top-[60%] absolute metallic-sheen-layer animate-metallic-sheen" />
+            </div>
+
             {isHov && p.currentLen > 40 && (
               <div
                 className="absolute bottom-full mb-3 flex flex-col items-center whitespace-nowrap z-50"
@@ -477,7 +491,7 @@ export const ChainedSkills = () => {
               </div>
             )}
             <div className={`
-              flex items-center justify-center rounded-full transition-transform duration-150
+              relative z-10 flex items-center justify-center rounded-full transition-transform duration-150
               ${isHov  ? 'scale-120 drop-shadow-[0_0_10px_rgba(255,180,60,0.9)]' : ''}
               ${isGrab ? 'scale-110 drop-shadow-[0_0_14px_rgba(251,191,36,0.85)]' : ''}
             `}>
