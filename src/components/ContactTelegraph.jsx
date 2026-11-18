@@ -170,16 +170,16 @@ export const ContactTelegraph = () => {
                     type="button"
                     onClick={() => handleCopy(profileData.social.email.address, 'email')}
                     title="Copiar endereço de e-mail"
-                    className="relative z-10 btn-steampunk px-2.5 py-1.5 rounded text-[11px] font-schematic font-bold text-brass-light hover:text-white uppercase flex items-center gap-1.5 flex-shrink-0 ml-2 cursor-pointer shadow-sm"
+                    className="relative z-10 btn-steampunk px-2.5 py-1.5 rounded text-[11px] font-schematic font-bold text-brass-light hover:text-white uppercase flex items-center gap-1.5 flex-shrink-0 ml-2 cursor-pointer shadow-sm group"
                   >
                     {copiedField === 'email' ? (
                       <>
-                        <Check className="w-3.5 h-3.5 text-green-400" />
+                        <Check className="w-3.5 h-3.5 text-green-400 transition-transform duration-300 group-hover:scale-110" />
                         <span className="text-green-400">Copiado</span>
                       </>
                     ) : (
                       <>
-                        <Copy className="w-3.5 h-3.5" />
+                        <Copy className="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
                         <span>Copiar</span>
                       </>
                     )}
@@ -221,16 +221,16 @@ export const ContactTelegraph = () => {
                     type="button"
                     onClick={() => handleCopy(profileData.social.whatsapp.number, 'phone')}
                     title="Copiar número de telefone"
-                    className="relative z-10 btn-steampunk px-2.5 py-1.5 rounded text-[11px] font-schematic font-bold text-brass-light hover:text-white uppercase flex items-center gap-1.5 flex-shrink-0 ml-2 cursor-pointer shadow-sm"
+                    className="relative z-10 btn-steampunk px-2.5 py-1.5 rounded text-[11px] font-schematic font-bold text-brass-light hover:text-white uppercase flex items-center gap-1.5 flex-shrink-0 ml-2 cursor-pointer shadow-sm group"
                   >
                     {copiedField === 'phone' ? (
                       <>
-                        <Check className="w-3.5 h-3.5 text-green-400" />
+                        <Check className="w-3.5 h-3.5 text-green-400 transition-transform duration-300 group-hover:scale-110" />
                         <span className="text-green-400">Copiado</span>
                       </>
                     ) : (
                       <>
-                        <Copy className="w-3.5 h-3.5" />
+                        <Copy className="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
                         <span>Copiar</span>
                       </>
                     )}
@@ -278,7 +278,7 @@ export const ContactTelegraph = () => {
                                       aria-label="LinkedIn de Gustavo"
                                       className="w-12 h-12 rounded-full bg-[#18120c] border border-brass-dark/80 text-[#e8dcce] hover:text-white hover:border-brass-light hover:bg-[#281b10] hover:shadow-[0_0_18px_rgba(241,210,137,0.5)] flex items-center justify-center transition-all duration-300 hover:-translate-y-1 group"
                                     >
-                                      <LinkedinIcon className="w-5 h-5 text-[#d8c8b4] group-hover:text-brass-light group-hover:scale-110 transition-transform" />
+                                      <LinkedinIcon className="w-5 h-5 icon-spin-hover text-[#d8c8b4] group-hover:text-brass-light" />
                                     </a>
 
                                     {/* Botão GitHub (Apenas Símbolo) */}
@@ -290,7 +290,7 @@ export const ContactTelegraph = () => {
                                       aria-label="GitHub de Gustavo"
                                       className="w-12 h-12 rounded-full bg-[#18120c] border border-brass-dark/80 text-[#e8dcce] hover:text-white hover:border-brass-light hover:bg-[#281b10] hover:shadow-[0_0_18px_rgba(241,210,137,0.5)] flex items-center justify-center transition-all duration-300 hover:-translate-y-1 group"
                                     >
-                                      <GithubIcon className="w-5 h-5 text-[#d8c8b4] group-hover:text-brass-light group-hover:scale-110 transition-transform" />
+                                      <GithubIcon className="w-5 h-5 icon-spin-hover text-[#d8c8b4] group-hover:text-brass-light" />
                                     </a>
                                   </div>
                                 </div>

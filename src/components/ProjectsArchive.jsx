@@ -550,17 +550,17 @@ export const ProjectsArchive = () => {
         </div>
       </ScrollReveal>
 
-      {/* Rodapé da Seção com Botão para Perfil Geral do GitHub */}
+      {/* Rodapé da Seção com Botão para Perfil Geral do GitHub estilo Card do Carrossel */}
       <ScrollReveal delay={250} distance={20} className="mt-14 text-center">
         <a
           href={profileData.social.github.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-steampunk inline-flex items-center gap-2 px-8 py-3.5 rounded text-xs sm:text-sm font-schematic font-bold text-brass-light hover:text-white uppercase tracking-wider shadow-lg group"
+          className="relative inline-flex items-center gap-3.5 px-8 py-4 rounded-2xl sm:rounded-3xl bg-[#18130e]/95 backdrop-blur-md border border-brass-light/80 text-[#f5ecd5] hover:text-amber-300 font-schematic font-bold text-xs sm:text-sm uppercase tracking-wider shadow-[0_4px_20px_rgba(0,0,0,0.6)] shadow-[0_0_24px_rgba(255,157,46,0.18)] hover:border-amber-300 hover:shadow-[0_0_36px_rgba(255,185,75,0.45)] hover:scale-[1.03] hover:-translate-y-1 transition-all duration-300 group"
         >
-          <GithubIcon className="w-5 h-5 text-copper-light group-hover:scale-110 transition-transform" />
+          <GithubIcon className="w-5 h-5 icon-spin-hover text-copper-light group-hover:text-amber-300" />
           <span>Explorar Todos os Repositórios no GitHub</span>
-          <ExternalLink className="w-4 h-4 text-brass-light" />
+          <ExternalLink className="w-4 h-4 text-brass-light/70 group-hover:text-amber-300 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5" />
         </a>
       </ScrollReveal>
 

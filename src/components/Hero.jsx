@@ -192,7 +192,7 @@ export const Hero = () => {
                     title={item.label}
                     className="w-12 h-12 rounded-full bg-[#18120c] border border-brass-dark/80 text-[#e8dcce] hover:text-white hover:border-brass-light hover:bg-[#281b10] hover:shadow-[0_0_16px_rgba(241,210,137,0.45)] flex items-center justify-center transition-all duration-300 hover:-translate-y-1 group"
                   >
-                    <IconComponent className="w-5 h-5 transition-transform group-hover:scale-110 text-[#d8c8b4] group-hover:text-brass-light" />
+                    <IconComponent className="w-5 h-5 icon-spin-hover text-[#d8c8b4] group-hover:text-brass-light" />
                   </a>
                 );
               })}

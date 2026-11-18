@@ -5,12 +5,12 @@ import { profileData } from '../data/profile';
 import { Mail, MessageCircle } from 'lucide-react';
 
 const NAV_LINKS = [
-  { name: 'Início',      href: '#hero' },
-  { name: 'Sobre Mim',   href: '#sobre' },
+  { name: 'Início', href: '#hero' },
+  { name: 'Sobre Mim', href: '#sobre' },
   { name: 'Experiência', href: '#experiencia' },
   { name: 'Habilidades', href: '#habilidades' },
-  { name: 'Projetos',    href: '#projetos' },
-  { name: 'Contato',     href: '#contato' },
+  { name: 'Projetos', href: '#projetos' },
+  { name: 'Contato', href: '#contato' },
 ];
 
 export const Footer = () => {
@@ -43,8 +43,8 @@ export const Footer = () => {
         {/* ── Grid de 3 colunas ── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 pb-10 border-b border-brass-dark/40">
 
-          {/* Coluna 1 — Nome + frase de efeito + redes sociais */}
-          <div className="flex flex-col gap-4">
+          {/* Coluna 1 — Nome + Redes Sociais logo abaixo + frase de efeito */}
+          <div className="flex flex-col gap-3.5">
             {/* Logo / nome */}
             <div className="flex items-center gap-2.5">
               <div className="relative shrink-0">
@@ -57,29 +57,31 @@ export const Footer = () => {
             </div>
 
             {/* Frase de efeito */}
-            <p className="font-schematic text-sm text-[#8d7d6b] leading-relaxed italic border-l-2 border-brass-dark/60 pl-3">
+            <p className="font-schematic text-sm text-[#8d7d6b] leading-relaxed italic border-l-2 border-brass-dark/60 pl-3 mt-1">
               "{profileData.personal.tagline}"
             </p>
 
-            {/* Ícones sociais */}
-            <div className="flex items-center gap-3 mt-1">
+            {/* Ícones sociais logo abaixo do nome */}
+            <div className="flex items-center gap-3">
               <a
                 href={profileData.social.github.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
-                className="btn-steampunk p-2 rounded text-brass-light hover:text-white transition-colors"
+                title="Acessar GitHub de Gustavo"
+                className="w-9 h-9 rounded-full bg-[#18120c] border border-brass-dark/80 text-[#e8dcce] hover:text-white hover:border-brass-light hover:bg-[#281b10] hover:shadow-[0_0_16px_rgba(241,210,137,0.45)] flex items-center justify-center transition-all duration-300 hover:-translate-y-0.5 group"
               >
-                <GithubIcon className="w-4 h-4" />
+                <GithubIcon className="w-4 h-4 icon-spin-hover text-[#d8c8b4] group-hover:text-brass-light" />
               </a>
               <a
                 href={profileData.social.linkedin.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="btn-steampunk p-2 rounded text-brass-light hover:text-white transition-colors"
+                title="Acessar LinkedIn de Gustavo"
+                className="w-9 h-9 rounded-full bg-[#18120c] border border-brass-dark/80 text-[#e8dcce] hover:text-white hover:border-brass-light hover:bg-[#281b10] hover:shadow-[0_0_16px_rgba(241,210,137,0.45)] flex items-center justify-center transition-all duration-300 hover:-translate-y-0.5 group"
               >
-                <LinkedinIcon className="w-4 h-4" />
+                <LinkedinIcon className="w-4 h-4 icon-spin-hover text-[#d8c8b4] group-hover:text-brass-light" />
               </a>
             </div>
           </div>

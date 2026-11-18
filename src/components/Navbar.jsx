@@ -261,9 +261,12 @@ export const Navbar = () => {
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 aria-label="Alternar menu de navegação"
-                className="btn-steampunk p-2 rounded text-brass-light"
+                className="btn-steampunk p-2 rounded text-brass-light group"
               >
-                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                {mobileMenuOpen
+                  ? <X className="w-5 h-5 transition-transform duration-300 group-hover:rotate-90 group-hover:scale-110" />
+                  : <Menu className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                }
               </button>
             </div>
 
