@@ -52,13 +52,10 @@ export const ExperienceSection = () => (
       opacity={0.22}
     />
 
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
       {/* ════ Cabeçalho ════ */}
       <ScrollReveal delay={0} distance={28} className="text-center max-w-3xl mx-auto mb-20">
-        <div className="inline-flex items-center justify-center p-3 rounded-full bg-[#1c140d] border border-brass-dark/80 shadow-[0_0_15px_rgba(255,157,46,0.3)] mb-4">
-          <Briefcase className="w-6 h-6 text-steamAmber-glow" />
-        </div>
 
         <h2 className="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-bold text-brass-gradient tracking-wide mb-4">
           Experiência Profissional
@@ -78,13 +75,13 @@ export const ExperienceSection = () => (
         </p>
       </ScrollReveal>
 
-      {/* ════ Trilha de Experiências ════ */}
+      {/* ════ Trilha de Experiências Alternada ════ */}
       <div className="relative">
 
-        {/* Linha vertical da trilha */}
-        <div className="absolute left-6 sm:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-brass/50 via-brass-dark/40 to-transparent" />
+        {/* Linha vertical da trilha (centralizada no desktop, lateral no mobile) */}
+        <div className="absolute left-6 sm:left-8 md:left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-gradient-to-b from-brass/50 via-brass-dark/40 to-transparent pointer-events-none" />
 
-        <div className="space-y-14">
+        <div className="space-y-12 sm:space-y-16">
           {profileData.experiences.map((exp, idx) => {
             const extra = EXPERIENCE_SUMMARIES[exp.company] || {
               summary: exp.description,
@@ -92,28 +89,28 @@ export const ExperienceSection = () => (
               glowColor: "rgba(198,156,77,0.4)",
               trackColor: "rgba(198,156,77,0.2)",
             };
+            const isLeft = idx % 2 === 0;
 
             return (
               <ScrollReveal key={idx} delay={idx * 180} distance={30}>
-                <div className="relative flex gap-6 sm:gap-10 items-start group">
+                <div className="relative flex items-center group">
 
-                  {/* ── Esfera da Trilha ── */}
-                  <div className="relative flex-shrink-0 flex flex-col items-center" style={{ width: '48px' }}>
-
+                  {/* ── Esfera Central da Trilha ── */}
+                  <div className="absolute left-6 sm:left-8 md:left-1/2 -translate-x-1/2 top-1 sm:top-1.5 z-20 flex flex-col items-center">
                     {/* Esfera principal */}
                     <div
-                      className="relative w-12 h-12 rounded-full flex items-center justify-center z-10"
+                      className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
                       style={{
                         background: `radial-gradient(circle at 35% 35%, #3a2e1a, #1a1208)`,
                         border: `2px solid ${extra.accentColor}`,
                         boxShadow: exp.current
                           ? `0 0 0 4px ${extra.trackColor}, 0 0 20px ${extra.glowColor}, 0 0 40px ${extra.glowColor}`
-                          : `0 0 8px ${extra.glowColor}`,
+                          : `0 0 10px ${extra.glowColor}`,
                       }}
                     >
                       {/* Núcleo brilhante */}
                       <div
-                        className={`w-4 h-4 rounded-full${exp.current ? ' animate-pulse' : ''}`}
+                        className={`w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full${exp.current ? ' animate-pulse' : ''}`}
                         style={{
                           background: `radial-gradient(circle at 35% 35%, #fff8e0, ${extra.accentColor})`,
                           boxShadow: `0 0 10px ${extra.glowColor}`,
@@ -131,24 +128,16 @@ export const ExperienceSection = () => (
                         />
                       )}
                     </div>
-
-                    {/* Conector inferior (exceto no último) */}
-                    {idx < profileData.experiences.length - 1 && (
-                      <div
-                        className="absolute top-12 w-px flex-1"
-                        style={{
-                          height: '56px',
-                          background: `linear-gradient(to bottom, ${extra.accentColor}60, transparent)`,
-                        }}
-                      />
-                    )}
                   </div>
 
-                  {/* ── Conteúdo da Experiência ── */}
-                  <div className="flex-1 pb-2">
-
+                  {/* ── Conteúdo da Experiência (Sem cards, alternado Esquerda / Direita no Desktop) ── */}
+                  <div
+                    className={`w-full ml-14 sm:ml-16 md:ml-0 md:w-[calc(50%-44px)] pb-2 ${
+                      isLeft ? 'md:mr-auto md:text-right' : 'md:ml-auto md:text-left'
+                    }`}
+                  >
                     {/* Modalidade (tipo) — topo */}
-                    <div className="flex items-center gap-2 mb-1.5">
+                    <div className={`flex items-center gap-2 mb-1.5 ${isLeft ? 'md:justify-end' : 'justify-start'}`}>
                       <span
                         className="text-[10px] font-schematic uppercase tracking-widest px-2.5 py-0.5 rounded-full border font-bold"
                         style={{
@@ -161,7 +150,7 @@ export const ExperienceSection = () => (
                       </span>
 
                       {exp.current && (
-                        <span className="inline-flex items-center gap-1.5 text-[10px] font-schematic uppercase tracking-wider text-amber-300">
+                        <span className="inline-flex items-center gap-1.5 text-[10px] font-schematic uppercase tracking-wider text-amber-300 font-semibold">
                           <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
                           Em Atividade
                         </span>
@@ -177,13 +166,30 @@ export const ExperienceSection = () => (
                     </h3>
 
                     {/* Empresa */}
-                    <div className="flex items-center gap-1.5 text-sm font-schematic text-[#cbba9d] mb-1">
-                      <Building2 className="w-3.5 h-3.5 flex-shrink-0" style={{ color: extra.accentColor }} />
-                      <span className="font-medium">{exp.company}</span>
+                    <div
+                      className={`flex items-center gap-1.5 text-sm font-schematic text-[#cbba9d] mb-1 ${
+                        isLeft ? 'md:justify-end' : 'justify-start'
+                      }`}
+                    >
+                      {isLeft ? (
+                        <>
+                          <span className="font-medium">{exp.company}</span>
+                          <Building2 className="w-3.5 h-3.5 flex-shrink-0" style={{ color: extra.accentColor }} />
+                        </>
+                      ) : (
+                        <>
+                          <Building2 className="w-3.5 h-3.5 flex-shrink-0" style={{ color: extra.accentColor }} />
+                          <span className="font-medium">{exp.company}</span>
+                        </>
+                      )}
                     </div>
 
                     {/* Período e Localidade */}
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-schematic text-[#9a8878] mb-4">
+                    <div
+                      className={`flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-schematic text-[#9a8878] mb-4 ${
+                        isLeft ? 'md:justify-end' : 'justify-start'
+                      }`}
+                    >
                       <span className="flex items-center gap-1.5">
                         <Calendar className="w-3 h-3" style={{ color: extra.accentColor + 'aa' }} />
                         {exp.period}
@@ -195,13 +201,18 @@ export const ExperienceSection = () => (
                     </div>
 
                     {/* Descrição */}
-                    <p className="text-[#c5b59e] text-sm leading-relaxed border-l-2 pl-4"
+                    <p
+                      className={`text-[#c5b59e] text-sm leading-relaxed ${
+                        isLeft
+                          ? 'border-l-2 pl-4 md:border-l-0 md:border-r-2 md:pl-0 md:pr-4'
+                          : 'border-l-2 pl-4'
+                      }`}
                       style={{ borderColor: `${extra.accentColor}50` }}
                     >
                       {extra.summary}
                     </p>
-
                   </div>
+
                 </div>
               </ScrollReveal>
             );

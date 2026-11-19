@@ -121,15 +121,27 @@ export const ChainedSkills = () => {
 
     initOrUpdate();
 
-    // Gatilho de entrada na seção
+    // Gatilho de entrada e saída na seção (re-executa a queda em toda visita)
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           hasEnteredRef.current = true;
-          io.disconnect();
+        } else {
+          hasEnteredRef.current = false;
+          // Reseta todos os pêndulos para o topo prontos para a próxima queda
+          if (pendulaRef.current) {
+            pendulaRef.current.forEach((p) => {
+              p.currentLen = 0;
+              p.lenVel = 0;
+              p.dropTimer = 0;
+              p.hasBounced = false;
+              p.vel = 0;
+              p.ang = (Math.random() - 0.5) * 0.06;
+            });
+          }
         }
       },
-      { threshold: 0.12 }
+      { threshold: 0.1 }
     );
     io.observe(el);
 
@@ -174,6 +186,12 @@ export const ChainedSkills = () => {
               p.lenVel = 0;
             }
           }
+        } else {
+          // Fora da tela: mantém recolhido aguardando próxima entrada
+          p.currentLen = 0;
+          p.lenVel = 0;
+          p.dropTimer = 0;
+          p.hasBounced = false;
         }
 
         // 2. Física do Pêndulo (ativada conforme a corrente estica)

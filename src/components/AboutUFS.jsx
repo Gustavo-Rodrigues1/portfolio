@@ -24,33 +24,6 @@ export const AboutUFS = () => {
     }
   };
 
-  const interestPillars = [
-    {
-      title: "Engenharia de Software & Web",
-      desc: "Construção de aplicações completas, responsivas e performáticas com React, Tailwind CSS, JavaScript e TypeScript.",
-      icon: Code2,
-      color: "text-brass-light"
-    },
-    {
-      title: "Backend, Python & Dados",
-      desc: "Automação de rotinas, desenvolvimento de servidores com Django e manipulação analítica com SQL e PostgreSQL.",
-      icon: Database,
-      color: "text-copper-light"
-    },
-    {
-      title: "Suporte & Infraestrutura de TI",
-      desc: "Diagnóstico e manutenção de hardware e software, redes locais e garantia de continuidade operacional na SECOM.",
-      icon: ShieldCheck,
-      color: "text-steamAmber-bright"
-    },
-    {
-      title: "DevOps & Ferramental Moderno",
-      desc: "Controle rigoroso de versões com Git e GitHub, conteinerização ágil com Docker e prototipagem no Figma.",
-      icon: Workflow,
-      color: "text-brass"
-    }
-  ];
-
   return (
     <section
       id="sobre"
@@ -205,29 +178,6 @@ export const AboutUFS = () => {
                   bancos de dados relacionais e metodologias ágeis de desenvolvimento para criar soluções escaláveis, intuitivas e eficientes.
                 </p>
               </div>
-            </div>
-
-            {/* Pilares Acadêmicos e Áreas de Domínio */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mt-2">
-              {interestPillars.map((pillar, idx) => {
-                const IconComponent = pillar.icon;
-                return (
-                  <div
-                    key={idx}
-                    className="p-3.5 rounded bg-[#16110c]/85 border border-brass-dark/50 hover:border-brass-light/70 transition-all shadow-sm group/pillar"
-                  >
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <IconComponent className={`w-4 h-4 ${pillar.color} transition-transform group-hover/pillar:scale-110`} />
-                      <h4 className="text-xs font-schematic font-bold text-brass-light">
-                        {pillar.title}
-                      </h4>
-                    </div>
-                    <p className="text-[11px] text-[#b8a791] font-light leading-snug">
-                      {pillar.desc}
-                    </p>
-                  </div>
-                );
-              })}
             </div>
 
           </ScrollReveal>

@@ -170,7 +170,7 @@ export const ContactTelegraph = () => {
                     type="button"
                     onClick={() => handleCopy(profileData.social.email.address, 'email')}
                     title="Copiar endereço de e-mail"
-                    className="relative z-10 btn-steampunk px-2.5 py-1.5 rounded text-[11px] font-schematic font-bold text-brass-light hover:text-white uppercase flex items-center gap-1.5 flex-shrink-0 ml-2 cursor-pointer shadow-sm group"
+                    className="relative z-10 btn-steampunk btn-no-shine px-2.5 py-1.5 rounded text-[11px] font-schematic font-bold text-brass-light hover:text-white uppercase flex items-center gap-1.5 flex-shrink-0 ml-2 cursor-pointer shadow-sm group"
                   >
                     {copiedField === 'email' ? (
                       <>
@@ -221,7 +221,7 @@ export const ContactTelegraph = () => {
                     type="button"
                     onClick={() => handleCopy(profileData.social.whatsapp.number, 'phone')}
                     title="Copiar número de telefone"
-                    className="relative z-10 btn-steampunk px-2.5 py-1.5 rounded text-[11px] font-schematic font-bold text-brass-light hover:text-white uppercase flex items-center gap-1.5 flex-shrink-0 ml-2 cursor-pointer shadow-sm group"
+                    className="relative z-10 btn-steampunk btn-no-shine px-2.5 py-1.5 rounded text-[11px] font-schematic font-bold text-brass-light hover:text-white uppercase flex items-center gap-1.5 flex-shrink-0 ml-2 cursor-pointer shadow-sm group"
                   >
                     {copiedField === 'phone' ? (
                       <>
