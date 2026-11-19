@@ -9,6 +9,7 @@ import { SkillsGauges } from './components/SkillsGauges';
 import { ProjectsArchive } from './components/ProjectsArchive';
 import { ContactTelegraph } from './components/ContactTelegraph';
 import { Footer } from './components/Footer';
+import { ScrollToTop } from './components/ScrollToTop';
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
 
       {/* Barra de Navegação Mecânica Fixa Superior */}
       <Navbar />
+
+      {/* Botão Flutuante de Retornar ao Início (Canto Inferior Esquerdo) */}
+      <ScrollToTop />
 
       {/* Conteúdo Principal */}
       <main className="flex-grow">
