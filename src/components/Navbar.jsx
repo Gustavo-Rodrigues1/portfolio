@@ -16,39 +16,45 @@ export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [scrollDirection, setScrollDirection] = useState(null);
   const [isSparking, setIsSparking] = useState(false);
+  const [steamKey, setSteamKey] = useState(0);
+  const [isSteaming, setIsSteaming] = useState(false);
+  const [currentScrollY, setCurrentScrollY] = useState(0);
 
   const headerRef = useRef(null);
-  const firstLinkRef = useRef(null);
-  const lastLinkRef = useRef(null);
+  const linkRefs = useRef({});
   const sparkTimeoutRef = useRef(null);
+  const steamTimeoutRef = useRef(null);
+  const prevSectionRef = useRef(activeSection);
   const lastScrollYRef = useRef(0);
-  const [navBounds, setNavBounds] = useState({ startX: 0, endX: 0 });
+  const [navBounds, setNavBounds] = useState({ startX: 0, endX: 0, centers: {} });
 
   const GEAR_LARGE_SIZE = 38;
   const GEAR_SMALL_SIZE = 22;
   const GEAR_MEDIUM_SIZE = 30;
 
-  const baseAngle = scrollProgress * 1440; // 4 voltas completas ao longo do percurso das seções
-  const angleLarge = baseAngle;
-  const angleSmall = -baseAngle * (GEAR_LARGE_SIZE / GEAR_SMALL_SIZE); // ~1.73x rotação contrária no meio
-  const angleMedium = baseAngle * (GEAR_LARGE_SIZE / GEAR_MEDIUM_SIZE); // ~1.27x rotação sincronizada
-
-  // Calcula a posição horizontal inicial (embaixo de 'Início') e final (embaixo de 'Contato')
+  // Mede com precisão o centro de cada botão de navegação
   const updateNavBounds = useCallback(() => {
-    if (firstLinkRef.current && lastLinkRef.current && headerRef.current) {
-      const headerRect = headerRef.current.getBoundingClientRect();
-      const firstRect = firstLinkRef.current.getBoundingClientRect();
-      const lastRect = lastLinkRef.current.getBoundingClientRect();
+    if (!headerRef.current) return;
+    const headerRect = headerRef.current.getBoundingClientRect();
+    const centers = {};
+    let firstX = 0;
+    let lastX = 0;
 
-      const startX = firstRect.left + firstRect.width / 2 - headerRect.left;
-      const endX = lastRect.left + lastRect.width / 2 - headerRect.left;
-
-      if (startX > 0 && endX > startX) {
-        setNavBounds({ startX, endX });
+    NAV_LINKS.forEach((link, idx) => {
+      const el = linkRefs.current[link.id];
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2 - headerRect.left;
+        centers[link.id] = centerX;
+        if (idx === 0) firstX = centerX;
+        if (idx === NAV_LINKS.length - 1) lastX = centerX;
       }
+    });
+
+    if (firstX > 0 && lastX > firstX) {
+      setNavBounds({ startX: firstX, endX: lastX, centers });
     }
   }, []);
 
@@ -56,6 +62,9 @@ export const Navbar = () => {
     updateNavBounds();
     const t1 = setTimeout(updateNavBounds, 150);
     const t2 = setTimeout(updateNavBounds, 600);
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(updateNavBounds);
+    }
     window.addEventListener('resize', updateNavBounds);
     return () => {
       clearTimeout(t1);
@@ -64,18 +73,30 @@ export const Navbar = () => {
     };
   }, [updateNavBounds]);
 
+  // Dispara rajada de vapor mecânico descendente ao mudar de seção
+  useEffect(() => {
+    if (prevSectionRef.current !== activeSection) {
+      prevSectionRef.current = activeSection;
+      setSteamKey((k) => k + 1);
+      setIsSteaming(true);
+
+      if (steamTimeoutRef.current) {
+        clearTimeout(steamTimeoutRef.current);
+      }
+      steamTimeoutRef.current = setTimeout(() => {
+        setIsSteaming(false);
+      }, 1400);
+    }
+  }, [activeSection]);
+
   // Observador de Rolagem e Transição Ativa das Seções
   useEffect(() => {
     let ticking = false;
 
     const updateScroll = () => {
       const scrollY = window.scrollY;
+      setCurrentScrollY(scrollY);
       setScrolled(scrollY > 30);
-
-      // Progresso de rolagem de 0 a 1 em relação à altura total rolável
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? Math.min(1, Math.max(0, scrollY / docHeight)) : 0;
-      setScrollProgress(progress);
 
       // Detecta direção do deslocamento para disparar faíscas de atrito mecânico
       const delta = scrollY - lastScrollYRef.current;
@@ -122,13 +143,71 @@ export const Navbar = () => {
       if (sparkTimeoutRef.current) {
         clearTimeout(sparkTimeoutRef.current);
       }
+      if (steamTimeoutRef.current) {
+        clearTimeout(steamTimeoutRef.current);
+      }
     };
   }, []);
 
-  // Posição X da engrenagem limitada estritamente debaixo das seções
-  const currentX = navBounds.startX > 0
-    ? navBounds.startX + scrollProgress * (navBounds.endX - navBounds.startX)
+  // Posição X da engrenagem perfeitamente alinhada com o centro do botão de cada seção
+  const currentX = useMemo(() => {
+    if (!navBounds.centers || navBounds.startX === 0) return 0;
+    const centers = navBounds.centers;
+    const navOffset = 76;
+    const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+
+    // Mapeia o ponto exato de parada de rolagem para cada seção
+    const targets = NAV_LINKS.map((link, idx) => {
+      if (idx === 0) return 0;
+      const el = document.getElementById(link.id);
+      if (!el) return 0;
+      const top = el.getBoundingClientRect().top + window.pageYOffset - navOffset;
+      return Math.min(maxScroll, Math.max(0, Math.round(top)));
+    });
+
+    // Garante ordem estritamente crescente para interpolação contínua e sem saltos
+    for (let i = 1; i < targets.length; i++) {
+      if (targets[i] <= targets[i - 1]) {
+        targets[i] = targets[i - 1] + 1;
+      }
+    }
+
+    // Se estiver antes ou na primeira seção (Início)
+    if (currentScrollY <= targets[0]) {
+      return centers[NAV_LINKS[0].id] || navBounds.startX;
+    }
+
+    // Se estiver após ou na última seção (Contato)
+    const lastIdx = NAV_LINKS.length - 1;
+    if (currentScrollY >= targets[lastIdx]) {
+      return centers[NAV_LINKS[lastIdx].id] || navBounds.endX;
+    }
+
+    // Interpolação precisa entre a seção atual e a próxima
+    for (let i = 0; i < lastIdx; i++) {
+      const sStart = targets[i];
+      const sEnd = targets[i + 1];
+      if (currentScrollY >= sStart && currentScrollY <= sEnd) {
+        const t = (currentScrollY - sStart) / (sEnd - sStart);
+        const xStart = centers[NAV_LINKS[i].id] || navBounds.startX;
+        const xEnd = centers[NAV_LINKS[i + 1].id] || navBounds.endX;
+        return xStart + t * (xEnd - xStart);
+      }
+    }
+
+    return navBounds.startX;
+  }, [currentScrollY, navBounds]);
+
+  // Ângulos das engrenagens sincronizados com o deslocamento no trilho
+  const railDistance = navBounds.endX - navBounds.startX;
+  const progressAcrossRail = railDistance > 0 && currentX > 0
+    ? Math.min(1, Math.max(0, (currentX - navBounds.startX) / railDistance))
     : 0;
+
+  const baseAngle = progressAcrossRail * 1440; // 4 voltas completas ao longo do percurso
+  const angleLarge = baseAngle;
+  const angleSmall = -baseAngle * (GEAR_LARGE_SIZE / GEAR_SMALL_SIZE); // ~1.73x rotação contrária no meio
+  const angleMedium = baseAngle * (GEAR_LARGE_SIZE / GEAR_MEDIUM_SIZE); // ~1.27x rotação sincronizada
 
   // Transição suave ao clicar nas seções com compensação da altura da Navbar
   const handleNavClick = (e, id) => {
@@ -140,7 +219,7 @@ export const Navbar = () => {
       const offsetPosition = elementPosition + window.pageYOffset - navOffset;
 
       window.scrollTo({
-        top: offsetPosition,
+        top: Math.max(0, offsetPosition),
         behavior: 'smooth'
       });
       setActiveSection(id);
@@ -224,15 +303,15 @@ export const Navbar = () => {
 
             {/* Links de navegação com Transição Suave de Seção Ativa (Lado Direito) */}
             <nav className="hidden md:flex items-center gap-7 lg:gap-9 xl:gap-11">
-              {NAV_LINKS.map((link, idx) => {
+              {NAV_LINKS.map((link) => {
                 const isActive = activeSection === link.id;
-                const isFirst = idx === 0;
-                const isLast = idx === NAV_LINKS.length - 1;
 
                 return (
                   <a
                     key={link.name}
-                    ref={isFirst ? firstLinkRef : isLast ? lastLinkRef : null}
+                    ref={(el) => {
+                      if (el) linkRefs.current[link.id] = el;
+                    }}
                     href={link.href}
                     onClick={(e) => handleNavClick(e, link.id)}
                     className={`font-body text-sm sm:text-[15px] lg:text-base font-medium transition-all duration-300 relative py-1.5 select-none ${
@@ -333,7 +412,7 @@ export const Navbar = () => {
               <div
                 className="h-full rounded-full relative overflow-hidden"
                 style={{
-                  width: `${Math.min(100, Math.max(0, scrollProgress * 100))}%`,
+                  width: `${Math.max(0, currentX - navBounds.startX)}px`,
                   background: 'linear-gradient(90deg, #7c4812 0%, #c88927 25%, #fde28e 55%, #ffa534 85%, #fff2b8 100%)',
                   boxShadow: '0 0 14px rgba(255, 175, 45, 0.95), 0 0 6px rgba(255, 235, 150, 0.8), inset 0 1px 2px rgba(255,255,255,0.7)',
                   transition: 'none',
@@ -699,6 +778,90 @@ export const Navbar = () => {
               />
             </div>
           </div>
+
+          {/* 4. Rajada de vapor mecânico saindo para baixo da engrenagem do meio ao mudar de seção */}
+          {isSteaming && (
+            <div
+              key={steamKey}
+              className="absolute pointer-events-none"
+              style={{
+                left: `${currentX}px`,
+                top: '11px',
+                zIndex: 25,
+              }}
+              aria-hidden="true"
+            >
+              {/* Jato central de alta pressão descendente */}
+              <div
+                className="absolute rounded-full"
+                style={{
+                  left: '0px',
+                  top: '0px',
+                  width: '8px',
+                  height: '20px',
+                  background: 'linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(255,235,190,0.7) 40%, rgba(240,210,150,0.2) 80%, transparent 100%)',
+                  filter: 'blur(1.5px)',
+                  animation: 'steam-jet-core 0.85s cubic-bezier(0.1, 0.8, 0.3, 1) forwards',
+                }}
+              />
+
+              {/* Pluma de vapor central em expansão para baixo */}
+              <div
+                className="absolute rounded-full"
+                style={{
+                  left: '0px',
+                  top: '2px',
+                  width: '18px',
+                  height: '18px',
+                  background: 'radial-gradient(circle at 45% 45%, rgba(255,255,255,0.85) 0%, rgba(250,238,215,0.55) 45%, rgba(220,185,130,0.15) 70%, transparent 100%)',
+                  filter: 'blur(3px)',
+                  animation: 'steam-puff-down-center 1.15s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                }}
+              />
+
+              {/* Pluma de vapor expandindo para a esquerda e para baixo */}
+              <div
+                className="absolute rounded-full"
+                style={{
+                  left: '0px',
+                  top: '4px',
+                  width: '20px',
+                  height: '20px',
+                  background: 'radial-gradient(circle at 40% 40%, rgba(255,255,255,0.8) 0%, rgba(245,235,215,0.5) 45%, rgba(230,195,140,0.12) 75%, transparent 100%)',
+                  filter: 'blur(3.5px)',
+                  animation: 'steam-puff-down-left 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards',
+                }}
+              />
+
+              {/* Pluma de vapor expandindo para a direita e para baixo */}
+              <div
+                className="absolute rounded-full"
+                style={{
+                  left: '0px',
+                  top: '4px',
+                  width: '20px',
+                  height: '20px',
+                  background: 'radial-gradient(circle at 40% 40%, rgba(255,255,255,0.8) 0%, rgba(245,235,215,0.5) 45%, rgba(230,195,140,0.12) 75%, transparent 100%)',
+                  filter: 'blur(3.5px)',
+                  animation: 'steam-puff-down-right 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards',
+                }}
+              />
+
+              {/* Segunda onda de vapor residual mais suave */}
+              <div
+                className="absolute rounded-full"
+                style={{
+                  left: '0px',
+                  top: '6px',
+                  width: '24px',
+                  height: '24px',
+                  background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.7) 0%, rgba(248,236,210,0.4) 50%, transparent 100%)',
+                  filter: 'blur(4.5px)',
+                  animation: 'steam-puff-down-center 1.35s cubic-bezier(0.2, 0.8, 0.3, 1) 0.12s forwards',
+                }}
+              />
+            </div>
+          )}
         </div>
       )}
     </header>
