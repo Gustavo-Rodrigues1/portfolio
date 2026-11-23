@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { SteampunkLoadingScreen } from './components/SteampunkLoadingScreen';
 import { Navbar } from './components/Navbar';
 import { SteampunkCursor } from './components/SteampunkCursor';
 import { SteampunkAtmosphere } from './components/SteampunkAtmosphere';
@@ -12,8 +13,13 @@ import { Footer } from './components/Footer';
 import { ScrollToTop } from './components/ScrollToTop';
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
     <div className="min-h-screen bg-steampunk-darkest text-[#dfd2be] flex flex-col selection:bg-brass selection:text-steampunk-darkest relative">
+      {/* Tela de Loading Steampunk Industrial (Garante Carregamento de Recursos e Componentes em Deploy) */}
+      <SteampunkLoadingScreen onLoaded={() => setIsLoading(false)} />
+
       {/* Camada Atmosférica Industrial (Brasas & Faíscas Incandescentes + Plumas Sutis de Vapor de Fundo) */}
       <SteampunkAtmosphere />
 

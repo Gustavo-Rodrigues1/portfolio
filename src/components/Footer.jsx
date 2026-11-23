@@ -47,9 +47,41 @@ export const Footer = () => {
           <div className="flex flex-col gap-3.5">
             {/* Logo / nome */}
             <div className="flex items-center gap-2.5">
-              <div className="relative shrink-0">
-                <SteampunkGear size={28} teeth={7} color="brass" speed="spin-slow" />
-                <span className="absolute inset-0 flex items-center justify-center font-cinzel font-bold text-[9px] text-brass-light pointer-events-none">G</span>
+              {/* Mini Tela CRT de Fósforo Verde com símbolo Dev piscando */}
+              <div
+                className="relative w-7 h-7 rounded-sm flex items-center justify-center border border-[#523d24] shadow-[0_2px_6px_rgba(0,0,0,0.9),inset_0_1px_1px_rgba(212,168,83,0.3)] shrink-0 overflow-hidden"
+                style={{
+                  background: 'linear-gradient(180deg, #241c14 0%, #15100a 60%, #0d0a06 100%)',
+                }}
+              >
+                {/* Parafusos nos cantos */}
+                <div className="absolute top-0.5 left-0.5 w-[3px] h-[3px] rounded-full bg-[#c69c4d] border border-[#3b2914]" />
+                <div className="absolute top-0.5 right-0.5 w-[3px] h-[3px] rounded-full bg-[#c69c4d] border border-[#3b2914]" />
+                <div className="absolute bottom-0.5 left-0.5 w-[3px] h-[3px] rounded-full bg-[#c69c4d] border border-[#3b2914]" />
+                <div className="absolute bottom-0.5 right-0.5 w-[3px] h-[3px] rounded-full bg-[#c69c4d] border border-[#3b2914]" />
+
+                {/* Visor de fósforo verde com scanlines */}
+                <div
+                  className="relative w-[20px] h-[20px] rounded-[1px] bg-[#021307] border border-emerald-600/90 overflow-hidden flex items-center justify-center shadow-[inset_0_0_6px_rgba(34,197,94,0.5),0_0_8px_rgba(34,197,94,0.2)]"
+                  style={{
+                    backgroundImage: 'linear-gradient(rgba(34, 197, 94, 0.1) 1px, transparent 1px)',
+                    backgroundSize: '100% 2.5px',
+                  }}
+                >
+                  {/* Símbolo Dev </> piscando */}
+                  <span
+                    className="font-schematic text-[8px] font-black text-emerald-400 animate-pulse select-none"
+                    style={{
+                      textShadow: '0 0 2px #bbf7d0, 0 0 5px #22c55e, 0 0 10px rgba(34, 197, 94, 0.9)',
+                      animationDuration: '1.5s',
+                    }}
+                  >
+                    &lt;/&gt;
+                  </span>
+
+                  {/* Reflexo vítreo superior */}
+                  <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/15 to-transparent pointer-events-none" />
+                </div>
               </div>
               <span className="font-cinzel font-bold text-base sm:text-lg tracking-wider text-brass-gradient uppercase">
                 {profileData.personal.name}

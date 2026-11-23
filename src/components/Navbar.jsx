@@ -281,17 +281,41 @@ export const Navbar = () => {
               className="flex items-center gap-3 group text-decoration-none select-none"
               title="Gustavo Rodrigues dos Santos - Portfólio"
             >
-              <div className="relative">
-                <SteampunkGear
-                  size={38}
-                  teeth={8}
-                  color="brass"
-                  speed="spin-slow"
-                  className="group-hover:rotate-45"
-                />
-                <span className="absolute inset-0 flex items-center justify-center font-cinzel font-bold text-xs text-brass-light pointer-events-none">
-                  G
-                </span>
+              {/* Mini Tela CRT de Fósforo Verde com símbolo Dev piscando */}
+              <div
+                className="relative w-9 h-9 rounded-sm flex items-center justify-center border border-[#523d24] shadow-[0_2px_8px_rgba(0,0,0,0.9),inset_0_1px_2px_rgba(212,168,83,0.35)] shrink-0 overflow-hidden"
+                style={{
+                  background: 'linear-gradient(180deg, #241c14 0%, #15100a 60%, #0d0a06 100%)',
+                }}
+              >
+                {/* Parafusos nos cantos */}
+                <div className="absolute top-0.5 left-0.5 w-1 h-1 rounded-full bg-[#c69c4d] border border-[#3b2914]" />
+                <div className="absolute top-0.5 right-0.5 w-1 h-1 rounded-full bg-[#c69c4d] border border-[#3b2914]" />
+                <div className="absolute bottom-0.5 left-0.5 w-1 h-1 rounded-full bg-[#c69c4d] border border-[#3b2914]" />
+                <div className="absolute bottom-0.5 right-0.5 w-1 h-1 rounded-full bg-[#c69c4d] border border-[#3b2914]" />
+
+                {/* Visor de fósforo verde com scanlines */}
+                <div
+                  className="relative w-[28px] h-[28px] rounded-[2px] bg-[#021307] border border-emerald-600/90 overflow-hidden flex items-center justify-center shadow-[inset_0_0_8px_rgba(34,197,94,0.5),0_0_10px_rgba(34,197,94,0.2)]"
+                  style={{
+                    backgroundImage: 'linear-gradient(rgba(34, 197, 94, 0.1) 1px, transparent 1px)',
+                    backgroundSize: '100% 3px',
+                  }}
+                >
+                  {/* Símbolo Dev </> piscando */}
+                  <span
+                    className="font-schematic text-[10px] font-black text-emerald-400 animate-pulse select-none"
+                    style={{
+                      textShadow: '0 0 2px #bbf7d0, 0 0 6px #22c55e, 0 0 12px rgba(34, 197, 94, 0.9)',
+                      animationDuration: '1.5s',
+                    }}
+                  >
+                    &lt;/&gt;
+                  </span>
+
+                  {/* Reflexo vítreo superior */}
+                  <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/15 to-transparent pointer-events-none" />
+                </div>
               </div>
 
               <div className="flex flex-col">

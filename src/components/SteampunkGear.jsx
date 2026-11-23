@@ -52,6 +52,22 @@ export const SteampunkGear = ({
       accent: '#ffffff',
       teethColor: '#95a1b0',
     },
+    bronze: {
+      outer: '#a36b3e',
+      inner: '#5e381b',
+      rim: '#cfa076',
+      hub: '#422410',
+      accent: '#e8b892',
+      teethColor: '#8c552b',
+    },
+    gold: {
+      outer: '#e5b338',
+      inner: '#997116',
+      rim: '#fff0a8',
+      hub: '#6d4f0b',
+      accent: '#fff9d6',
+      teethColor: '#c79624',
+    },
   };
 
   const c = colorSchemes[color] || colorSchemes.brass;

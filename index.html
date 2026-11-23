@@ -15,7 +15,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@500;700;800;900&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   </head>
   <body class="bg-steampunk-darkest text-[#dfd2be] font-body selection:bg-brass selection:text-steampunk-darkest antialiased overflow-x-hidden min-h-screen">
-    <div id="root"></div>
+    <div id="root">
+      <!-- Fallback visual imediato antes da hidratação do bundle JS -->
+      <div style="position:fixed;inset:0;background:#090705;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:99999;font-family:'Cinzel',serif;color:#f1d289;">
+        <div style="font-size:36px;animation:spin-initial 3s linear infinite;">⚙️</div>
+        <div style="margin-top:14px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#c69c4d;">Inicializando Maquinário...</div>
+        <style>@keyframes spin-initial{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}</style>
+      </div>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
