@@ -1123,3 +1123,119 @@ button:hover .icon-spin-hover {
   }
 }
 
+/* ================================================================== */
+/* Efeito de Bug / Distorção de Letras (CRT / Steampunk Glitch)      */
+/* ================================================================== */
+.glitch-text-wrapper {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.15s ease-out;
+}
+
+.glitch-text-wrapper::before,
+.glitch-text-wrapper::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  background: none;
+  -webkit-background-clip: initial;
+  -webkit-text-fill-color: initial;
+}
+
+/* Ativação por tempo determinado via classe .glitch-active */
+.glitch-text-wrapper.glitch-active {
+  animation: glitch-skew 0.3s ease-in-out infinite alternate;
+}
+
+.glitch-text-wrapper.glitch-active::before {
+  opacity: 0.85;
+  color: #22c55e;
+  -webkit-text-fill-color: #22c55e;
+  text-shadow: -1.5px 0 #10b981, 0 0 8px rgba(34, 197, 94, 0.8);
+  animation: glitch-anim-top 0.32s steps(2, end) infinite;
+  mix-blend-mode: screen;
+}
+
+.glitch-text-wrapper.glitch-active::after {
+  opacity: 0.85;
+  color: #f59e0b;
+  -webkit-text-fill-color: #f59e0b;
+  text-shadow: 1.5px 0 #ef4444, 0 0 8px rgba(245, 158, 11, 0.8);
+  animation: glitch-anim-bottom 0.38s steps(2, end) infinite;
+  mix-blend-mode: screen;
+}
+
+@keyframes glitch-anim-top {
+  0% {
+    clip-path: polygon(0 0, 100% 0, 100% 38%, 0 38%);
+    transform: translate(-2px, -1px) skew(-2deg);
+  }
+  25% {
+    clip-path: polygon(0 15%, 100% 15%, 100% 50%, 0 50%);
+    transform: translate(2px, 1px) skew(3deg);
+  }
+  50% {
+    clip-path: polygon(0 8%, 100% 8%, 100% 32%, 0 32%);
+    transform: translate(-1px, 1.5px) skew(-1.5deg);
+  }
+  75% {
+    clip-path: polygon(0 22%, 100% 22%, 100% 58%, 0 58%);
+    transform: translate(2.5px, -1px) skew(3.5deg);
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 38%, 0 38%);
+    transform: translate(-2px, 0px) skew(-2deg);
+  }
+}
+
+@keyframes glitch-anim-bottom {
+  0% {
+    clip-path: polygon(0 62%, 100% 62%, 100% 100%, 0 100%);
+    transform: translate(2px, 1px) skew(2deg);
+  }
+  25% {
+    clip-path: polygon(0 48%, 100% 48%, 100% 82%, 0 82%);
+    transform: translate(-2px, -1px) skew(-3deg);
+  }
+  50% {
+    clip-path: polygon(0 68%, 100% 68%, 100% 92%, 0 92%);
+    transform: translate(1px, -1.5px) skew(1.5deg);
+  }
+  75% {
+    clip-path: polygon(0 42%, 100% 42%, 100% 78%, 0 78%);
+    transform: translate(-2.5px, 1px) skew(-3.5deg);
+  }
+  100% {
+    clip-path: polygon(0 62%, 100% 62%, 100% 100%, 0 100%);
+    transform: translate(2px, 0px) skew(2deg);
+  }
+}
+
+@keyframes glitch-skew {
+  0% {
+    transform: skew(0deg);
+  }
+  20% {
+    transform: skew(-2deg) translate(-1px, 0);
+  }
+  40% {
+    transform: skew(1.5deg) translate(1px, -0.5px);
+  }
+  60% {
+    transform: skew(-1deg) translate(0.5px, 0.5px);
+  }
+  80% {
+    transform: skew(2deg) translate(-0.5px, 0);
+  }
+  100% {
+    transform: skew(0deg);
+  }
+}
+
+

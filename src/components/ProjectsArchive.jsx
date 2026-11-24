@@ -447,8 +447,8 @@ export const ProjectsArchive = () => {
             })}
           </div>
 
-          {/* A Caixa Bem Menor (Estilo madeira nobre encerada, tipo humidor/caixa de charuto vintage da foto) */}
-          <div className="relative w-[230px] sm:w-[250px] bg-gradient-to-b from-[#3c2414] via-[#2c180d] to-[#1d0f07] border-2 border-[#6d4926] rounded-md shadow-[0_12px_25px_rgba(0,0,0,0.85),inset_0_1px_1px_rgba(255,200,120,0.35)] pt-2.5 pb-2 px-3">
+          {/* A Caixa (Estilo madeira nobre encerada, tipo humidor/caixa vintage da foto) */}
+          <div className="relative w-[245px] sm:w-[270px] bg-gradient-to-b from-[#3c2414] via-[#2c180d] to-[#1d0f07] border-2 border-[#6d4926] rounded-md shadow-[0_12px_25px_rgba(0,0,0,0.85),inset_0_1px_1px_rgba(255,200,120,0.35)] pt-2.5 pb-2.5 px-3">
 
             {/* Friso chanfrado da tampa de madeira nobre polida */}
             <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-[#6e4624] via-[#9e6737] to-[#6e4624] rounded-t-sm shadow-sm" />
@@ -464,11 +464,11 @@ export const ProjectsArchive = () => {
             <div className="absolute bottom-1.5 left-1.5 w-1 h-1 rounded-full bg-brass-light border border-black/60" />
             <div className="absolute bottom-1.5 right-1.5 w-1 h-1 rounded-full bg-brass-light border border-black/60" />
 
-            {/* Face Frontal da Caixa: Medidor de Vapor + Plaqueta + Engrenagens */}
+            {/* Face Frontal da Caixa: Medidor de Vapor + Tela CRT Verde Aumentada + Engrenagens */}
             <div className="flex items-center justify-between gap-1.5">
 
-              {/* Lado Esquerdo: Medidor de Pressão de Vapor (Manômetro Redondo) */}
-              <div className="flex items-center gap-1" title="Manômetro de Pressão de Vapor">
+              {/* Lado Esquerdo: Medidor de Pressão de Vapor (Manômetro Redondo sem texto PSI) */}
+              <div className="flex items-center flex-shrink-0" title="Manômetro de Pressão de Vapor">
                 <div
                   className="relative w-8 h-8 rounded-full p-0.5 flex-shrink-0"
                   style={{
@@ -507,17 +507,42 @@ export const ProjectsArchive = () => {
                     <div className="absolute w-1 h-1 rounded-full bg-brass border border-black shadow z-10" />
                   </div>
                 </div>
-
-                <span className="font-schematic text-[7px] text-copper-light font-bold uppercase tracking-tighter">
-                  PSI
-                </span>
               </div>
 
-              {/* Centro: Plaquinha de latão gravada */}
-              <div className="brass-plate px-1.5 py-0.5 rounded border border-brass-dark/70 text-center shadow-xs">
-                <span className="font-schematic text-[8px] text-steamAmber-bright font-bold tracking-wider">
-                  Ativo
-                </span>
+              {/* Centro: Tela CRT Verde Aumentada com Paleta Verde Neon e Scanlines */}
+              <div
+                className="relative px-3 py-1 sm:px-4 sm:py-1 rounded-sm flex items-center justify-center border border-[#523d24] shadow-[0_2px_8px_rgba(0,0,0,0.9),inset_0_1px_2px_rgba(212,168,83,0.35)]"
+                style={{
+                  background: 'linear-gradient(180deg, #241c14 0%, #15100a 60%, #0d0a06 100%)',
+                }}
+              >
+                {/* Parafusos nos cantos da moldura da tela */}
+                <div className="absolute top-0.5 left-0.5 w-1 h-1 rounded-full bg-[#c69c4d] border border-[#3b2914]" />
+                <div className="absolute top-0.5 right-0.5 w-1 h-1 rounded-full bg-[#c69c4d] border border-[#3b2914]" />
+                <div className="absolute bottom-0.5 left-0.5 w-1 h-1 rounded-full bg-[#c69c4d] border border-[#3b2914]" />
+                <div className="absolute bottom-0.5 right-0.5 w-1 h-1 rounded-full bg-[#c69c4d] border border-[#3b2914]" />
+
+                {/* Visor com fósforo verde e linhas de varredura */}
+                <div
+                  className="relative px-2.5 py-1 sm:px-3.5 sm:py-1 rounded-[2px] bg-[#021307] border border-emerald-600/90 overflow-hidden flex items-center justify-center gap-1.5 shadow-[inset_0_0_8px_rgba(34,197,94,0.5),0_0_10px_rgba(34,197,94,0.25)]"
+                  style={{
+                    backgroundImage: 'linear-gradient(rgba(34, 197, 94, 0.12) 1px, transparent 1px)',
+                    backgroundSize: '100% 2.5px',
+                  }}
+                >
+                  {/* Indicador LED verde pulsante */}
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_6px_#22c55e] shrink-0" />
+
+                  {/* Texto de status em verde neon */}
+                  <span
+                    className="font-schematic text-[10px] sm:text-[11px] font-black text-emerald-400 tracking-wider uppercase select-none"
+                    style={{
+                      textShadow: '0 0 2px #bbf7d0, 0 0 6px #22c55e, 0 0 12px rgba(34, 197, 94, 0.9)',
+                    }}
+                  >
+                    Ativo
+                  </span>
+                </div>
               </div>
 
               {/* Lado Direito: Engrenagens Mecânicas na Caixa */}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { SteampunkGear } from './SteampunkGear';
+import { GlitchText } from './GlitchText';
 import { profileData } from '../data/profile';
 import { Menu, X } from 'lucide-react';
 
@@ -312,16 +313,14 @@ export const Navbar = () => {
                   >
                     &lt;/&gt;
                   </span>
-
-                  {/* Reflexo vítreo superior */}
-                  <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/15 to-transparent pointer-events-none" />
                 </div>
               </div>
 
               <div className="flex flex-col">
-                <span className="font-cinzel font-bold text-base sm:text-lg tracking-wider text-brass-gradient uppercase">
-                  {profileData.personal.name}
-                </span>
+                <GlitchText
+                  text={profileData.personal.name}
+                  className="font-cinzel font-bold text-base sm:text-lg tracking-wider text-brass-gradient uppercase"
+                />
               </div>
             </a>
 
