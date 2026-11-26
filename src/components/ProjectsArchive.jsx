@@ -3,6 +3,7 @@ import { profileData } from '../data/profile';
 import { SteampunkGear } from './SteampunkGear';
 import { GithubIcon } from './SocialIcons';
 import { ScrollReveal } from './ScrollReveal';
+import { TerminalTyping } from './TerminalTyping';
 import {
   ExternalLink,
   Copy,
@@ -524,7 +525,7 @@ export const ProjectsArchive = () => {
 
                 {/* Visor com fósforo verde e linhas de varredura */}
                 <div
-                  className="relative px-2.5 py-1 sm:px-3.5 sm:py-1 rounded-[2px] bg-[#021307] border border-emerald-600/90 overflow-hidden flex items-center justify-center gap-1.5 shadow-[inset_0_0_8px_rgba(34,197,94,0.5),0_0_10px_rgba(34,197,94,0.25)]"
+                  className="relative px-2.5 py-1 sm:px-3.5 sm:py-1 rounded-[2px] bg-[#021307] border border-emerald-600/90 overflow-hidden flex items-center justify-start gap-1.5 min-w-[76px] sm:min-w-[88px] shadow-[inset_0_0_8px_rgba(34,197,94,0.5),0_0_10px_rgba(34,197,94,0.25)]"
                   style={{
                     backgroundImage: 'linear-gradient(rgba(34, 197, 94, 0.12) 1px, transparent 1px)',
                     backgroundSize: '100% 2.5px',
@@ -533,15 +534,15 @@ export const ProjectsArchive = () => {
                   {/* Indicador LED verde pulsante */}
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_6px_#22c55e] shrink-0" />
 
-                  {/* Texto de status em verde neon */}
-                  <span
-                    className="font-schematic text-[10px] sm:text-[11px] font-black text-emerald-400 tracking-wider uppercase select-none"
+                  {/* Cursor underline digitando letras e símbolos aleatórios em verde neon */}
+                  <TerminalTyping
+                    minLength={4}
+                    maxLength={6}
+                    className="font-schematic text-[10px] sm:text-[11px] font-black text-emerald-400 tracking-wider uppercase select-none whitespace-nowrap"
                     style={{
                       textShadow: '0 0 2px #bbf7d0, 0 0 6px #22c55e, 0 0 12px rgba(34, 197, 94, 0.9)',
                     }}
-                  >
-                    Ativo
-                  </span>
+                  />
                 </div>
               </div>
 

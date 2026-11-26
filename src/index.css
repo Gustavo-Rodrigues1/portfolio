@@ -1238,4 +1238,39 @@ button:hover .icon-spin-hover {
   }
 }
 
+/* ── Saída da Tela de Loading estilo Porta de Garagem com Enganchada Mecânica ── */
+@keyframes garage-door-hitch {
+  0% {
+    transform: translateY(0%);
+  }
+  34% {
+    transform: translateY(-50%);
+  }
+  41% {
+    transform: translateY(-45.5%);
+  }
+  47% {
+    transform: translateY(-48%);
+  }
+  53% {
+    transform: translateY(-47%);
+  }
+  76% {
+    transform: translateY(-86%);
+  }
+  82% {
+    transform: translateY(-83.5%);
+  }
+  87% {
+    transform: translateY(-85%);
+  }
+  100% {
+    transform: translateY(-115%);
+  }
+}
+
+.animate-garage-door-exit {
+  animation: garage-door-hitch 1050ms cubic-bezier(0.28, 0.84, 0.42, 1) forwards;
+}
+
 

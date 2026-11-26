@@ -14,6 +14,270 @@ import { profileData } from '../data/profile';
  * 4. Conjunto mecânico inferior com 5 engrenagens de tamanhos e cores diferentes girando
  *    (latão dourado, cobre, ferro escuro, bronze rústico e aço prateado).
  */
+/**
+ * Adorno Vitoriano / Steampunk para os 4 cantos da tela de loading.
+ * Combina cantoneira de latão rebitada, filigranas douradas e rosácea mecânica.
+ */
+const CornerOrnament = ({ position }) => {
+  const positionClasses = {
+    'top-left': 'top-3 left-3 sm:top-5 sm:left-5',
+    'top-right': 'top-3 right-3 sm:top-5 sm:right-5 -scale-x-100',
+    'bottom-left': 'bottom-3 left-3 sm:bottom-5 sm:left-5 -scale-y-100',
+    'bottom-right': 'bottom-3 right-3 sm:bottom-5 sm:right-5 -scale-x-100 -scale-y-100',
+  };
+
+  const gradId = `brass-corner-grad-${position}`;
+  const plateId = `brass-plate-grad-${position}`;
+
+  return (
+    <div
+      className={`absolute ${positionClasses[position]} w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 pointer-events-none z-20 opacity-85`}
+      aria-hidden="true"
+    >
+      <svg
+        viewBox="0 0 120 120"
+        fill="none"
+        className="w-full h-full drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]"
+      >
+        <defs>
+          <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#fde28e" />
+            <stop offset="45%" stopColor="#d4a853" />
+            <stop offset="85%" stopColor="#8f6730" />
+            <stop offset="100%" stopColor="#523d24" stopOpacity="0" />
+          </linearGradient>
+          <linearGradient id={plateId} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#3a2a18" />
+            <stop offset="50%" stopColor="#24190e" />
+            <stop offset="100%" stopColor="#120c07" />
+          </linearGradient>
+        </defs>
+
+        {/* Cantoneira metálica em L chanfrada */}
+        <path
+          d="M 4 4 L 46 4 L 38 14 L 14 14 L 14 38 L 4 46 Z"
+          fill={`url(#${plateId})`}
+          stroke={`url(#${gradId})`}
+          strokeWidth="1.4"
+        />
+
+        {/* Moldura externa fina que se estende e desaparece nas bordas */}
+        <path
+          d="M 46 4 L 114 4"
+          stroke={`url(#${gradId})`}
+          strokeWidth="1.2"
+          strokeLinecap="round"
+        />
+        <path
+          d="M 4 46 L 4 114"
+          stroke={`url(#${gradId})`}
+          strokeWidth="1.2"
+          strokeLinecap="round"
+        />
+
+        {/* Linha interna paralela de acabamento */}
+        <path
+          d="M 18 18 L 86 18"
+          stroke={`url(#${gradId})`}
+          strokeWidth="0.7"
+          strokeOpacity="0.6"
+        />
+        <path
+          d="M 18 18 L 18 86"
+          stroke={`url(#${gradId})`}
+          strokeWidth="0.7"
+          strokeOpacity="0.6"
+        />
+
+        {/* Filigranas / arabescos vitorianos curvos */}
+        <path
+          d="M 18 36 C 28 36, 36 28, 36 18"
+          stroke="#d4a853"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+        />
+        <path
+          d="M 24 52 C 26 38, 38 26, 52 24"
+          stroke="#c69c4d"
+          strokeWidth="0.9"
+          strokeOpacity="0.75"
+          strokeLinecap="round"
+        />
+        <path
+          d="M 42 18 C 52 18, 56 10, 66 10 C 72 10, 74 14, 70 16"
+          stroke="#d4a853"
+          strokeWidth="1.1"
+          strokeLinecap="round"
+        />
+        <path
+          d="M 18 42 C 18 52, 10 56, 10 66 C 10 72, 14 74, 16 70"
+          stroke="#d4a853"
+          strokeWidth="1.1"
+          strokeLinecap="round"
+        />
+
+        {/* Rosácea / engrenagem decorativa no vértice */}
+        <circle
+          cx="11"
+          cy="11"
+          r="4.5"
+          fill="#1b130b"
+          stroke="#f1d289"
+          strokeWidth="1.1"
+        />
+        <circle cx="11" cy="11" r="1.8" fill="#ffbe5b" />
+
+        {/* Rebites de latão ao longo da cantoneira */}
+        <circle cx="29" cy="9" r="1.5" fill="#f1d289" stroke="#3b2914" strokeWidth="0.6" />
+        <circle cx="9" cy="29" r="1.5" fill="#f1d289" stroke="#3b2914" strokeWidth="0.6" />
+        <circle cx="21" cy="21" r="1.2" fill="#d4a853" />
+      </svg>
+    </div>
+  );
+};
+
+/**
+ * Adereço dourado Vitoriano/Steampunk centralizado na borda inferior,
+ * sobrepondo metade na tela de loading e metade abaixo dela.
+ */
+const BottomGoldenOrnament = () => (
+  <div
+    className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 pointer-events-none z-30 w-44 h-16 sm:w-56 sm:h-20"
+    aria-hidden="true"
+  >
+    <svg
+      viewBox="0 0 240 84"
+      fill="none"
+      className="w-full h-full drop-shadow-[0_6px_14px_rgba(0,0,0,0.95)]"
+    >
+      <defs>
+        <linearGradient id="ornament-gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#fff3c4" />
+          <stop offset="30%" stopColor="#fde28e" />
+          <stop offset="65%" stopColor="#d4a853" />
+          <stop offset="100%" stopColor="#8f6730" />
+        </linearGradient>
+        <radialGradient id="ornament-core-grad" cx="50%" cy="45%" r="55%">
+          <stop offset="0%" stopColor="#fffcee" />
+          <stop offset="45%" stopColor="#fde28e" />
+          <stop offset="85%" stopColor="#c88927" />
+          <stop offset="100%" stopColor="#6e4815" />
+        </radialGradient>
+      </defs>
+
+      {/* Base horizontal dourada que acompanha a borda inferior */}
+      <path
+        d="M 10 42 L 88 42 M 152 42 L 230 42"
+        stroke="url(#ornament-gold-grad)"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+
+      {/* Asas de filigrana simétricas (Esquerda) */}
+      <path
+        d="M 86 42 C 74 28, 56 26, 42 34 C 34 38, 28 38, 20 42"
+        stroke="url(#ornament-gold-grad)"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <path
+        d="M 86 42 C 74 56, 56 58, 42 50 C 34 46, 28 46, 20 42"
+        stroke="url(#ornament-gold-grad)"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <path
+        d="M 76 33 C 68 20, 52 18, 44 25 C 40 28, 43 32, 48 30"
+        stroke="#fde28e"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+      />
+      <path
+        d="M 76 51 C 68 64, 52 66, 44 59 C 40 56, 43 52, 48 54"
+        stroke="#fde28e"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+      />
+
+      {/* Asas de filigrana simétricas (Direita) */}
+      <path
+        d="M 154 42 C 166 28, 184 26, 198 34 C 206 38, 212 38, 220 42"
+        stroke="url(#ornament-gold-grad)"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <path
+        d="M 154 42 C 166 56, 184 58, 198 50 C 206 46, 212 46, 220 42"
+        stroke="url(#ornament-gold-grad)"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <path
+        d="M 164 33 C 172 20, 188 18, 196 25 C 200 28, 197 32, 192 30"
+        stroke="#fde28e"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+      />
+      <path
+        d="M 164 51 C 172 64, 188 66, 196 59 C 200 56, 197 52, 192 54"
+        stroke="#fde28e"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+      />
+
+      {/* Ponta superior (dentro da tela de loading) */}
+      <path
+        d="M 120 8 L 128 24 L 120 28 L 112 24 Z"
+        fill="url(#ornament-gold-grad)"
+        stroke="#4d3414"
+        strokeWidth="0.9"
+      />
+
+      {/* Pingente / ponta inferior (abaixo da tela de loading) */}
+      <path
+        d="M 120 78 L 129 60 L 120 56 L 111 60 Z"
+        fill="url(#ornament-gold-grad)"
+        stroke="#4d3414"
+        strokeWidth="0.9"
+      />
+      <circle cx="120" cy="79" r="2.2" fill="#fff3c4" stroke="#6e4815" strokeWidth="0.7" />
+
+      {/* Medalhão central dourado cruzando a borda */}
+      <circle
+        cx="120"
+        cy="42"
+        r="19"
+        fill="#1a1209"
+        stroke="url(#ornament-gold-grad)"
+        strokeWidth="3"
+      />
+      <circle
+        cx="120"
+        cy="42"
+        r="13.5"
+        fill="none"
+        stroke="#fde28e"
+        strokeWidth="0.9"
+        strokeDasharray="3 2.5"
+      />
+      <circle
+        cx="120"
+        cy="42"
+        r="8"
+        fill="url(#ornament-core-grad)"
+        stroke="#4d3414"
+        strokeWidth="1"
+      />
+
+      {/* Pequenos rebites/pérolas douradas laterais */}
+      <circle cx="88" cy="42" r="2.3" fill="#fde28e" stroke="#4d3414" strokeWidth="0.7" />
+      <circle cx="152" cy="42" r="2.3" fill="#fde28e" stroke="#4d3414" strokeWidth="0.7" />
+      <circle cx="24" cy="42" r="1.8" fill="#d4a853" />
+      <circle cx="216" cy="42" r="1.8" fill="#d4a853" />
+    </svg>
+  </div>
+);
+
 export const SteampunkLoadingScreen = ({ minDuration = 2200, onLoaded }) => {
   const [progress, setProgress] = useState(0);
   const [statusText, setStatusText] = useState('Aquecendo cátodos das válvulas...');
@@ -85,7 +349,7 @@ export const SteampunkLoadingScreen = ({ minDuration = 2200, onLoaded }) => {
             setTimeout(() => {
               setIsDone(true);
               if (onLoaded) onLoaded();
-            }, 650);
+            }, 1050);
           }, 350);
         });
       }
@@ -99,9 +363,8 @@ export const SteampunkLoadingScreen = ({ minDuration = 2200, onLoaded }) => {
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#070605] select-none overflow-hidden transition-all duration-700 ease-out ${
-        isExiting ? 'opacity-0 scale-105 pointer-events-none' : 'opacity-100 scale-100'
-      }`}
+      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#070605] border-b-2 border-[#8f6730]/80 shadow-[0_16px_45px_rgba(0,0,0,0.95)] select-none overflow-visible will-change-transform ${isExiting ? 'animate-garage-door-exit pointer-events-none' : 'translate-y-0'
+        }`}
       aria-label="Carregando sistema steampunk"
       role="progressbar"
       aria-valuenow={progress}
@@ -120,18 +383,17 @@ export const SteampunkLoadingScreen = ({ minDuration = 2200, onLoaded }) => {
         }}
       />
 
-      {/* Rótulo Superior Estilo Placa de Patente / Fita de Marcação */}
-      <div className="absolute top-6 left-6 hidden sm:flex flex-col">
-        <span className="font-schematic text-[11px] tracking-widest text-[#d4a853] uppercase font-bold drop-shadow">
-          STEAMPUNK LOADING SYSTEM
-        </span>
-        <span className="font-schematic text-[9px] tracking-wider text-[#7a5e38] uppercase">
-          CALIBRAÇÃO TERMOIÔNICA V-1889 • 4K
-        </span>
-      </div>
+      {/* Adornos Steampunk / Vitorianos nos 4 cantos da tela */}
+      <CornerOrnament position="top-left" />
+      <CornerOrnament position="top-right" />
+      <CornerOrnament position="bottom-left" />
+      <CornerOrnament position="bottom-right" />
+
+      {/* Adereço dourado cruzando a borda inferior central */}
+      <BottomGoldenOrnament />
 
       <div className="relative z-10 w-full max-w-xl px-4 flex flex-col items-center">
-        
+
         {/* ══════════════════════════════════════════════════════════════════
             1. VÁLVULAS NIXIE COM AS LETRAS 'L O A D I N G' (NIXIE TUBES)
            ══════════════════════════════════════════════════════════════════ */}
@@ -172,11 +434,10 @@ export const SteampunkLoadingScreen = ({ minDuration = 2200, onLoaded }) => {
 
                   {/* Filamento Cátodo Incandescente com a Letra em Neon Âmbar */}
                   <span
-                    className={`font-schematic text-xl sm:text-3xl md:text-4xl font-bold select-none transition-all duration-300 relative z-10 ${
-                      isLit
-                        ? 'text-[#ffe8a8] scale-100'
-                        : 'text-[#5a3a1f] scale-95 opacity-40'
-                    }`}
+                    className={`font-schematic text-xl sm:text-3xl md:text-4xl font-bold select-none transition-all duration-300 relative z-10 ${isLit
+                      ? 'text-[#ffe8a8] scale-100'
+                      : 'text-[#5a3a1f] scale-95 opacity-40'
+                      }`}
                     style={{
                       textShadow: isLit
                         ? '0 0 4px #ffffff, 0 0 10px #ffbe5b, 0 0 20px #ff8c00, 0 0 35px #ff4500'
@@ -213,10 +474,10 @@ export const SteampunkLoadingScreen = ({ minDuration = 2200, onLoaded }) => {
                (Seguindo a mesma lógica da barra de fluido da Navbar)
            ══════════════════════════════════════════════════════════════════ */}
         <div className="w-full relative">
-          
+
           {/* Container exclusivo da Barra de 20px (onde o vapor se origina exatamente nos 4 cantos) */}
           <div className="relative w-full h-[20px]">
-            
+
             {/* Tubo de vidro com cantos totalmente curvados (rounded-full) e acabamento de latão */}
             <div
               className="w-full h-full relative rounded-full overflow-hidden p-[2px]"
@@ -456,10 +717,10 @@ export const SteampunkLoadingScreen = ({ minDuration = 2200, onLoaded }) => {
                coress diferentes girando"
            ══════════════════════════════════════════════════════════════════ */}
         <div className="w-full flex flex-col items-center mt-2 sm:mt-3">
-          
+
           {/* Trem de Engrenagens Interligadas */}
           <div className="relative flex items-center justify-center -space-x-3 sm:-space-x-5 md:-space-x-6 py-2">
-            
+
             {/* Engrenagem 1: LATÃO (Média/Grande - 80px, 12 dentes, Horário) */}
             <div className="relative z-10 transform hover:scale-105 transition-transform">
               <SteampunkGear
@@ -525,7 +786,10 @@ export const SteampunkLoadingScreen = ({ minDuration = 2200, onLoaded }) => {
 
             {/* Assinatura do Titular */}
             <p className="font-cinzel text-[10px] sm:text-[11px] text-[#705533] uppercase tracking-widest mt-2 font-semibold">
-              {profileData.personal.name} • UFS
+              {profileData.personal.name}
+            </p>
+            <p className="font-schematic text-[11px] sm:text-xs text-[#705533] italic tracking-wide">
+              Todos os direitos das patentes reservados.
             </p>
           </div>
 
